@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#69C0FF</color>
-    <color name="colorPrimaryDark">#7569C0FF</color>
+    <color name="colorPrimary">#FAFAFA</color>
+    <color name="colorPrimaryDark">#69C0FF</color>
+    <color name="colorSecondary">#7569C0FF</color>
     <color name="colorAccent">#FAFAFA</color>
     <color name="iconHeartEnable">#FF003D</color>
     <color name="buttonBackground">#B5000000</color>
