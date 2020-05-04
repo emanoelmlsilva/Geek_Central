@@ -3,51 +3,113 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     tools:context=".Fragment.MainFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_gravity="top"
-        android:layout_margin="8dp"
         android:foregroundGravity="center">
 
-        <SearchView
-            android:id="@+id/search"
-            android:layout_width="0dp"
-            android:layout_height="45dp"
+        <RelativeLayout
+            android:id="@+id/relativeLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
-            android:background="@drawable/search_rectangle"
-            android:elevation="1dp"
-            android:iconifiedByDefault="false"
-            android:maxWidth="250sp"
-            android:paddingTop="4dp"
-            android:queryHint="@string/message_search"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/btn_pop_menu"
-            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-        </SearchView>
+            <Button
+                android:id="@+id/btn_pop_menu"
+                style="@style/Widget.MaterialComponents.Button.Icon"
+                android:layout_width="50dp"
+                android:layout_height="55dp"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="0dp"
+                android:layout_marginEnd="0dp"
+                android:backgroundTint="@color/colorPrimary"
+                android:elevation="6dp"
+                android:gravity="center"
+                android:textColor="@color/buttonBackground"
+                app:icon="@drawable/ic_menu_black_24dp"
+                app:iconTint="@color/colorAccent"
+                tools:ignore="MissingPrefix" />
 
-        <Button
-            android:id="@+id/btn_pop_menu"
-            style="@style/Widget.MaterialComponents.Button.Icon"
-            android:layout_width="50dp"
-            android:layout_height="55dp"
-            android:layout_marginEnd="16dp"
-            android:backgroundTint="@color/colorPrimary"
-            android:elevation="6dp"
-            android:gravity="center"
-            android:textColor="@color/buttonBackground"
-            app:icon="@drawable/ic_menu_black_24dp"
-            app:iconTint="@color/colorAccent"
+            <SearchView
+                android:id="@+id/search"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="0dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="8dp"
+                android:layout_toStartOf="@+id/btn_pop_menu"
+                android:background="@drawable/search_rectangle"
+                android:elevation="1dp"
+                android:iconifiedByDefault="false"
+                android:paddingTop="4dp"
+                android:queryHint="@string/message_search">
+
+            </SearchView>
+
+        </RelativeLayout>
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tabs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/relativeLayout"
+            app:tabIndicatorColor="@color/textBar"
+            app:tabTextColor="@color/textBar">
+
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@string/nameManga" />
+
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@string/nameAnime" />
+
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@string/nameHq" />
+
+        </com.google.android.material.tabs.TabLayout>
+
+        <androidx.viewpager.widget.ViewPager
+            android:layout_width="0dp"
+            android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="MissingPrefix" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tabs">
+
+        </androidx.viewpager.widget.ViewPager>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/floatingActionButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="16dp"
+            android:layout_marginBottom="16dp"
+            android:clickable="true"
+            android:src="@drawable/ic_add_black_24dp"
+            app:backgroundTint="@color/textBar"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </FrameLayout>
