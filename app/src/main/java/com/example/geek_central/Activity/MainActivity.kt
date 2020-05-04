@@ -1,7 +1,8 @@
-package com.example.geek_central
+package com.example.geek_central.Activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.example.geek_central.R
 
 class MainActivity : AppCompatActivity() {
 
