@@ -1,18 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <declare-styleable name="HeaderComponent">
-        <attr name="textSize" format="dimension"/>
-        <attr name="textColor" format="color|reference"/>
-        <attr name="btnColorMenu" format="color|reference"/>
-        <attr name="secondaryTextColor" format="color|reference"/>
-        <attr name="icon" format="integer"/>
-        <attr name="text" format="string"/>
-        <attr name="textPercentage" format="integer"/>
-        <attr name="suffixSymbol" format="string"/>
-        <attr name="textStyle">
-            <enum name="normal" value="0"/>
-            <enum name="bold" value="1"/>
-            <enum name="italic" value="2"/>
-        </attr>
-    </declare-styleable>
+<!--    <declare-styleable name="HeaderComponent">-->
+<!--        <attr name="searchQuery" format="string"/>-->
+<!--        <attr name="btnColorMenu" format="color|reference"/>-->
+<!--        <attr name="icon" format="integer"/>-->
+<!--        <attr name="suffixSymbol" format="string"/>-->
+<!--    </declare-styleable>-->
 </resources>
