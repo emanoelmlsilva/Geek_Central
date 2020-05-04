@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/Favorites"
+        android:title="@string/menuFavorite"/>
+
+    <item
+        android:id="@+id/Name"
+        android:title="@string/menuName"/>
+
+    <item
+        android:id="@+id/Total"
+        android:title="@string/menuTotal"/>
+
+    <item
+        android:id="@+id/Note"
+        android:title="@string/menuTitle"/>
+
+</menu>
