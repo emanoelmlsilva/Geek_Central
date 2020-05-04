@@ -7,4 +7,5 @@
     <color name="iconHeartEnable">#FF003D</color>
     <color name="buttonBackground">#B5000000</color>
     <color name='backGround'>#08000000</color>
+    <color name="textBar">#69c0ff</color>
 </resources>
