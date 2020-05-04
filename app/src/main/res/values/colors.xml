@@ -6,5 +6,5 @@
     <color name="colorAccent">#FAFAFA</color>
     <color name="iconHeartEnable">#FF003D</color>
     <color name="buttonBackground">#B5000000</color>
-    <color name="shadow">#33000000</color>
+    <color name='backGround'>#08000000</color>
 </resources>
