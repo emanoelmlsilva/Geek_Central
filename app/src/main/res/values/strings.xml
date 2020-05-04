@@ -8,4 +8,7 @@
     <string name="menuName">Nome</string>
     <string name="menuTotal">Total</string>
     <string name="menuTitle">Nota</string>
+    <string name="nameManga">Mangá</string>
+    <string name="nameAnime">Anime</string>
+    <string name="nameHq">Hq</string>
 </resources>
