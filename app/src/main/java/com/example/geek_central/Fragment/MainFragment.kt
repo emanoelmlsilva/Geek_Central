@@ -8,6 +8,8 @@ import android.view.ViewGroup
 import android.widget.PopupMenu
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.viewpager.widget.ViewPager
+import com.example.geek_central.Adapter.ViewPageAdapter
 import com.example.geek_central.R
 import com.example.geek_central.databinding.FragmentMainBinding
 
@@ -17,6 +19,8 @@ import com.example.geek_central.databinding.FragmentMainBinding
 class MainFragment : Fragment() {
 
     private lateinit var bindBing: FragmentMainBinding;
+    private lateinit var adapter: ViewPageAdapter
+    private lateinit var viewPager: ViewPager
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -26,12 +30,16 @@ class MainFragment : Fragment() {
 
          bindBing = FragmentMainBinding.inflate(layoutInflater, container, false)
 
-        setClicledViews()
-
         return bindBing.root
     }
 
-    val clickListener = View.OnClickListener {view ->
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        mountViewPagerWithTabs()
+        setClicledViews()
+
+    }
+
+    val clickListenerMenu = View.OnClickListener {view ->
 
         showPopup(view)
     }
@@ -55,8 +63,18 @@ class MainFragment : Fragment() {
     }
 
     private fun setClicledViews(){
-        bindBing.btnPopMenu.setOnClickListener(clickListener)
+        bindBing.btnPopMenu.setOnClickListener(clickListenerMenu)
     }
+
+    private fun mountViewPagerWithTabs(){
+        adapter = ViewPageAdapter(childFragmentManager)
+        adapter.addFragment(MangaFragment(), resources.getString(R.string.nameManga))
+        adapter.addFragment(AnimeFragment(), resources.getString(R.string.nameAnime))
+        adapter.addFragment(HqFragment(), resources.getString(R.string.nameHq))
+        bindBing.viewPager.adapter = adapter
+        bindBing.tabs.setupWithViewPager(bindBing.viewPager)
+    }
+
 
 
 }
