@@ -5,12 +5,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.geek_central.Adapter.RecyclerMangaAdapter
+import com.example.geek_central.Model.Manga
 import com.example.geek_central.databinding.FragmentMangaBinding
+import kotlinx.android.synthetic.main.fragment_manga.*
 
-
-/**
- * A simple [Fragment] subclass.
- */
 class MangaFragment : Fragment() {
 
     override fun onCreateView(
@@ -23,8 +23,50 @@ class MangaFragment : Fragment() {
         return viewBinding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) { 
+        val list = ArrayList<Manga>()
+        list.add(Manga( "One Piece",
+            702,
+        972,
+        4.3,
+        true, null, null, null, null))
+        list.add(Manga( "Kingdom",
+            641,
+            641,
+            4.3,
+            true, null, null, null, null))
+        list.add(Manga( "One Piece",
+            702,
+            972,
+            4.3,
+            true, null, null, null, null))
+        list.add(Manga( "Kingdom",
+            641,
+            641,
+            4.3,
+            true, null, null, null, null))
+        list.add(Manga( "One Piece",
+            702,
+            972,
+            4.3,
+            true, null, null, null, null))
+        list.add(Manga( "Kingdom",
+            641,
+            641,
+            4.3,
+            true, null, null, null, null))
+        list.add(Manga( "One Piece",
+            702,
+            972,
+            4.3,
+            true, null, null, null, null))
+        list.add(Manga( "Kingdom",
+            641,
+            641,
+            4.3,
+            true, null, null, null, null))
+        recycler_manga.layoutManager = LinearLayoutManager(context)
+        recycler_manga.adapter = RecyclerMangaAdapter(list, this.requireContext())
     }
 
 }
