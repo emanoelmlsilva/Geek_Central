@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.viewpager.widget.ViewPager
 import com.example.geek_central.Adapter.ViewPageAdapter
+import com.example.geek_central.Component.SearchViewComponent
 import com.example.geek_central.R
 import com.example.geek_central.databinding.FragmentMainBinding
 
@@ -21,6 +22,7 @@ class MainFragment : Fragment() {
     private lateinit var bindBing: FragmentMainBinding;
     private lateinit var adapter: ViewPageAdapter
     private lateinit var viewPager: ViewPager
+    private lateinit var componentSearchComponent : SearchViewComponent
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -29,14 +31,13 @@ class MainFragment : Fragment() {
         // Inflate the layout for this fragment
 
          bindBing = FragmentMainBinding.inflate(layoutInflater, container, false)
-
+        componentSearchComponent = SearchViewComponent( bindBing.root.findViewById(R.id.search_card))
         return bindBing.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         mountViewPagerWithTabs()
         setClicledViews()
-
     }
 
     val clickListenerMenu = View.OnClickListener {view ->
@@ -63,7 +64,7 @@ class MainFragment : Fragment() {
     }
 
     private fun setClicledViews(){
-        bindBing.btnPopMenu.setOnClickListener(clickListenerMenu)
+        componentSearchComponent.getPopMenu().setOnClickListener(clickListenerMenu)
     }
 
     private fun mountViewPagerWithTabs(){
