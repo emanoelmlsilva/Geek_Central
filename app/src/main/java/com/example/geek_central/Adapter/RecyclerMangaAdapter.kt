@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.geek_central.Model.Manga
 import com.example.geek_central.R
+import com.example.geek_central.R.color.iconHeartEnable
 import com.google.android.material.button.MaterialButton
 
 class RecyclerMangaAdapter(private val mangas: ArrayList<Manga>, private val context: Context) :
@@ -43,6 +44,7 @@ class RecyclerMangaAdapter(private val mangas: ArrayList<Manga>, private val con
         lateinit var edit : MaterialButton
         lateinit var delete : MaterialButton
         lateinit var note : TextView
+        var checkFavoriteIcon: Boolean = false
 
         init {
             bindView()
@@ -53,6 +55,7 @@ class RecyclerMangaAdapter(private val mangas: ArrayList<Manga>, private val con
             textMarkCurrent.text = manga.currentGeek.toString()
             textMarkTotal.text = manga.totalGeek.toString()
             note.text = manga.note.toString()
+            checkFavoriteIcon  = manga.favorite
         }
 
         @SuppressLint("ResourceType")
@@ -78,7 +81,7 @@ class RecyclerMangaAdapter(private val mangas: ArrayList<Manga>, private val con
         override fun onClick(v: View?) {
             when(v!!.id){
                 R.id.favorite -> {
-                    Toast.makeText(context, "favorite", Toast.LENGTH_SHORT).show();
+                    setIconFavorite()
                 }
 
                 R.id.btnEdit -> {
@@ -93,6 +96,22 @@ class RecyclerMangaAdapter(private val mangas: ArrayList<Manga>, private val con
                     Toast.makeText(context, "title", Toast.LENGTH_SHORT).show();
                 }
             }
+        }
+
+        private fun setIconFavorite(){
+            var myColor : Int = R.color.colorAccent
+
+            var myDrawable : Int
+
+            if(checkFavoriteIcon) {
+                myDrawable = R.drawable.ic_favorite_black_24dp
+                myColor = iconHeartEnable
+            }else{
+                myDrawable = R.drawable.ic_favorite_border_black_24dp
+            }
+            favorite.setIconResource(myDrawable)
+            favorite.setIconTintResource(myColor)
+            checkFavoriteIcon = !checkFavoriteIcon
         }
     }
 }
