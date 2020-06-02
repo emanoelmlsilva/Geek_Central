@@ -10,7 +10,6 @@ import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.geek_central.Model.Manga
 import com.example.geek_central.R
-import com.github.siyamed.shapeimageview.RoundedImageView
 import com.google.android.material.button.MaterialButton
 
 class RecyclerMangaAdapter(private val mangas: ArrayList<Manga>, private val context: Context) :
@@ -20,7 +19,7 @@ class RecyclerMangaAdapter(private val mangas: ArrayList<Manga>, private val con
         parent: ViewGroup,
         viewType: Int
     ): MyViewHolder {
-        val view = LayoutInflater.from(context).inflate(R.layout.card_manga_adapter, parent, false)
+        val view = LayoutInflater.from(context).inflate(R.layout.geek_card_adapter, parent, false)
         return MyViewHolder(view, context)
     }
 
@@ -36,7 +35,6 @@ class RecyclerMangaAdapter(private val mangas: ArrayList<Manga>, private val con
 
     class MyViewHolder(itemView: View, val context: Context) : RecyclerView.ViewHolder(itemView), View.OnClickListener{
 
-        lateinit var image : RoundedImageView
         lateinit var title : TextView
         lateinit var author : TextView
         lateinit var favorite : MaterialButton
@@ -60,7 +58,6 @@ class RecyclerMangaAdapter(private val mangas: ArrayList<Manga>, private val con
         @SuppressLint("ResourceType")
         private fun bindView(){
 
-            image = itemView.findViewById(R.id.imageview)
             title = itemView.findViewById(R.id.title)
             author = itemView.findViewById(R.id.author)
             favorite = itemView.findViewById(R.id.favorite)
