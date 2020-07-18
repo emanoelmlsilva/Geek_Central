@@ -1,85 +1,80 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:id="@+id/counterComponente"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_margin="6dp"
+    app:cardBackgroundColor="@color/colorPrimary"
+    app:cardCornerRadius="6dp"
+    app:cardElevation="8dp">
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/counterComponente"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:cardBackgroundColor="@color/colorPrimary"
-        app:cardCornerRadius="6dp"
-        app:cardElevation="12dp">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="160dp"
+        android:layout_height="wrap_content">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="307dp"
-            android:layout_height="wrap_content">
+        <Button
+            android:id="@+id/btnMin"
+            android:layout_width="30dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="5dp"
+            android:backgroundTint="@color/textBar"
+            android:drawablePadding="0dp"
+            android:gravity="center"
+            app:icon="@drawable/ic_baseline_remove_circle_24"
+            app:iconGravity="textStart"
+            app:iconPadding="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <androidx.cardview.widget.CardView
-                android:id="@+id/cardViewDel"
-                android:layout_width="55dp"
-                android:layout_height="45dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
-                app:cardBackgroundColor="@color/textBar"
-                app:cardCornerRadius="6dp"
-                app:cardElevation="4dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+        <Button
+            android:id="@+id/btnMax"
+            android:layout_width="30dp"
+            android:layout_height="40dp"
+            android:layout_marginEnd="5dp"
+            android:backgroundTint="@color/textBar"
+            android:drawablePadding="0dp"
+            android:gravity="center"
+            app:icon="@drawable/ic_baseline_add_circle_24"
+            app:iconGravity="textStart"
+            app:iconPadding="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-                <ImageView
-                    android:id="@+id/imageView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    app:srcCompat="@drawable/ic_baseline_remove_circle_24" />
-            </androidx.cardview.widget.CardView>
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/InputlayoutValue"
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            android:visibility="visible"
+            app:boxBackgroundColor="@color/colorAccent"
+            app:boxStrokeColor="@color/textBar"
+            app:counterMaxLength="15"
+            app:hintTextColor="@color/textBar"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/btnMax"
+            app:layout_constraintStart_toEndOf="@+id/btnMin"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="MissingConstraints">
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/InputlayoutValue"
-                android:layout_width="0dp"
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/inputHint"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintEnd_toStartOf="@+id/cardViewAdd"
-                app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toEndOf="@+id/cardViewDel"
-                tools:layout_editor_absoluteY="5dp">
+                android:backgroundTint="@color/colorPrimary"
+                android:focusable="auto"
+                android:hint="hint"
+                android:inputType="numberDecimal"
+                android:maxLength="4"
+                android:textColor="@color/colorAccent"
+                android:textSize="14sp" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/inputHint"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="hint"
-                    android:inputType="numberDecimal"
-                    android:textColorHint="@color/textBar" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/cardViewAdd"
-                android:layout_width="55dp"
-                android:layout_height="45dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginBottom="10dp"
-                app:cardBackgroundColor="@color/textBar"
-                app:cardCornerRadius="6dp"
-                app:cardElevation="4dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
-
-                <ImageView
-                    android:id="@+id/imageView2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    app:srcCompat="@drawable/ic_baseline_add_circle_24" />
-            </androidx.cardview.widget.CardView>
-        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-    </androidx.cardview.widget.CardView>
-</RelativeLayout>
+</androidx.cardview.widget.CardView>
