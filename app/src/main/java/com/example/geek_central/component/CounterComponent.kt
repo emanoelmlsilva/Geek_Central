@@ -29,6 +29,18 @@ class CounterComponent(view : View) {
         layutValue.editText!!.setText(value.toString())
     }
 
+    fun sumMore(valueSum: Int? = null){
+        var counter = layutValue.editText!!.text.toString().toInt()
+
+        if(valueSum == null){
+            counter++
+        }else{
+            counter += valueSum
+        }
+
+        setTextLayout(counter)
+    }
+
     fun getValueInput() : String = layutValue.editText!!.text.toString()
 
     fun getBtnAdd() : MaterialButton = btnAdd
