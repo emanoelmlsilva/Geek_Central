@@ -30,11 +30,9 @@ class BottomSheetLiveData(val context: Context? = null, var objGeek: WorkGeek? =
 
         myView = view
 
-        setTypeMenu(type)
-
     }
 
-    fun setTypeMenu(myType: String){
+    fun setTypeMenu(myType: String = "min"){
         if(myType.equals("min")){
             MenuEditMinComponent(myView, this!!.objGeek!!)
             type = myType
