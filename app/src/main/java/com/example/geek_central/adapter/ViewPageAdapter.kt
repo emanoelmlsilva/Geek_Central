@@ -1,4 +1,4 @@
-package com.example.geek_central.Adapter
+package com.example.geek_central.adapter
 
 import android.annotation.SuppressLint
 import androidx.fragment.app.Fragment

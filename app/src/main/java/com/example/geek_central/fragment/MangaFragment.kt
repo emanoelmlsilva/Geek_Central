@@ -1,4 +1,4 @@
-package com.example.geek_central.Fragment
+package com.example.geek_central.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,9 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.geek_central.Adapter.RecyclerMangaAdapter
-import com.example.geek_central.Model.Manga
+import com.example.geek_central.adapter.RecyclerMangaAdapter
+import com.example.geek_central.model.Manga
 import com.example.geek_central.databinding.FragmentMangaBinding
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import kotlinx.android.synthetic.main.fragment_manga.*
 
 class MangaFragment : Fragment() {

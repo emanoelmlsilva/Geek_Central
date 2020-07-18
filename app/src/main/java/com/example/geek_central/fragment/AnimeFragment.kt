@@ -1,24 +1,26 @@
-package com.example.geek_central.Fragment
+package com.example.geek_central.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.example.geek_central.databinding.FragmentHqBinding
+import com.example.geek_central.databinding.FragmentAnimeBinding
 
-class HqFragment : Fragment() {
+/**
+ * A simple [Fragment] subclass.
+ */
+class AnimeFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        val viewBinding = FragmentHqBinding.inflate(layoutInflater, container, false)
+
+        val viewBinding = FragmentAnimeBinding.inflate(layoutInflater, container, false)
         return viewBinding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {}
-
 
 }

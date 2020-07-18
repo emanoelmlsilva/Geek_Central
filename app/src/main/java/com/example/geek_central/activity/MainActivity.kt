@@ -1,4 +1,4 @@
-package com.example.geek_central.Activity
+package com.example.geek_central.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

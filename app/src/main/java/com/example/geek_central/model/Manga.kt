@@ -1,4 +1,4 @@
-package com.example.geek_central.Model
+package com.example.geek_central.model
 
 class Manga(
     override var title: String,

@@ -1,4 +1,4 @@
-package com.example.geek_central.Component
+package com.example.geek_central.component
 
 import android.view.View
 import android.widget.SearchView

@@ -1,4 +1,4 @@
-package com.example.geek_central.Adapter
+package com.example.geek_central.adapter
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -8,9 +8,11 @@ import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
-import com.example.geek_central.Model.Manga
+import com.example.geek_central.model.Manga
 import com.example.geek_central.R
 import com.example.geek_central.R.color.iconHeartEnable
+import com.example.geek_central.viewmodels.BottomSheetLiveData
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.button.MaterialButton
 
 class RecyclerMangaAdapter(private val mangas: ArrayList<Manga>, private val context: Context) :
@@ -21,6 +23,9 @@ class RecyclerMangaAdapter(private val mangas: ArrayList<Manga>, private val con
         viewType: Int
     ): MyViewHolder {
         val view = LayoutInflater.from(context).inflate(R.layout.geek_card_adapter, parent, false)
+
+        BottomSheetLiveData.get(context)
+
         return MyViewHolder(view, context)
     }
 
@@ -28,6 +33,7 @@ class RecyclerMangaAdapter(private val mangas: ArrayList<Manga>, private val con
         val manga = mangas[position]
         holder.bindDate(manga)
         holder.bindClick()
+
     }
 
     override fun getItemCount(): Int {
@@ -56,6 +62,7 @@ class RecyclerMangaAdapter(private val mangas: ArrayList<Manga>, private val con
             textMarkTotal.text = manga.totalGeek.toString()
             note.text = manga.note.toString()
             checkFavoriteIcon  = manga.favorite
+
         }
 
         @SuppressLint("ResourceType")
@@ -86,6 +93,8 @@ class RecyclerMangaAdapter(private val mangas: ArrayList<Manga>, private val con
 
                 R.id.btnEdit -> {
                     Toast.makeText(context, "edit", Toast.LENGTH_SHORT).show();
+                    BottomSheetLiveData.get(context).showDialog()
+
                 }
 
                 R.id.btnDelete -> {
