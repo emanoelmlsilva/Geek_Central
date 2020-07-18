@@ -25,27 +25,29 @@ class RecyclerMangaAdapter(private val mangas: ArrayList<Manga>, private val con
     ): MyViewHolder {
         val view = LayoutInflater.from(context).inflate(R.layout.geek_card_adapter, parent, false)
 
-        BottomSheetLiveData.get(context)
-
         return MyViewHolder(view, context)
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
+
         val manga = mangas[position]
+
         holder.bindDate(manga)
+
         addValue(holder, manga)
     }
 
     private fun addValue(holder: MyViewHolder, manga: Manga){
 
         holder.edit.setOnClickListener {
-            BottomSheetLiveData.get().setObjetWorkGeek(manga)
-            BottomSheetLiveData.get().loadingObject()
-            BottomSheetLiveData.get(context).showDialog()
+
+            BottomSheetLiveData.get(context, manga)
+
+            BottomSheetLiveData.get().showDialog()
         }
 
         holder.favorite.setOnClickListener{
-            setIconFavorite(holder)
+           // setIconFavorite(holder)
         }
     }
 
