@@ -25,6 +25,10 @@ class CounterComponent(view : View) {
         layutValue.hint = text
     }
 
+    fun setTextLayout(value: Int){
+        layutValue.editText!!.setText(value.toString())
+    }
+
     fun getValueInput() : String = layutValue.editText!!.text.toString()
 
     fun getBtnAdd() : MaterialButton = btnAdd
