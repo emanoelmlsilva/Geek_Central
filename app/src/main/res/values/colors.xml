@@ -8,4 +8,5 @@
     <color name="buttonBackground">#B5000000</color>
     <color name='backGround'>#08000000</color>
     <color name="textBar">#69c0ff</color>
+    <color name="colorPrimaryGC">#7569C0FF</color>
 </resources>
