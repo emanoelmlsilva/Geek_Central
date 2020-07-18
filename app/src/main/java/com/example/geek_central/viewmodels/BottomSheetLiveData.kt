@@ -8,18 +8,15 @@ import androidx.annotation.MainThread
 import androidx.lifecycle.LiveData
 import com.example.geek_central.R
 import com.example.geek_central.component.CounterComponent
+import com.example.geek_central.component.MenuEditMinComponent
 import com.example.geek_central.model.WorkGeek
 import com.google.android.material.bottomsheet.BottomSheetDialog
 
-class BottomSheetLiveData(val context: Context? = null, var objGeek: WorkGeek? = null,var type: String? = null) : LiveData<Int>(),View.OnClickListener {
+class BottomSheetLiveData(val context: Context? = null, var objGeek: WorkGeek? = null,var type: String = "min") : LiveData<Int>(),View.OnClickListener {
 
     private var bottomSheetDialog: BottomSheetDialog = BottomSheetDialog(context!!)
 
-    private lateinit var componentCounteLeft : CounterComponent
-
-    private lateinit var componentCounteRigth : CounterComponent
-
-    private lateinit var title: TextView
+    private var myView : View
 
     private val listener = {v: View -> showDialog()}
 
@@ -31,24 +28,19 @@ class BottomSheetLiveData(val context: Context? = null, var objGeek: WorkGeek? =
 
         bottomSheetDialog.setContentView(view)
 
-        initView(view)
+        myView = view
+
+        setTypeMenu(type)
 
     }
 
-    private fun initView(view : View){
-        title = view.findViewById(R.id.txtTitle)
-
-        componentCounteLeft = CounterComponent(view.findViewById(R.id.edit_Left))
-        componentCounteLeft.setHint("Cap. Atual")
-
-        componentCounteRigth = CounterComponent(view.findViewById(R.id.edit_Rigth))
-        componentCounteRigth.setHint("Cap. Total")
-    }
-
-    fun loadingObject(){
-        title.text = objGeek!!.title
-        componentCounteLeft.setTextLayout(objGeek!!.currentGeek!!)
-        componentCounteRigth.setTextLayout(objGeek!!.totalGeek!!)
+    fun setTypeMenu(myType: String){
+        if(myType.equals("min")){
+            MenuEditMinComponent(myView, this!!.objGeek!!)
+            type = myType
+        }else{
+            //MenuEditAllComponent()
+        }
     }
 
     fun setObjetWorkGeek(objt: WorkGeek){
@@ -57,7 +49,6 @@ class BottomSheetLiveData(val context: Context? = null, var objGeek: WorkGeek? =
 
     fun showDialog(){
         bottomSheetDialog.show()
-
     }
 
     override fun onActive() {
