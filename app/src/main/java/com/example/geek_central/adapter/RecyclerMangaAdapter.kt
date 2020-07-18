@@ -23,7 +23,10 @@ class RecyclerMangaAdapter(private val mangas: ArrayList<Manga>, private val con
         parent: ViewGroup,
         viewType: Int
     ): MyViewHolder {
+
         val view = LayoutInflater.from(context).inflate(R.layout.geek_card_adapter, parent, false)
+
+        BottomSheetLiveData.get(context)
 
         return MyViewHolder(view, context)
     }
@@ -37,12 +40,12 @@ class RecyclerMangaAdapter(private val mangas: ArrayList<Manga>, private val con
         addValue(holder, manga)
     }
 
-    private fun addValue(holder: MyViewHolder, manga: Manga){
+    private fun addValue(holder: MyViewHolder, myManga: Manga){
 
         holder.edit.setOnClickListener {
 
-            BottomSheetLiveData.get(context, manga)
-
+            BottomSheetLiveData.get().setObjetWorkGeek(myManga)
+            BottomSheetLiveData.get().setTypeMenu()
             BottomSheetLiveData.get().showDialog()
         }
 
