@@ -29,21 +29,34 @@ class CounterComponent(view : View) {
         layutValue.editText!!.setText(value.toString())
     }
 
-    fun sumMore(valueSum: Int? = null){
+    fun valueMoreLess(typeValue: String, valueSum: Int = 1){
         var counter = layutValue.editText!!.text.toString().toInt()
 
-        if(valueSum == null){
-            counter++
-        }else{
-            counter += valueSum
-        }
+        counter = sum(valueSum, counter, typeValue)
 
         setTextLayout(counter)
     }
 
-    fun getValueInput() : String = layutValue.editText!!.text.toString()
+    private fun sum(valueSum : Int, counterWhen: Int, typeSumSub: String) : Int{
+
+        var counterNew = 0
+
+        if(typeSumSub.equals("set")){
+            return valueSum
+        }else  if(typeSumSub.equals("sub")){
+            counterNew = counterWhen - valueSum
+        }else{
+            counterNew = counterWhen + valueSum
+        }
+
+        return counterNew
+    }
+
+    fun getValueInput() : Int = layutValue.editText!!.text.toString().toInt()
 
     fun getBtnAdd() : MaterialButton = btnAdd
 
     fun getBtnDel() : MaterialButton = btnDel
+
+    fun getInputLayout(): TextInputLayout = layutValue
 }
