@@ -18,6 +18,7 @@ import com.google.android.material.button.MaterialButton
 class RecyclerMangaAdapter(private val mangas: ArrayList<Manga>, private val context: Context) :
     RecyclerView.Adapter<RecyclerMangaAdapter.MyViewHolder>() {
 
+
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
@@ -32,15 +33,43 @@ class RecyclerMangaAdapter(private val mangas: ArrayList<Manga>, private val con
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val manga = mangas[position]
         holder.bindDate(manga)
-        holder.bindClick()
+        addValue(holder, manga)
+    }
 
+    private fun addValue(holder: MyViewHolder, manga: Manga){
+
+        holder.edit.setOnClickListener {
+            BottomSheetLiveData.get().setObjetWorkGeek(manga)
+            BottomSheetLiveData.get().loadingObject()
+            BottomSheetLiveData.get(context).showDialog()
+        }
+
+        holder.favorite.setOnClickListener{
+            setIconFavorite(holder)
+        }
+    }
+
+    private fun setIconFavorite(holder: MyViewHolder){
+        var myColor : Int = R.color.colorAccent
+
+        var myDrawable : Int
+
+        if(holder.checkFavoriteIcon) {
+            myDrawable = R.drawable.ic_favorite_black_24dp
+            myColor = iconHeartEnable
+        }else{
+            myDrawable = R.drawable.ic_favorite_border_black_24dp
+        }
+        holder.favorite.setIconResource(myDrawable)
+        holder.favorite.setIconTintResource(myColor)
+        holder.checkFavoriteIcon = !holder.checkFavoriteIcon
     }
 
     override fun getItemCount(): Int {
         return mangas.size
     }
 
-    class MyViewHolder(itemView: View, val context: Context) : RecyclerView.ViewHolder(itemView), View.OnClickListener{
+    class MyViewHolder(itemView: View, val context: Context) : RecyclerView.ViewHolder(itemView){
 
         lateinit var title : TextView
         lateinit var author : TextView
@@ -61,7 +90,7 @@ class RecyclerMangaAdapter(private val mangas: ArrayList<Manga>, private val con
             textMarkCurrent.text = manga.currentGeek.toString()
             textMarkTotal.text = manga.totalGeek.toString()
             note.text = manga.note.toString()
-            checkFavoriteIcon  = manga.favorite
+            checkFavoriteIcon  = manga.favorite!!
 
         }
 
@@ -76,51 +105,6 @@ class RecyclerMangaAdapter(private val mangas: ArrayList<Manga>, private val con
             edit = itemView.findViewById(R.id.btnEdit)
             delete = itemView.findViewById(R.id.btnDelete)
             note = itemView.findViewById(R.id.note)
-        }
-
-        fun bindClick(){
-            favorite.setOnClickListener(this)
-            edit.setOnClickListener(this)
-            delete.setOnClickListener(this)
-            title.setOnClickListener(this)
-        }
-
-        override fun onClick(v: View?) {
-            when(v!!.id){
-                R.id.favorite -> {
-                    setIconFavorite()
-                }
-
-                R.id.btnEdit -> {
-                    Toast.makeText(context, "edit", Toast.LENGTH_SHORT).show();
-                    BottomSheetLiveData.get(context).showDialog()
-
-                }
-
-                R.id.btnDelete -> {
-                    Toast.makeText(context, "delete", Toast.LENGTH_SHORT).show();
-                }
-
-                R.id.title -> {
-                    Toast.makeText(context, "title", Toast.LENGTH_SHORT).show();
-                }
-            }
-        }
-
-        private fun setIconFavorite(){
-            var myColor : Int = R.color.colorAccent
-
-            var myDrawable : Int
-
-            if(checkFavoriteIcon) {
-                myDrawable = R.drawable.ic_favorite_black_24dp
-                myColor = iconHeartEnable
-            }else{
-                myDrawable = R.drawable.ic_favorite_border_black_24dp
-            }
-            favorite.setIconResource(myDrawable)
-            favorite.setIconTintResource(myColor)
-            checkFavoriteIcon = !checkFavoriteIcon
         }
     }
 }
