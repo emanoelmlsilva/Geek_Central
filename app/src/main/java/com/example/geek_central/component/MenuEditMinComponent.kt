@@ -5,7 +5,7 @@ import android.widget.TextView
 import com.example.geek_central.R
 import com.example.geek_central.model.WorkGeek
 
-class MenuEditMinComponent(val view : View, val objGeek: WorkGeek) {
+class MenuEditMinComponent(val view : View, val objGeek: WorkGeek) : View.OnClickListener {
 
     private lateinit var componentCounteLeft : CounterComponent
 
@@ -38,8 +38,36 @@ class MenuEditMinComponent(val view : View, val objGeek: WorkGeek) {
     }
 
     fun clickButtons(){
-        componentCounteLeft.getBtnAdd().setOnClickListener{
-            componentCounteLeft.sumMore()
+        componentCounteLeft.getBtnAdd().setOnClickListener(this)
+        componentCounteLeft.getBtnDel().setOnClickListener(this)
+        componentCounteLeft.getInputLayout().setOnClickListener(this)
+
+        componentCounteRigth.getBtnAdd().setOnClickListener(this)
+        componentCounteRigth.getBtnDel().setOnClickListener(this)
+        componentCounteRigth.getInputLayout().setOnClickListener(this)
+    }
+
+    override fun onClick(v: View?) {
+
+        when(v!!.id){
+            componentCounteLeft.getBtnAdd().id -> {
+                componentCounteLeft.valueMoreLess("sum")
+            }
+            componentCounteLeft.getBtnDel().id -> {
+                componentCounteLeft.valueMoreLess("sub")
+            }
+            componentCounteLeft.getInputLayout().id -> {
+                componentCounteLeft.valueMoreLess("set", componentCounteLeft.getValueInput())
+            }
+            componentCounteRigth.getBtnAdd().id -> {
+                componentCounteRigth.valueMoreLess("sum")
+            }
+            componentCounteRigth.getBtnDel().id -> {
+                componentCounteRigth.valueMoreLess("sub")
+            }
+            componentCounteRigth.getInputLayout().id -> {
+                componentCounteRigth.valueMoreLess("set", componentCounteRigth.getValueInput())
+            }
         }
     }
 
