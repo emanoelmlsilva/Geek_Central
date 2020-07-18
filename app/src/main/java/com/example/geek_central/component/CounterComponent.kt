@@ -1,14 +1,14 @@
-package com.example.geek_central.Component
+package com.example.geek_central.component
 
 import android.view.View
-import androidx.cardview.widget.CardView
 import com.example.geek_central.R
+import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputLayout
 
-class CounterComponent(private val view : View) {
+class CounterComponent(view : View) {
 
-    private lateinit var btnAdd : CardView
-    private lateinit var btnDel : CardView
+    private lateinit var btnAdd : MaterialButton
+    private lateinit var btnDel : MaterialButton
     private lateinit var layutValue : TextInputLayout
 
     init{
@@ -16,8 +16,8 @@ class CounterComponent(private val view : View) {
     }
 
     private fun setType(view : View){
-        btnAdd = view.findViewById(R.id.cardViewAdd)
-        btnDel = view.findViewById(R.id.cardViewDel)
+        btnAdd = view.findViewById(R.id.btnMax)
+        btnDel = view.findViewById(R.id.btnMin)
         layutValue = view.findViewById(R.id.InputlayoutValue)
     }
 
@@ -27,7 +27,7 @@ class CounterComponent(private val view : View) {
 
     fun getValueInput() : String = layutValue.editText!!.text.toString()
 
-    fun getBtnAdd() : CardView = btnAdd
+    fun getBtnAdd() : MaterialButton = btnAdd
 
-    fun getBtnDel() : CardView = btnDel
+    fun getBtnDel() : MaterialButton = btnDel
 }
