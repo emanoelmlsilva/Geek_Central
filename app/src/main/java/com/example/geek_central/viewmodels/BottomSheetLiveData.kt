@@ -10,11 +10,10 @@ import com.example.geek_central.R
 import com.example.geek_central.component.CounterComponent
 import com.example.geek_central.model.WorkGeek
 import com.google.android.material.bottomsheet.BottomSheetDialog
-import com.google.android.material.button.MaterialButton
 
-class BottomSheetLiveData(val context: Context, val objGeek: WorkGeek) : LiveData<Int>(),View.OnClickListener {
+class BottomSheetLiveData(val context: Context? = null, var objGeek: WorkGeek? = null,var type: String? = null) : LiveData<Int>(),View.OnClickListener {
 
-    private var bottomSheetDialog: BottomSheetDialog = BottomSheetDialog(context)
+    private var bottomSheetDialog: BottomSheetDialog = BottomSheetDialog(context!!)
 
     private lateinit var componentCounteLeft : CounterComponent
 
@@ -32,7 +31,6 @@ class BottomSheetLiveData(val context: Context, val objGeek: WorkGeek) : LiveDat
 
         bottomSheetDialog.setContentView(view)
 
-
         initView(view)
 
     }
@@ -45,6 +43,16 @@ class BottomSheetLiveData(val context: Context, val objGeek: WorkGeek) : LiveDat
 
         componentCounteRigth = CounterComponent(view.findViewById(R.id.edit_Rigth))
         componentCounteRigth.setHint("Cap. Total")
+    }
+
+    fun loadingObject(){
+        title.text = objGeek!!.title
+        componentCounteLeft.setTextLayout(objGeek!!.currentGeek!!)
+        componentCounteRigth.setTextLayout(objGeek!!.totalGeek!!)
+    }
+
+    fun setObjetWorkGeek(objt: WorkGeek){
+        objGeek = objt
     }
 
     fun showDialog(){
@@ -68,8 +76,8 @@ class BottomSheetLiveData(val context: Context, val objGeek: WorkGeek) : LiveDat
         private lateinit var instance: BottomSheetLiveData
 
         @MainThread
-        fun get(context: Context, obj: WorkGeek): BottomSheetLiveData {
-            instance = if(::instance.isInitialized) instance else BottomSheetLiveData(context, obj)
+        fun get(context: Context? = null, objt: WorkGeek? = null): BottomSheetLiveData {
+            instance = if(::instance.isInitialized) instance else BottomSheetLiveData(context, objt)
             return instance
         }
     }
