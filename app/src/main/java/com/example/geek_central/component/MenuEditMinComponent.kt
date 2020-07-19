@@ -14,8 +14,6 @@ class MenuEditMinComponent(val view : View, val objGeek: WorkGeek) : View.OnClic
 
     private lateinit var componentCounteRigth : CounterComponent
 
-    private lateinit var title: TextView
-
     init{
         initView()
     }
@@ -23,8 +21,6 @@ class MenuEditMinComponent(val view : View, val objGeek: WorkGeek) : View.OnClic
     private fun initView(){
 
         includeEditMinComponet = view.findViewById(R.id.constraintEditMenuMin)
-
-        title = view.findViewById(R.id.txtTitle)
 
         componentCounteLeft = CounterComponent(view.findViewById(R.id.edit_Left))
         componentCounteLeft.setHint("Cap. Atual")
@@ -42,7 +38,7 @@ class MenuEditMinComponent(val view : View, val objGeek: WorkGeek) : View.OnClic
     }
 
     fun loadingObject(){
-        title.text = objGeek!!.title
+
         componentCounteLeft.setTextLayout(objGeek!!.currentGeek!!)
         componentCounteRigth.setTextLayout(objGeek!!.totalGeek!!)
     }
