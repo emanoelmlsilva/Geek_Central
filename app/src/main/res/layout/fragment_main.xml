@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Fragment.MainFragment">
+    tools:context=".fragment.MainFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -12,53 +12,17 @@
         android:layout_gravity="top"
         android:foregroundGravity="center">
 
-        <RelativeLayout
-            android:id="@+id/relativeLayout"
+        <include
+            layout="@layout/searc_view_component"
+            android:id="@+id/search_card"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
+            android:layout_marginEnd="16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <Button
-                android:id="@+id/btn_pop_menu"
-                style="@style/Widget.MaterialComponents.Button.Icon"
-                android:layout_width="50dp"
-                android:layout_height="55dp"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentEnd="true"
-                android:layout_marginTop="0dp"
-                android:layout_marginEnd="0dp"
-                android:backgroundTint="@color/colorPrimary"
-                android:elevation="6dp"
-                android:gravity="center"
-                android:textColor="@color/buttonBackground"
-                app:icon="@drawable/ic_menu_black_24dp"
-                app:iconTint="@color/colorAccent"
-                tools:ignore="MissingPrefix" />
-
-            <SearchView
-                android:id="@+id/search"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginStart="0dp"
-                android:layout_marginTop="4dp"
-                android:layout_marginEnd="8dp"
-                android:layout_toStartOf="@+id/btn_pop_menu"
-                android:background="@drawable/search_rectangle"
-                android:elevation="1dp"
-                android:iconifiedByDefault="false"
-                android:paddingTop="4dp"
-                android:queryHint="@string/message_search">
-
-            </SearchView>
-
-        </RelativeLayout>
+            app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tabs"
@@ -67,7 +31,7 @@
             android:layout_marginTop="16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/relativeLayout"
+            app:layout_constraintTop_toBottomOf="@+id/search_card"
             app:tabIndicatorColor="@color/textBar"
             app:tabTextColor="@color/textBar">
 

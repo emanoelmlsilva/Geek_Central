@@ -1,4 +1,4 @@
-package com.example.geek_central.Fragment
+package com.example.geek_central.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,9 +9,12 @@ import android.widget.PopupMenu
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.viewpager.widget.ViewPager
-import com.example.geek_central.Adapter.ViewPageAdapter
 import com.example.geek_central.R
+import com.example.geek_central.adapter.ViewPageAdapter
+import com.example.geek_central.component.SearchViewComponent
 import com.example.geek_central.databinding.FragmentMainBinding
+import com.example.geek_central.viewmodels.BottomSheetLiveData
+import com.google.android.material.bottomsheet.BottomSheetDialog
 
 /**
  * A simple [Fragment] subclass.
@@ -21,6 +24,8 @@ class MainFragment : Fragment() {
     private lateinit var bindBing: FragmentMainBinding;
     private lateinit var adapter: ViewPageAdapter
     private lateinit var viewPager: ViewPager
+    private lateinit var componentSearchComponent : SearchViewComponent
+    private lateinit var bottomSheetDialog: BottomSheetDialog
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -28,7 +33,8 @@ class MainFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
 
-         bindBing = FragmentMainBinding.inflate(layoutInflater, container, false)
+        bindBing = FragmentMainBinding.inflate(layoutInflater, container, false)
+        componentSearchComponent = SearchViewComponent( bindBing.root.findViewById(R.id.search_card))
 
         return bindBing.root
     }
@@ -36,7 +42,6 @@ class MainFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         mountViewPagerWithTabs()
         setClicledViews()
-
     }
 
     val clickListenerMenu = View.OnClickListener {view ->
@@ -63,7 +68,7 @@ class MainFragment : Fragment() {
     }
 
     private fun setClicledViews(){
-        bindBing.btnPopMenu.setOnClickListener(clickListenerMenu)
+        componentSearchComponent.getPopMenu().setOnClickListener(clickListenerMenu)
     }
 
     private fun mountViewPagerWithTabs(){

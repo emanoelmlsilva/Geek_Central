@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/counterComponente"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_margin="6dp"
+    android:background="@color/colorPrimary"
+    android:backgroundTint="@color/colorPrimary"
+    app:cardBackgroundColor="@color/colorPrimary"
+    app:cardForegroundColor="@android:color/transparent"
+    app:cardCornerRadius="6dp"
+    app:cardElevation="8dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="160dp"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/btnMin"
+            android:layout_width="30dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="5dp"
+            android:backgroundTint="@color/textBar"
+            android:drawablePadding="0dp"
+            android:gravity="center"
+            app:icon="@drawable/ic_baseline_remove_circle_24"
+            app:iconGravity="textStart"
+            app:iconPadding="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/btnMax"
+            android:layout_width="30dp"
+            android:layout_height="40dp"
+            android:layout_marginEnd="5dp"
+            android:backgroundTint="@color/textBar"
+            android:drawablePadding="0dp"
+            android:gravity="center"
+            app:icon="@drawable/ic_baseline_add_circle_24"
+            app:iconGravity="textStart"
+            app:iconPadding="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/InputlayoutValue"
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            android:visibility="visible"
+            app:boxBackgroundColor="@color/colorAccent"
+            app:boxStrokeColor="@color/textBar"
+            app:counterMaxLength="15"
+            app:hintTextColor="@color/textBar"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/btnMax"
+            app:layout_constraintStart_toEndOf="@+id/btnMin"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="MissingConstraints">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/inputHint"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/colorPrimary"
+                android:focusable="auto"
+                android:hint="hint"
+                android:inputType="numberDecimal"
+                android:maxLength="4"
+                android:textColor="@color/colorAccent"
+                android:textSize="14sp" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</androidx.cardview.widget.CardView>
