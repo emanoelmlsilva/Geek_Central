@@ -13,4 +13,10 @@
         <item name="android:shadowColor">@color/backGround</item>
     </style>
 
+    <style name="AppTheme.CardView" parent="AppTheme">
+        <!-- Customize your theme here. -->
+        <item name="android:ambientShadowAlpha">0.4</item>
+        <item name="android:spotShadowAlpha">0.6</item>
+    </style>
+
 </resources>
