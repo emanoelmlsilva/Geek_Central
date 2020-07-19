@@ -6,13 +6,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
-import com.example.geek_central.model.Manga
 import com.example.geek_central.R
 import com.example.geek_central.R.color.iconHeartEnable
+import com.example.geek_central.model.Manga
 import com.example.geek_central.viewmodels.BottomSheetLiveData
-import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.button.MaterialButton
 
 class RecyclerMangaAdapter(private val mangas: ArrayList<Manga>, private val context: Context) :
@@ -45,7 +43,6 @@ class RecyclerMangaAdapter(private val mangas: ArrayList<Manga>, private val con
         holder.edit.setOnClickListener {
 
             BottomSheetLiveData.get().setObjetWorkGeek(myManga)
-            BottomSheetLiveData.get().setTypeMenu()
             BottomSheetLiveData.get().showDialog()
         }
 
