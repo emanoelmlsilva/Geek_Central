@@ -7,6 +7,7 @@ import android.util.DisplayMetrics
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.annotation.MainThread
 import androidx.lifecycle.LiveData
 import com.example.geek_central.R
@@ -23,6 +24,8 @@ class BottomSheetLiveData(val context: Context? = null, var objGeek: WorkGeek? =
     private var myView : View
 
     private lateinit var menuEditMin : MenuEditMinComponent
+
+    private lateinit var title: TextView
 
     private val listener = {v: View -> showDialog()}
 
@@ -45,6 +48,11 @@ class BottomSheetLiveData(val context: Context? = null, var objGeek: WorkGeek? =
     }
 
     private fun initComponets(){
+
+        title = myView.findViewById(R.id.txtTitle)
+
+        title.text = objGeek!!.title
+
         menuEditMin = MenuEditMinComponent(myView, this!!.objGeek!!)
     }
 
