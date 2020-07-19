@@ -2,20 +2,19 @@
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/bottomSheet"
+    style="@style/Widget.MaterialComponents.BottomSheet.Modal"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    app:behavior_peekHeight="30dp"
+    app:behavior_peekHeight="58dp"
+    app:cardElevation="80dp"
     app:cardForegroundColor="@android:color/transparent"
-    app:layout_behavior="com.google.android.material.BottomSheet">
-
+    app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_behavior="com.google.android.material.BottomSheet">
-
+        android:layout_height="wrap_content">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/linearLayout2"
@@ -62,12 +61,12 @@
             android:background="@color/colorPrimaryDark"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout2"/>
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
 
         <include
             layout="@layout/menu_edit_min"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="132dp"
             android:layout_gravity="bottom"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
