@@ -3,17 +3,20 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:layout_margin="5dp"
+    app:cardCornerRadius="4dp"
+    app:cardElevation="6dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/cardView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
         <SearchView
             android:id="@+id/search_view"
             android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             android:layout_marginEnd="5dp"
             android:background="@android:color/background_light"
             android:iconifiedByDefault="false"
@@ -26,11 +29,12 @@
 
         <Button
             android:id="@+id/btn_pop_menu"
-            style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
+            style="@style/Widget.MaterialComponents.Button.UnelevatedButton.Icon"
             android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_height="0dp"
             android:backgroundTint="@android:color/transparent"
             app:icon="@drawable/ic_menu_black_24dp"
+            app:iconPadding="0dp"
             app:iconTint="@color/colorAccent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
