@@ -14,11 +14,17 @@ class MenuEditMinComponent(val view : View, val objGeek: WorkGeek) : View.OnClic
 
     private lateinit var componentCounteRigth : CounterComponent
 
+    private lateinit var title: TextView
+
     init{
         initView()
     }
 
     private fun initView(){
+
+        title = view.findViewById(R.id.txtTitle)
+
+        title.text = objGeek!!.title
 
         includeEditMinComponet = view.findViewById(R.id.constraintEditMenuMin)
 

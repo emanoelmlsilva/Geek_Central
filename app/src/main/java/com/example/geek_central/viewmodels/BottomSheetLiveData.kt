@@ -25,8 +25,6 @@ class BottomSheetLiveData(val context: Context? = null, var objGeek: WorkGeek? =
 
     private lateinit var menuEditMin : MenuEditMinComponent
 
-    private lateinit var title: TextView
-
     private val listener = {v: View -> showDialog()}
 
     init{
@@ -48,10 +46,6 @@ class BottomSheetLiveData(val context: Context? = null, var objGeek: WorkGeek? =
     }
 
     private fun initComponets(){
-
-        title = myView.findViewById(R.id.txtTitle)
-
-        title.text = objGeek!!.title
 
         menuEditMin = MenuEditMinComponent(myView, this!!.objGeek!!)
     }
