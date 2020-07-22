@@ -11,4 +11,15 @@
     <string name="nameManga">Mangá</string>
     <string name="nameAnime">Anime</string>
     <string name="nameHq">Hq</string>
+    <string name="categories">Categorias</string>
+    //Generos animes/mangas
+    <string name="shounen">Shounen</string>
+    <string name="kodomo">Kodomo</string>
+    <string name="shoujo">Shoujo</string>
+    <string name="ecchi">Ecchi</string>
+    <string name="yaoi">Yaoi</string>
+    <string name="yuri">Yuri</string>
+    <string name="gekiga">Gekigá</string>
+    <string name="seinen">Seinen</string>
+    <string name="josei">Josei</string>
 </resources>
