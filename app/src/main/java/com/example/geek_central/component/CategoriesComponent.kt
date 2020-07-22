@@ -4,7 +4,7 @@ import android.view.View
 import com.example.geek_central.R
 import com.google.android.material.chip.ChipGroup
 
-class CategoriesComponen(val view : View) {
+class CategoriesComponent(val view : View) {
 
     private val groupCategories : ChipGroup = view.findViewById(R.id.groupCategories)
 
