@@ -57,7 +57,7 @@
             app:boxBackgroundColor="@color/colorAccent"
             app:boxStrokeColor="@color/textBar"
             app:counterMaxLength="15"
-            app:hintTextColor="@color/textBar"
+            app:hintTextColor="@color/buttonBackground"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/btnMax"
             app:layout_constraintStart_toEndOf="@+id/btnMin"
