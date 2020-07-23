@@ -2,6 +2,7 @@ package com.example.geek_central.component
 
 import android.view.View
 import com.example.geek_central.R
+import com.example.geek_central.enums.TypeMethodMath
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputLayout
 
@@ -29,23 +30,24 @@ class CounterComponent(view : View) {
         layutValue.editText!!.setText(value.toString())
     }
 
-    fun valueMoreLess(typeValue: String, valueSum: Int = 1){
+    fun valueMoreLess(typeValue: String){
         var counter = layutValue.editText!!.text.toString().toInt()
 
-        counter = sum(valueSum, counter, typeValue)
+        counter = sum(counter, typeValue)
 
         setTextLayout(counter)
     }
 
-    private fun sum(valueSum : Int, counterWhen: Int, typeSumSub: String) : Int{
+    private fun sum(counterWhen: Int, typeSumSub: String) : Int{
 
         var counterNew = 0
+        val valueSum = 1
 
-        if(typeSumSub.equals("set")){
-            return valueSum
-        }else  if(typeSumSub.equals("sub")){
+        if(typeSumSub.equals(TypeMethodMath.SET.toString())){
+            return counterWhen
+        }else  if(typeSumSub.equals(TypeMethodMath.SUB.toString())){
             counterNew = counterWhen - valueSum
-        }else{
+        }else if(typeSumSub.equals(TypeMethodMath.SUM.toString())){
             counterNew = counterWhen + valueSum
         }
 
