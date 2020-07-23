@@ -4,9 +4,10 @@ import android.view.View
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.example.geek_central.R
+import com.example.geek_central.enums.TypeMethodMath
 import com.example.geek_central.model.WorkGeek
 
-class MenuEditMinComponent(val view : View, val objGeek: WorkGeek) : View.OnClickListener {
+class MenuEditMinComponent(val view : View, val objGeek: WorkGeek) {
 
     private lateinit var includeEditMinComponet : ConstraintLayout
 
@@ -36,7 +37,8 @@ class MenuEditMinComponent(val view : View, val objGeek: WorkGeek) : View.OnClic
 
         loadingObject()
 
-        clickButtons()
+        clickButtons(componentCounteLeft)
+        clickButtons(componentCounteRigth)
     }
 
     fun setVisible(visible : Int){
@@ -49,38 +51,20 @@ class MenuEditMinComponent(val view : View, val objGeek: WorkGeek) : View.OnClic
         componentCounteRigth.setTextLayout(objGeek!!.totalGeek!!)
     }
 
-    fun clickButtons(){
-        componentCounteLeft.getBtnAdd().setOnClickListener(this)
-        componentCounteLeft.getBtnDel().setOnClickListener(this)
-        componentCounteLeft.getInputLayout().setOnClickListener(this)
+    fun clickButtons(componentDefault : CounterComponent){
 
-        componentCounteRigth.getBtnAdd().setOnClickListener(this)
-        componentCounteRigth.getBtnDel().setOnClickListener(this)
-        componentCounteRigth.getInputLayout().setOnClickListener(this)
-    }
-
-    override fun onClick(v: View?) {
-
-        when(v!!.id){
-            componentCounteLeft.getBtnAdd().id -> {
-                componentCounteLeft.valueMoreLess("sum")
-            }
-            componentCounteLeft.getBtnDel().id -> {
-                componentCounteLeft.valueMoreLess("sub")
-            }
-            componentCounteLeft.getInputLayout().id -> {
-                componentCounteLeft.valueMoreLess("set", componentCounteLeft.getValueInput())
-            }
-            componentCounteRigth.getBtnAdd().id -> {
-                componentCounteRigth.valueMoreLess("sum")
-            }
-            componentCounteRigth.getBtnDel().id -> {
-                componentCounteRigth.valueMoreLess("sub")
-            }
-            componentCounteRigth.getInputLayout().id -> {
-                componentCounteRigth.valueMoreLess("set", componentCounteRigth.getValueInput())
-            }
+        componentDefault.getBtnAdd().setOnClickListener{
+            componentDefault.valueMoreLess(TypeMethodMath.SUM.toString())
         }
+
+        componentDefault.getBtnDel().setOnClickListener{
+            componentDefault.valueMoreLess(TypeMethodMath.SUB.toString())
+        }
+
+        componentDefault.getInputLayout().setOnClickListener{
+            componentDefault.valueMoreLess(TypeMethodMath.SET.toString())
+        }
+
     }
 
 }
