@@ -4,6 +4,7 @@ import android.view.View
 import android.widget.SeekBar
 import android.widget.TextView
 import androidx.cardview.widget.CardView
+import androidx.constraintlayout.widget.ConstraintLayout
 import com.example.geek_central.R
 
 class NoteComponent(val view : View) {
@@ -12,7 +13,7 @@ class NoteComponent(val view : View) {
 
     private lateinit var txtNote: TextView
 
-    private lateinit var cardView : CardView
+    private lateinit var constraintView : ConstraintLayout
 
     init{
         initView()
@@ -24,7 +25,7 @@ class NoteComponent(val view : View) {
 
         txtNote = view.findViewById(R.id.txtNote)
 
-        cardView = view.findViewById(R.id.noteComponent)
+        constraintView = view.findViewById(R.id.noteComponent)
     }
 
     fun setValueNote(value : Int = 0){
@@ -37,5 +38,5 @@ class NoteComponent(val view : View) {
         seekBarNote.max = maxValue
     }
 
-    fun getCard() : CardView = cardView
+    fun getCard() : ConstraintLayout = constraintView
 }
