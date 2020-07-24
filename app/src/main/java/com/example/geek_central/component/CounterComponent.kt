@@ -1,6 +1,7 @@
 package com.example.geek_central.component
 
 import android.view.View
+import androidx.cardview.widget.CardView
 import com.example.geek_central.R
 import com.example.geek_central.enums.TypeMethodMath
 import com.google.android.material.button.MaterialButton
@@ -11,6 +12,7 @@ class CounterComponent(view : View) {
     private lateinit var btnAdd : MaterialButton
     private lateinit var btnDel : MaterialButton
     private lateinit var layutValue : TextInputLayout
+    private lateinit var cardView : CardView
 
     init{
         setType(view)
@@ -20,6 +22,7 @@ class CounterComponent(view : View) {
         btnAdd = view.findViewById(R.id.btnMax)
         btnDel = view.findViewById(R.id.btnMin)
         layutValue = view.findViewById(R.id.InputlayoutValue)
+        cardView = view.findViewById(R.id.counterComponent)
     }
 
     fun setHint(text : String){
@@ -61,4 +64,6 @@ class CounterComponent(view : View) {
     fun getBtnDel() : MaterialButton = btnDel
 
     fun getInputLayout(): TextInputLayout = layutValue
+
+    fun getCard() : CardView = cardView
 }
