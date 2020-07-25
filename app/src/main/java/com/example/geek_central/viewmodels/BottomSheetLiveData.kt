@@ -7,11 +7,10 @@ import android.util.DisplayMetrics
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.annotation.MainThread
 import androidx.lifecycle.LiveData
 import com.example.geek_central.R
-import com.example.geek_central.component.MenuEditMinComponent
+import com.example.geek_central.component.MenuEditComponent
 import com.example.geek_central.model.WorkGeek
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -23,7 +22,7 @@ class BottomSheetLiveData(val context: Context? = null, var objGeek: WorkGeek? =
 
     private var myView : View
 
-    private lateinit var menuEditMin : MenuEditMinComponent
+    private lateinit var menuEdit : MenuEditComponent
 
     private val listener = {v: View -> showDialog()}
 
@@ -47,7 +46,7 @@ class BottomSheetLiveData(val context: Context? = null, var objGeek: WorkGeek? =
 
     private fun initComponets(){
 
-        menuEditMin = MenuEditMinComponent(myView, this!!.objGeek!!)
+        menuEdit = MenuEditComponent(myView, this.objGeek!!)
     }
 
     private fun setBottomSheetScreenAll() {
@@ -68,7 +67,7 @@ class BottomSheetLiveData(val context: Context? = null, var objGeek: WorkGeek? =
             .defaultDisplay
             .getMetrics(displayMetrics)
 
-        childLayoutParams.height = displayMetrics.heightPixels - 300
+        childLayoutParams.height = displayMetrics.heightPixels - 200
 
         myView.layoutParams = childLayoutParams
     }
@@ -77,29 +76,13 @@ class BottomSheetLiveData(val context: Context? = null, var objGeek: WorkGeek? =
 
         bottomSheetDialog.behavior.addBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
             override fun onSlide(bottomSheet: View, slideOffset: Float) {
-
+                menuEdit.setStatus(slideOffset)
             }
 
             override fun onStateChanged(bottomSheet: View, newState: Int) {
-                when (newState) {
-                    BottomSheetBehavior.STATE_COLLAPSED -> {
-                        menuEditMin.setVisible(View.VISIBLE)
-                    }
-                    BottomSheetBehavior.STATE_EXPANDED -> {
-                        menuEditMin.setVisible(View.GONE)
-                    }
-                }
+
             }
         })
-    }
-
-    fun setTypeMenu(myType: String = "min"){
-        if(myType.equals("min")){
-            MenuEditMinComponent(myView, this!!.objGeek!!)
-
-        }else if(myType.equals("all")){
-            //MenuEditAllComponent()
-        }
     }
 
     fun setObjetWorkGeek(objt: WorkGeek){
@@ -112,7 +95,7 @@ class BottomSheetLiveData(val context: Context? = null, var objGeek: WorkGeek? =
     }
 
     override fun onActive() {
-        //btnEdit.setOnClickListener(listener)
+
     }
 
     override fun onInactive() {
