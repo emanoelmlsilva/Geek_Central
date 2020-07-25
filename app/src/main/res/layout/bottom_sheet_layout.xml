@@ -64,9 +64,9 @@
             app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
 
         <include
-            layout="@layout/menu_edit_min"
+            layout="@layout/menu_edit"
             android:layout_width="match_parent"
-            android:layout_height="132dp"
+            android:layout_height="wrap_content"
             android:layout_gravity="bottom"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
