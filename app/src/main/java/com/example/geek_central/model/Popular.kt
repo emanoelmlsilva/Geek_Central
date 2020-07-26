@@ -1,5 +1,5 @@
 package com.example.geek_central.model
 
-class Popular {
+class Popular(var note: Double, var favorite: Boolean) {
 
 }
