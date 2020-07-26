@@ -2,6 +2,7 @@ package com.example.geek_central.component
 
 import android.view.View
 import android.view.animation.TranslateAnimation
+import android.widget.EditText
 import android.widget.TextView
 import com.example.geek_central.R
 import com.example.geek_central.enums.TypeMethodMath
@@ -74,11 +75,9 @@ class MenuEditComponent(val view : View, val objGeek: WorkGeek? = null) {
     private fun visibiliteEditMinExtend(){
 
         //transation slide up/down view title
-        title.visibility = if(status < 0.03f) View.VISIBLE else View.GONE
-        if(status == 0.0f) slideUp(title)
+        title.visibility = if(status < 0.0006F) View.VISIBLE else View.GONE
 
-        setVisibilite(inputName)
-
+        //set visibility components
         setVisibilite(note.getCard())
 
         setVisibilite(categories.getCard())
@@ -87,36 +86,35 @@ class MenuEditComponent(val view : View, val objGeek: WorkGeek? = null) {
 
         setVisibilite(inputSite)
 
-        slideUpButton()
+        setVisibilite(inputName)
+
+        //set slide animation component
+
+        slideUp(title)
+
+        if(status == 0.0f) slideUp(inputName, toX = view.width.toFloat()) else slideUp(inputName)
+
+        slideUp(note.getCard())
+
+        slideUp(categories.getCard())
+
+        slideUp(inputAuthor)
+
+        slideUp(inputSite)
+
+        slideUp(btnSave)
+
+
     }
 
-    private fun setVisibilite(view : View){
 
-        var visibilite : Int
+    private fun setVisibilite(myView : View){
 
-        if(status < 0.004f) {
-            visibilite = View.GONE
+        if(status == 0.0F) {
+            myView.visibility = View.GONE
         }else {
-            visibilite = View.VISIBLE
+            myView.visibility = View.VISIBLE
         }
-
-        view.visibility = visibilite
-
-        if(status > 0.0f) slideUp(view)
-    }
-
-    fun slideUpButton(){
-
-        val animate = TranslateAnimation(
-            btnSave.right.toFloat(),  // fromXDelta
-            0F,  // toXDelta
-            0F,  // fromYDelta
-            0F
-        ) // toYDelta
-        animate.duration = 500
-        animate.fillAfter = true
-
-        btnSave.startAnimation(animate)
     }
 
     fun setStatus(statusUpdate : Float) {
@@ -124,17 +122,18 @@ class MenuEditComponent(val view : View, val objGeek: WorkGeek? = null) {
         visibiliteEditMinExtend()
     }
 
-    fun slideUp(view: View) {
+    fun slideUp(myView: View, fromX : Float = myView.width.toFloat() - (status * 1000), toX : Float =  0F , fromY : Float = 0F, toY : Float = 0F) {
+
         val animate = TranslateAnimation(
-            0F,  // fromXDelta
-            0F,  // toXDelta
-            view.height.toFloat() - (status * 220),  // fromYDelta
-            0F
+            fromX,  // fromXDelta
+            toX,  // toXDelta
+            fromY,  // fromYDelta
+            toY
         ) // toYDelta
         animate.duration = 500
         animate.fillAfter = true
 
-        view.startAnimation(animate)
+        myView.startAnimation(animate)
     }
 
     fun clickButtons(componentDefault : CounterComponent){
