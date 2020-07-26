@@ -163,6 +163,10 @@ class MenuEditComponent(val view : View, val objGeek: WorkGeek? = null) {
         objGeek?.author?.name?.let { inputAuthor.editText?.setText(it) }
         objGeek?.hosted?.site?.let { inputSite.editText?.setText(it)}
 
+        setIconFavorite()
+    }
+
+    private fun setIconFavorite(){
         if(objGeek?.popular?.favorite!!) inputName.setStartIconTintList(ContextCompat.getColorStateList(view.context,R.color.iconHeartEnable))
     }
 
