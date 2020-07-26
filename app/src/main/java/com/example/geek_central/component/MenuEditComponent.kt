@@ -1,9 +1,12 @@
 package com.example.geek_central.component
 
+import android.annotation.SuppressLint
+import android.content.res.ColorStateList
+import android.graphics.Color
 import android.view.View
 import android.view.animation.TranslateAnimation
-import android.widget.EditText
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import com.example.geek_central.R
 import com.example.geek_central.enums.TypeMethodMath
 import com.example.geek_central.model.WorkGeek
@@ -160,6 +163,7 @@ class MenuEditComponent(val view : View, val objGeek: WorkGeek? = null) {
         objGeek?.author?.name?.let { inputAuthor.editText?.setText(it) }
         objGeek?.hosted?.site?.let { inputSite.editText?.setText(it)}
 
+        if(objGeek?.popular?.favorite!!) inputName.setStartIconTintList(ContextCompat.getColorStateList(view.context,R.color.iconHeartEnable))
     }
 
 }
