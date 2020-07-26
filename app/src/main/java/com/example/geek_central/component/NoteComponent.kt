@@ -31,7 +31,7 @@ class NoteComponent(val view : View) {
         setMaxSeekBar(valueInital)
     }
 
-    fun setValueComponentTextNote(value : Int = 0){
+    fun setValueComponentTextNote(value : Float = 0F){
         txtNote.text = value.toString()
     }
 
