@@ -22,4 +22,10 @@
     <string name="gekiga">Gekigá</string>
     <string name="seinen">Seinen</string>
     <string name="josei">Josei</string>
+    //input layout
+    <string name="nameInput">Nome</string>
+    <string name="description_icon">Favoritar</string>
+    <string name="nameInputAuthor">Autor</string>
+    <string name="nameInputSite">Site</string>
+    <string name="save">Salvar</string>
 </resources>
