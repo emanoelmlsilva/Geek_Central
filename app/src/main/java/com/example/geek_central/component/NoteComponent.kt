@@ -14,6 +14,8 @@ class NoteComponent(val view : View) {
 
     private lateinit var constraintView : ConstraintLayout
 
+    private val valueInital = 10
+
     init{
         initView()
         setValueComponentTextNote()
@@ -25,6 +27,8 @@ class NoteComponent(val view : View) {
         txtNote = view.findViewById(R.id.txtNote)
 
         constraintView = view.findViewById(R.id.noteComponent)
+
+        setMaxSeekBar(valueInital)
     }
 
     fun setValueComponentTextNote(value : Int = 0){
@@ -36,6 +40,8 @@ class NoteComponent(val view : View) {
     fun setMaxSeekBar(maxValue : Int = 5){
         seekBarNote.max = maxValue
     }
+
+    fun getTxtNote() : TextView = txtNote
 
     fun getCard() : ConstraintLayout = constraintView
 }
