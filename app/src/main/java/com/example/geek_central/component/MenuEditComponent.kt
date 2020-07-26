@@ -50,8 +50,6 @@ class MenuEditComponent(val view : View, val objGeek: WorkGeek? = null) {
 
         title = view.findViewById(R.id.txtTitle)
 
-        title.text = objGeek?.title ?: ""
-
         componentCounteLeft = CounterComponent(view.findViewById(R.id.edit_Left))
         componentCounteLeft.setHint("Cap. Atual")
 
@@ -154,8 +152,14 @@ class MenuEditComponent(val view : View, val objGeek: WorkGeek? = null) {
 
     fun loadingObject(){
 
+        objGeek?.title?.let { title.text = it}
+        objGeek?.title?.let { inputName.editText?.setText(it) }
         objGeek?.currentGeek?.let { componentCounteLeft.setTextLayout(it) }
         objGeek?.totalGeek?.let { componentCounteRigth.setTextLayout(it) }
+        objGeek?.popular?.note?.let { note.setValueNote(it.toInt())}
+        objGeek?.author?.name?.let { inputAuthor.editText?.setText(it) }
+        objGeek?.hosted?.site?.let { inputSite.editText?.setText(it)}
+
     }
 
 }
