@@ -51,22 +51,6 @@ class RecyclerMangaAdapter(private val mangas: ArrayList<Manga>, private val con
         }
     }
 
-    private fun setIconFavorite(holder: MyViewHolder){
-        var myColor : Int = R.color.colorAccent
-
-        var myDrawable : Int
-
-        if(holder.checkFavoriteIcon) {
-            myDrawable = R.drawable.ic_favorite_black_24dp
-            myColor = iconHeartEnable
-        }else{
-            myDrawable = R.drawable.ic_favorite_border_black_24dp
-        }
-        holder.favorite.setIconResource(myDrawable)
-        holder.favorite.setIconTintResource(myColor)
-        holder.checkFavoriteIcon = !holder.checkFavoriteIcon
-    }
-
     override fun getItemCount(): Int {
         return mangas.size
     }
@@ -81,7 +65,6 @@ class RecyclerMangaAdapter(private val mangas: ArrayList<Manga>, private val con
         lateinit var edit : MaterialButton
         lateinit var delete : MaterialButton
         lateinit var note : TextView
-        var checkFavoriteIcon: Boolean = false
 
         init {
             bindView()
@@ -91,8 +74,9 @@ class RecyclerMangaAdapter(private val mangas: ArrayList<Manga>, private val con
             title.text = manga.title
             textMarkCurrent.text = manga.currentGeek.toString()
             textMarkTotal.text = manga.totalGeek.toString()
-            note.text = manga.note.toString()
-            checkFavoriteIcon  = manga.favorite!!
+            note.text = manga.popular?.note.toString()
+
+            setIconLoadingFavorite(manga.popular?.favorite!!)
 
         }
 
@@ -108,5 +92,23 @@ class RecyclerMangaAdapter(private val mangas: ArrayList<Manga>, private val con
             delete = itemView.findViewById(R.id.btnDelete)
             note = itemView.findViewById(R.id.note)
         }
+
+        private fun setIconLoadingFavorite(checkIcon: Boolean){
+
+            var myColor : Int = R.color.colorAccent
+
+            var myDrawable : Int
+
+            if(checkIcon) {
+                myDrawable = R.drawable.ic_favorite_black_24dp
+                myColor = iconHeartEnable
+            }else{
+                myDrawable = R.drawable.ic_favorite_border_black_24dp
+            }
+
+            favorite.setIconResource(myDrawable)
+            favorite.setIconTintResource(myColor)
+        }
+
     }
 }
