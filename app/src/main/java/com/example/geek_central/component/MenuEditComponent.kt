@@ -1,8 +1,5 @@
 package com.example.geek_central.component
 
-import android.annotation.SuppressLint
-import android.content.res.ColorStateList
-import android.graphics.Color
 import android.view.View
 import android.view.animation.TranslateAnimation
 import android.widget.TextView
@@ -159,7 +156,7 @@ class MenuEditComponent(val view : View, val objGeek: WorkGeek? = null) {
         objGeek?.title?.let { inputName.editText?.setText(it) }
         objGeek?.currentGeek?.let { componentCounteLeft.setTextLayout(it) }
         objGeek?.totalGeek?.let { componentCounteRigth.setTextLayout(it) }
-        objGeek?.popular?.note?.let { note.setValueNote(it.toInt())}
+        objGeek?.popular?.note?.let { setValueNote(it.toInt())}
         objGeek?.author?.name?.let { inputAuthor.editText?.setText(it) }
         objGeek?.hosted?.site?.let { inputSite.editText?.setText(it)}
 
@@ -170,4 +167,8 @@ class MenuEditComponent(val view : View, val objGeek: WorkGeek? = null) {
         if(objGeek?.popular?.favorite!!) inputName.setStartIconTintList(ContextCompat.getColorStateList(view.context,R.color.iconHeartEnable))
     }
 
+    private fun setValueNote(value : Int){
+        note.getSeekBar().progress = value
+        note.setValueComponentTextNote(value)
+    }
 }
