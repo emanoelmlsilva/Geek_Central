@@ -19,4 +19,14 @@
         <item name="android:spotShadowAlpha">0.6</item>
     </style>
 
+    <style name="AppTheme.SplashScreen" parent="AppTheme">
+        <!-- Customize your theme here. -->
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:windowDisablePreview">true</item>
+        <item name="colorPrimaryDark">@color/textBar</item>
+
+
+    </style>
+
 </resources>
