@@ -10,12 +10,17 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.geek_central.R
 import com.example.geek_central.R.color.iconHeartEnable
 import com.example.geek_central.model.Manga
+import com.example.geek_central.model.WorkGeek
+import com.example.geek_central.observer.IObserver
+import com.example.geek_central.utils.FilterSearch
 import com.example.geek_central.viewmodels.BottomSheetLiveData
 import com.google.android.material.button.MaterialButton
 
-class RecyclerMangaAdapter(private val mangas: ArrayList<Manga>, private val context: Context) :
-    RecyclerView.Adapter<RecyclerMangaAdapter.MyViewHolder>() {
+class RecyclerMangaAdapter(private var mangas: ArrayList<Manga>, private val context: Context) :
+    RecyclerView.Adapter<RecyclerMangaAdapter.MyViewHolder>(), IObserver {
 
+    private var textFilter: String = ""
+    private val copyListManga = mangas
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -38,7 +43,7 @@ class RecyclerMangaAdapter(private val mangas: ArrayList<Manga>, private val con
         addValue(holder, manga)
     }
 
-    private fun addValue(holder: MyViewHolder, myManga: Manga){
+    private fun addValue(holder: MyViewHolder, myManga: Manga) {
 
         holder.edit.setOnClickListener {
 
@@ -46,8 +51,8 @@ class RecyclerMangaAdapter(private val mangas: ArrayList<Manga>, private val con
             BottomSheetLiveData.get().showDialog()
         }
 
-        holder.favorite.setOnClickListener{
-           // setIconFavorite(holder)
+        holder.favorite.setOnClickListener {
+            // setIconFavorite(holder)
         }
     }
 
@@ -55,22 +60,33 @@ class RecyclerMangaAdapter(private val mangas: ArrayList<Manga>, private val con
         return mangas.size
     }
 
-    class MyViewHolder(itemView: View, val context: Context) : RecyclerView.ViewHolder(itemView){
+    override fun update(newText: String) {
 
-        lateinit var title : TextView
-        lateinit var author : TextView
-        lateinit var favorite : MaterialButton
-        lateinit var textMarkCurrent : TextView
-        lateinit var textMarkTotal : TextView
-        lateinit var edit : MaterialButton
-        lateinit var delete : MaterialButton
-        lateinit var note : TextView
+        textFilter = newText
+
+        val newlist = FilterSearch(mangas as ArrayList<WorkGeek>, newText).searchText()
+
+        mangas = if (newText.isEmpty()) copyListManga else newlist as ArrayList<Manga>
+
+        notifyDataSetChanged()
+    }
+
+    class MyViewHolder(itemView: View, val context: Context) : RecyclerView.ViewHolder(itemView) {
+
+        lateinit var title: TextView
+        lateinit var author: TextView
+        lateinit var favorite: MaterialButton
+        lateinit var textMarkCurrent: TextView
+        lateinit var textMarkTotal: TextView
+        lateinit var edit: MaterialButton
+        lateinit var delete: MaterialButton
+        lateinit var note: TextView
 
         init {
             bindView()
         }
 
-        fun bindDate(manga : Manga){
+        fun bindDate(manga: Manga) {
             title.text = manga.title
             textMarkCurrent.text = manga.currentGeek.toString()
             textMarkTotal.text = manga.totalGeek.toString()
@@ -81,7 +97,7 @@ class RecyclerMangaAdapter(private val mangas: ArrayList<Manga>, private val con
         }
 
         @SuppressLint("ResourceType")
-        private fun bindView(){
+        private fun bindView() {
 
             title = itemView.findViewById(R.id.title)
             author = itemView.findViewById(R.id.author)
@@ -93,16 +109,16 @@ class RecyclerMangaAdapter(private val mangas: ArrayList<Manga>, private val con
             note = itemView.findViewById(R.id.note)
         }
 
-        private fun setIconLoadingFavorite(checkIcon: Boolean){
+        private fun setIconLoadingFavorite(checkIcon: Boolean) {
 
-            var myColor : Int = R.color.colorAccent
+            var myColor: Int = R.color.colorAccent
 
-            var myDrawable : Int
+            var myDrawable: Int
 
-            if(checkIcon) {
+            if (checkIcon) {
                 myDrawable = R.drawable.ic_favorite_black_24dp
                 myColor = iconHeartEnable
-            }else{
+            } else {
                 myDrawable = R.drawable.ic_favorite_border_black_24dp
             }
 
@@ -111,4 +127,5 @@ class RecyclerMangaAdapter(private val mangas: ArrayList<Manga>, private val con
         }
 
     }
+
 }
