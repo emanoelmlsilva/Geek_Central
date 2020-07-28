@@ -1,6 +1,6 @@
 package com.example.geek_central.enums
 
-enum class TypeObjectPopular {
+enum class TypePlataform {
 
     SITE, STREAMING
 }
