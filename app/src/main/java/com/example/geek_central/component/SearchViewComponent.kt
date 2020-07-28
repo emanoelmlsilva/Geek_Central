@@ -20,15 +20,17 @@ class SearchViewComponent(private val view : View){
         btnMenu = view.findViewById(R.id.btn_pop_menu)
     }
 
-    public fun setSubmit(submit : Boolean){
+    fun setSubmit(submit : Boolean){
         this.submit = submit;
     }
 
-    public fun setHint(hint : String){
+    fun setHint(hint : String){
         searchComponent.setQuery(hint, submit)
     }
 
-    public fun getPopMenu() : MaterialButton {
+    fun getPopMenu() : MaterialButton {
         return this.btnMenu
     }
+
+    fun getSearch() : SearchView = searchComponent
 }
