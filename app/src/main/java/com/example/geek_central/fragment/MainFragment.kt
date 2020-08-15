@@ -14,6 +14,7 @@ import com.example.geek_central.adapter.ViewPageAdapter
 import com.example.geek_central.component.SearchViewComponent
 import com.example.geek_central.databinding.FragmentMainBinding
 import com.example.geek_central.enums.TypeOrderBy
+import com.example.geek_central.enums.TypeWork
 import com.example.geek_central.observer.IObservable
 import com.example.geek_central.observer.IObserver
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -33,7 +34,7 @@ class MainFragment : Fragment(), IObservable {
     private lateinit var observerHq: IObserver
 
     private var filterValue: String = ""
-    private var type: String = "manga"
+    private var type: String = TypeWork.MANGA.toString()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -100,9 +101,9 @@ class MainFragment : Fragment(), IObservable {
 
     private fun mountViewPagerWithTabs() {
         adapter = ViewPageAdapter(childFragmentManager)
-        adapter.addFragment(MangaFragment(this), resources.getString(R.string.nameManga))
-        adapter.addFragment(AnimeFragment(), resources.getString(R.string.nameAnime))
-        adapter.addFragment(HqFragment(), resources.getString(R.string.nameHq))
+        adapter.addFragment(WorkGeekFragment(this, TypeWork.MANGA.toString()), resources.getString(R.string.nameManga))
+        adapter.addFragment(WorkGeekFragment(this, TypeWork.ANIME.toString()), resources.getString(R.string.nameAnime))
+        adapter.addFragment(WorkGeekFragment(this, TypeWork.HQ.toString()), resources.getString(R.string.nameHq))
         bindBing.viewPager.adapter = adapter
         bindBing.tabs.setupWithViewPager(bindBing.viewPager)
 
@@ -130,9 +131,9 @@ class MainFragment : Fragment(), IObservable {
     override fun add(observer: IObserver, type: String) {
         this.type = type
         when (type) {
-            "manga" -> observerManga = observer
-            "anime" -> observerAnime = observer
-            "hq" -> observerHq = observer
+            TypeWork.MANGA.toString() -> observerManga = observer
+            TypeWork.ANIME.toString() -> observerAnime = observer
+            TypeWork.HQ.toString() -> observerHq = observer
         }
     }
 
@@ -143,9 +144,9 @@ class MainFragment : Fragment(), IObservable {
     override fun sendUpdate(typeOrder : Boolean) {
 
         when (type) {
-            "manga" -> observerManga.update(filterValue, typeOrder)
-            "anime" -> observerAnime.update(filterValue, typeOrder)
-            "hq" -> observerHq.update(filterValue, typeOrder)
+            TypeWork.MANGA.toString()  -> observerManga.update(filterValue, typeOrder)
+            TypeWork.ANIME.toString()  -> observerAnime.update(filterValue, typeOrder)
+            TypeWork.HQ.toString()  -> observerHq.update(filterValue, typeOrder)
 
         }
 
