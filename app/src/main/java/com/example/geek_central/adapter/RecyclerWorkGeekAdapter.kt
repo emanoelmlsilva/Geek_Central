@@ -4,11 +4,13 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.geek_central.R
 import com.example.geek_central.R.color.iconHeartEnable
+import com.example.geek_central.enums.TypeWork
 import com.example.geek_central.model.WorkGeek
 import com.example.geek_central.observer.IObserver
 import com.example.geek_central.order.OrderBy
@@ -84,12 +86,10 @@ class RecyclerWorkGeekAdapter(private var workGeeks: MutableList<WorkGeek>, priv
         lateinit var edit: MaterialButton
         lateinit var delete: MaterialButton
         lateinit var note: TextView
-        lateinit var relativeSeason: RelativeLayout
+        lateinit var linearSeason: LinearLayout
 
         init {
             bindView()
-
-            setVisibilitySeason()
         }
 
         fun bindDate(workGeek: WorkGeek) {
@@ -97,7 +97,7 @@ class RecyclerWorkGeekAdapter(private var workGeeks: MutableList<WorkGeek>, priv
             textMarkCurrent.text = workGeek.currentGeek.toString()
             textMarkTotal.text = workGeek.totalGeek.toString()
             note.text = workGeek.popular?.grade.toString()
-
+            setVisibilitySeason(workGeek.season)
             setIconLoadingFavorite(workGeek.popular?.favorite!!)
 
         }
@@ -105,7 +105,7 @@ class RecyclerWorkGeekAdapter(private var workGeeks: MutableList<WorkGeek>, priv
         private fun bindView() {
 
             title = itemView.findViewById(R.id.title)
-            season = itemView.findViewById(R.id.season)
+            season = itemView.findViewById(R.id.txtSeason)
             author = itemView.findViewById(R.id.author)
             favorite = itemView.findViewById(R.id.favorite)
             textMarkCurrent = itemView.findViewById(R.id.textMarkCurrent)
@@ -113,11 +113,21 @@ class RecyclerWorkGeekAdapter(private var workGeeks: MutableList<WorkGeek>, priv
             edit = itemView.findViewById(R.id.btnEdit)
             delete = itemView.findViewById(R.id.btnDelete)
             note = itemView.findViewById(R.id.note)
-            relativeSeason = itemView.findViewById(R.id.relativeLayoutSeason)
+            linearSeason = itemView.findViewById(R.id.linearLayoutSeason)
         }
 
-        private fun setVisibilitySeason(){
-            relativeSeason.visibility = if(season.text.isNullOrBlank()) View.VISIBLE else View.GONE
+        private fun setVisibilitySeason(txtSeason: Int?){
+
+            var visibilited = 0
+
+            if(txtSeason == null){
+                visibilited = View.GONE
+            }else{
+                visibilited = View.VISIBLE
+                season.text = txtSeason.toString()
+            }
+
+            linearSeason.visibility = visibilited
         }
 
         private fun setIconLoadingFavorite(checkIcon: Boolean) {
