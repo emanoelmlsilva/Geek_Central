@@ -23,7 +23,7 @@ class OrderBy {
 
         val comparatorOrderBy = when(typeOrder){
             TypeOrderBy.FAVORITE.toString() -> compareByDescending { it.popular?.favorite }
-            TypeOrderBy.NAME.toString() -> compareBy { it.title }
+            TypeOrderBy.TITLE.toString() -> compareBy { it.title }
             TypeOrderBy.TOTAL.toString() -> compareByDescending { it.totalGeek }
             TypeOrderBy.GRADE.toString() -> compareByDescending { it.popular?.note }
             else -> compareByDescending<WorkGeek> { it.popular?.favorite }

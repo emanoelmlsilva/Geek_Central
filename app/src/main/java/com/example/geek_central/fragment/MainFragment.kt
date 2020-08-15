@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.PopupMenu
 import android.widget.SearchView.OnQueryTextListener
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.viewpager.widget.ViewPager
 import com.example.geek_central.R
@@ -67,7 +66,7 @@ class MainFragment : Fragment(), IObservable {
                 R.id.Favorites -> {
                     filterValue = TypeOrderBy.FAVORITE.toString()
                 }
-                R.id.Name ->  filterValue = TypeOrderBy.NAME.toString()
+                R.id.Name ->  filterValue = TypeOrderBy.TITLE.toString()
                 R.id.Total ->  filterValue = TypeOrderBy.TOTAL.toString()
                 R.id.Note ->  filterValue = TypeOrderBy.GRADE.toString()
             }
