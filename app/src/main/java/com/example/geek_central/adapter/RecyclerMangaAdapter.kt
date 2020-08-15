@@ -51,9 +51,6 @@ class RecyclerMangaAdapter(private var mangas: MutableList<Manga>, private val c
             BottomSheetLiveData.get().showDialog()
         }
 
-        holder.favorite.setOnClickListener {
-            // setIconFavorite(holder)
-        }
     }
 
     override fun getItemCount(): Int {
@@ -68,7 +65,7 @@ class RecyclerMangaAdapter(private var mangas: MutableList<Manga>, private val c
 
         }else {
 
-            val newlist : List<WorkGeek> = FilterSearch(mangas , newText).searchText()
+            val newlist : List<WorkGeek> = FilterSearch(copyListManga , newText).searchText()
 
             mangas = if (newText.isNullOrBlank()) copyListManga else newlist as MutableList<Manga>
 
@@ -102,7 +99,6 @@ class RecyclerMangaAdapter(private var mangas: MutableList<Manga>, private val c
 
         }
 
-        @SuppressLint("ResourceType")
         private fun bindView() {
 
             title = itemView.findViewById(R.id.title)
