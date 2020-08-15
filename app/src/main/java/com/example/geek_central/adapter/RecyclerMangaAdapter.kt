@@ -1,15 +1,14 @@
 package com.example.geek_central.adapter
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.geek_central.R
 import com.example.geek_central.R.color.iconHeartEnable
-import com.example.geek_central.model.Manga
 import com.example.geek_central.model.WorkGeek
 import com.example.geek_central.observer.IObserver
 import com.example.geek_central.order.OrderBy
@@ -17,10 +16,10 @@ import com.example.geek_central.utils.FilterSearch
 import com.example.geek_central.viewmodels.BottomSheetLiveData
 import com.google.android.material.button.MaterialButton
 
-class RecyclerMangaAdapter(private var mangas: MutableList<Manga>, private val context: Context) :
+class RecyclerMangaAdapter(private var workGeeks: MutableList<WorkGeek>, private val context: Context) :
     RecyclerView.Adapter<RecyclerMangaAdapter.MyViewHolder>(), IObserver {
 
-    private val copyListManga = mangas
+    private val copyListWorkGeek = workGeeks
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -36,38 +35,38 @@ class RecyclerMangaAdapter(private var mangas: MutableList<Manga>, private val c
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
 
-        val manga = mangas[position]
+        val workGeek = workGeeks[position]
 
-        holder.bindDate(manga)
+        holder.bindDate(workGeek)
 
-        addValue(holder, manga)
+        addValue(holder, workGeek)
     }
 
-    private fun addValue(holder: MyViewHolder, myManga: Manga) {
+    private fun addValue(holder: MyViewHolder, myWorkGeek: WorkGeek) {
 
         holder.edit.setOnClickListener {
 
-            BottomSheetLiveData.get().setObjetWorkGeek(myManga)
+            BottomSheetLiveData.get().setObjetWorkGeek(myWorkGeek)
             BottomSheetLiveData.get().showDialog()
         }
 
     }
 
     override fun getItemCount(): Int {
-        return mangas.size
+        return workGeeks.size
     }
 
-    override fun update(newText: String,  typeOrder : Boolean) {
+    override fun update(filter: String,  typeOrder : Boolean) {
 
         if(typeOrder){
 
-            mangas = OrderBy.get().ordeBy(newText, mangas) as MutableList<Manga>
+            workGeeks = OrderBy.get().ordeBy(filter, workGeeks) as MutableList<WorkGeek>
 
         }else {
 
-            val newlist : List<WorkGeek> = FilterSearch(copyListManga , newText).searchText()
+            val newlist : List<WorkGeek> = FilterSearch(copyListWorkGeek , filter).searchText()
 
-            mangas = if (newText.isNullOrBlank()) copyListManga else newlist as MutableList<Manga>
+            workGeeks = if (filter.isNullOrBlank()) copyListWorkGeek else newlist as MutableList<WorkGeek>
 
         }
 
@@ -77,6 +76,7 @@ class RecyclerMangaAdapter(private var mangas: MutableList<Manga>, private val c
     class MyViewHolder(itemView: View, val context: Context) : RecyclerView.ViewHolder(itemView) {
 
         lateinit var title: TextView
+        lateinit var season: TextView
         lateinit var author: TextView
         lateinit var favorite: MaterialButton
         lateinit var textMarkCurrent: TextView
@@ -84,24 +84,28 @@ class RecyclerMangaAdapter(private var mangas: MutableList<Manga>, private val c
         lateinit var edit: MaterialButton
         lateinit var delete: MaterialButton
         lateinit var note: TextView
+        lateinit var relativeSeason: RelativeLayout
 
         init {
             bindView()
+
+            setVisibilitySeason()
         }
 
-        fun bindDate(manga: Manga) {
-            title.text = manga.title
-            textMarkCurrent.text = manga.currentGeek.toString()
-            textMarkTotal.text = manga.totalGeek.toString()
-            note.text = manga.popular?.grade.toString()
+        fun bindDate(workGeek: WorkGeek) {
+            title.text = workGeek.title
+            textMarkCurrent.text = workGeek.currentGeek.toString()
+            textMarkTotal.text = workGeek.totalGeek.toString()
+            note.text = workGeek.popular?.grade.toString()
 
-            setIconLoadingFavorite(manga.popular?.favorite!!)
+            setIconLoadingFavorite(workGeek.popular?.favorite!!)
 
         }
 
         private fun bindView() {
 
             title = itemView.findViewById(R.id.title)
+            season = itemView.findViewById(R.id.season)
             author = itemView.findViewById(R.id.author)
             favorite = itemView.findViewById(R.id.favorite)
             textMarkCurrent = itemView.findViewById(R.id.textMarkCurrent)
@@ -109,6 +113,11 @@ class RecyclerMangaAdapter(private var mangas: MutableList<Manga>, private val c
             edit = itemView.findViewById(R.id.btnEdit)
             delete = itemView.findViewById(R.id.btnDelete)
             note = itemView.findViewById(R.id.note)
+            relativeSeason = itemView.findViewById(R.id.relativeLayoutSeason)
+        }
+
+        private fun setVisibilitySeason(){
+            relativeSeason.visibility = if(season.text.isNullOrBlank()) View.VISIBLE else View.GONE
         }
 
         private fun setIconLoadingFavorite(checkIcon: Boolean) {
