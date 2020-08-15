@@ -4,17 +4,22 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView.AdapterDataObserver
 import com.example.geek_central.adapter.RecyclerMangaAdapter
 import com.example.geek_central.databinding.FragmentMangaBinding
+import com.example.geek_central.enums.TypeOrderBy
 import com.example.geek_central.enums.TypePlataform
 import com.example.geek_central.model.Author
 import com.example.geek_central.model.Hosted
 import com.example.geek_central.model.Manga
 import com.example.geek_central.model.Popular
 import com.example.geek_central.observer.IObservable
+import com.example.geek_central.order.OrderBy
 import kotlinx.android.synthetic.main.fragment_manga.*
+
 
 class MangaFragment(mainFragment: MainFragment) : Fragment() {
 
@@ -27,11 +32,12 @@ class MangaFragment(mainFragment: MainFragment) : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         val viewBinding = FragmentMangaBinding.inflate(layoutInflater, container, false)
-
         return viewBinding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
+        txtMessageEmpty.text =  "${txtMessageEmpty.text} Mangás"
 
         if(list.size == 0) {
             list.add(
@@ -91,6 +97,8 @@ class MangaFragment(mainFragment: MainFragment) : Fragment() {
             )
         }
 
+        list = OrderBy.get().ordeBy(TypeOrderBy.TITLE.toString(), list) as MutableList<Manga>
+
         val adapterManga =  RecyclerMangaAdapter(list, this.requireContext())
 
         recycler_manga.layoutManager = LinearLayoutManager(context)
@@ -98,6 +106,17 @@ class MangaFragment(mainFragment: MainFragment) : Fragment() {
 
 
         iOBservable.add(adapterManga, "manga")
+
+        adapterManga.registerAdapterDataObserver(object : AdapterDataObserver() {
+            override fun onChanged() {
+                super.onChanged()
+                if(adapterManga.itemCount == 0){
+                    txtMessageEmpty.visibility =  View.VISIBLE
+                }else {
+                    txtMessageEmpty.visibility =  View.GONE
+                }
+            }
+        })
 
     }
 
