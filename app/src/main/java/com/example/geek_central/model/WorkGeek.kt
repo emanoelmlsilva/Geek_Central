@@ -1,11 +1,14 @@
 package com.example.geek_central.model
 
-interface WorkGeek {
-    var title: String?
-    var currentGeek: Int?
-    var totalGeek: Int?
-    var categories: MutableList<String>?
-    var author: Author?
-    var popular: Popular?
-    var hosted: Hosted?
+class WorkGeek(
+    var title: String? = null,
+    var currentGeek: Int? = null,
+    var season: Int? = null,
+    var totalGeek: Int? = null,
+    var categories: MutableList<String>? = null,
+    var author: Author? = null,
+    var popular: Popular? = null,
+    var hosted: Hosted? = null
+) {
+
 }
