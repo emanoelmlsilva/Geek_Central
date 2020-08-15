@@ -18,7 +18,7 @@ import kotlinx.android.synthetic.main.fragment_manga.*
 
 class MangaFragment(mainFragment: MainFragment) : Fragment() {
 
-    var list = ArrayList<Manga>()
+    var list : MutableList<Manga> = ArrayList()
     private var iOBservable : IObservable = mainFragment
 
     override fun onCreateView(
