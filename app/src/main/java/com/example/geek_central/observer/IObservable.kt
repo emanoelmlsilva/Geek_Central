@@ -6,6 +6,6 @@ interface IObservable {
 
     fun remove(observer: IObserver)
 
-    fun sendUpdate()
+    fun sendUpdate(TypeOrder : Boolean = false)
 
 }
