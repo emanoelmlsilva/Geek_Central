@@ -12,14 +12,14 @@ import com.example.geek_central.R.color.iconHeartEnable
 import com.example.geek_central.model.Manga
 import com.example.geek_central.model.WorkGeek
 import com.example.geek_central.observer.IObserver
+import com.example.geek_central.order.OrderBy
 import com.example.geek_central.utils.FilterSearch
 import com.example.geek_central.viewmodels.BottomSheetLiveData
 import com.google.android.material.button.MaterialButton
 
-class RecyclerMangaAdapter(private var mangas: ArrayList<Manga>, private val context: Context) :
+class RecyclerMangaAdapter(private var mangas: MutableList<Manga>, private val context: Context) :
     RecyclerView.Adapter<RecyclerMangaAdapter.MyViewHolder>(), IObserver {
 
-    private var textFilter: String = ""
     private val copyListManga = mangas
 
     override fun onCreateViewHolder(
@@ -60,13 +60,19 @@ class RecyclerMangaAdapter(private var mangas: ArrayList<Manga>, private val con
         return mangas.size
     }
 
-    override fun update(newText: String) {
+    override fun update(newText: String,  typeOrder : Boolean) {
 
-        textFilter = newText
+        if(typeOrder){
 
-        val newlist = FilterSearch(mangas as ArrayList<WorkGeek>, newText).searchText()
+            mangas = OrderBy.get().ordeBy(newText, mangas) as MutableList<Manga>
 
-        mangas = if (newText.isEmpty()) copyListManga else newlist as ArrayList<Manga>
+        }else {
+
+            val newlist : List<WorkGeek> = FilterSearch(mangas , newText).searchText()
+
+            mangas = if (newText.isNullOrBlank()) copyListManga else newlist as MutableList<Manga>
+
+        }
 
         notifyDataSetChanged()
     }
