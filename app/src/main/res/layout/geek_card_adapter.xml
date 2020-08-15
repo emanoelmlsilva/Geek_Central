@@ -119,13 +119,44 @@
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout"
         app:layout_constraintVertical_bias="0.56">
 
-        <TextView
-            android:id="@+id/btnMarkCurrent"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:background="@drawable/ic_bookmark_black_24dp"
+        <LinearLayout
+            android:id="@+id/linearLayoutSeason"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:foregroundGravity="center"
+            android:gravity="center"
+            android:visibility="visible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/season"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="T"
+                android:textColor="#4b4b4b"
+                android:textSize="22sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/txtSeason"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxLength="4"
+                android:paddingLeft="2dp"
+                android:text="3" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/btnMarkCurrent"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:background="@drawable/ic_bookmark_black_24dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/linearLayoutSeason"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
@@ -140,7 +171,7 @@
 
         <TextView
             android:id="@+id/btnMarkTotal"
-            android:layout_width="25dp"
+            android:layout_width="0dp"
             android:layout_height="25dp"
             android:layout_marginStart="8dp"
             android:background="@drawable/ic_import_contacts_black_24dp"
