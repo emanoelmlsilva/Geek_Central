@@ -16,8 +16,8 @@ import com.example.geek_central.utils.FilterSearch
 import com.example.geek_central.viewmodels.BottomSheetLiveData
 import com.google.android.material.button.MaterialButton
 
-class RecyclerMangaAdapter(private var workGeeks: MutableList<WorkGeek>, private val context: Context) :
-    RecyclerView.Adapter<RecyclerMangaAdapter.MyViewHolder>(), IObserver {
+class RecyclerWorkGeekAdapter(private var workGeeks: MutableList<WorkGeek>, private val context: Context) :
+    RecyclerView.Adapter<RecyclerWorkGeekAdapter.MyViewHolder>(), IObserver {
 
     private val copyListWorkGeek = workGeeks
 
