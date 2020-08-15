@@ -120,13 +120,13 @@
         app:layout_constraintVertical_bias="0.56">
 
         <LinearLayout
-            android:id="@+id/relativeLayoutSeason"
+            android:id="@+id/linearLayoutSeason"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="4dp"
             android:foregroundGravity="center"
             android:gravity="center"
-            android:visibility="gone"
+            android:visibility="visible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -137,13 +137,15 @@
                 android:layout_height="wrap_content"
                 android:text="T"
                 android:textColor="#4b4b4b"
-                android:textSize="24sp" />
+                android:textSize="22sp"
+                android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/textSeason"
+                android:id="@+id/txtSeason"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:maxLength="4"
+                android:paddingLeft="2dp"
                 android:text="3" />
         </LinearLayout>
 
@@ -151,10 +153,10 @@
             android:id="@+id/btnMarkCurrent"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
+            android:layout_marginStart="4dp"
             android:background="@drawable/ic_bookmark_black_24dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/relativeLayoutSeason"
+            app:layout_constraintStart_toEndOf="@+id/linearLayoutSeason"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
