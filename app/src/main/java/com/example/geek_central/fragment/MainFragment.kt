@@ -7,13 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.PopupMenu
 import android.widget.SearchView.OnQueryTextListener
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.viewpager.widget.ViewPager
 import com.example.geek_central.R
 import com.example.geek_central.adapter.ViewPageAdapter
 import com.example.geek_central.component.SearchViewComponent
 import com.example.geek_central.databinding.FragmentMainBinding
+import com.example.geek_central.enums.TypeOrderBy
 import com.example.geek_central.observer.IObservable
 import com.example.geek_central.observer.IObserver
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -63,11 +63,15 @@ class MainFragment : Fragment(), IObservable {
 
         popup.setOnMenuItemClickListener(PopupMenu.OnMenuItemClickListener { item: MenuItem? ->
             when (item!!.itemId) {
-                R.id.Favorites -> Toast.makeText(context, "Favorito", Toast.LENGTH_SHORT).show();
-                R.id.Name -> Toast.makeText(context, "Nome", Toast.LENGTH_SHORT).show();
-                R.id.Total -> Toast.makeText(context, "Tota", Toast.LENGTH_SHORT).show();
-                R.id.Note -> Toast.makeText(context, "Nota", Toast.LENGTH_SHORT).show();
+                R.id.Favorites -> {
+                    filterValue = TypeOrderBy.FAVORITE.toString()
+                }
+                R.id.Name ->  filterValue = TypeOrderBy.TITLE.toString()
+                R.id.Total ->  filterValue = TypeOrderBy.TOTAL.toString()
+                R.id.Note ->  filterValue = TypeOrderBy.GRADE.toString()
             }
+
+            sendUpdate(true)
 
             true
         })
@@ -87,7 +91,7 @@ class MainFragment : Fragment(), IObservable {
 
             override fun onQueryTextChange(newText: String): Boolean {
                 filterValue = newText
-                sendUpdate()
+                sendUpdate(false)
                 return false
             }
         })
@@ -136,12 +140,12 @@ class MainFragment : Fragment(), IObservable {
 
     }
 
-    override fun sendUpdate() {
+    override fun sendUpdate(typeOrder : Boolean) {
 
         when (type) {
-            "manga" -> observerManga.update(filterValue)
-            "anime" -> observerAnime.update(filterValue)
-            "hq" -> observerHq.update(filterValue)
+            "manga" -> observerManga.update(filterValue, typeOrder)
+            "anime" -> observerAnime.update(filterValue, typeOrder)
+            "hq" -> observerHq.update(filterValue, typeOrder)
 
         }
 

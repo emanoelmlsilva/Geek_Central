@@ -167,7 +167,7 @@ class MenuEditComponent(val view: View, val objGeek: WorkGeek? = null) {
         objGeek?.title?.let { inputName.editText?.setText(it) }
         objGeek?.currentGeek?.let { componentCounteLeft.setTextLayout(it) }
         objGeek?.totalGeek?.let { componentCounteRigth.setTextLayout(it) }
-        objGeek?.popular?.note?.let { setValueNote(it.toFloat()) }
+        objGeek?.popular?.grade?.let { setValueNote(it.toFloat()) }
         objGeek?.author?.name?.let { inputAuthor.editText?.setText(it) }
         objGeek?.hosted?.site?.let { inputSite.editText?.setText(it) }
 
