@@ -25,7 +25,7 @@ class OrderBy {
             TypeOrderBy.FAVORITE.toString() -> compareByDescending { it.popular?.favorite }
             TypeOrderBy.TITLE.toString() -> compareBy { it.title }
             TypeOrderBy.TOTAL.toString() -> compareByDescending { it.totalGeek }
-            TypeOrderBy.GRADE.toString() -> compareByDescending { it.popular?.note }
+            TypeOrderBy.GRADE.toString() -> compareByDescending { it.popular?.grade }
             else -> compareByDescending<WorkGeek> { it.popular?.favorite }
         }
 

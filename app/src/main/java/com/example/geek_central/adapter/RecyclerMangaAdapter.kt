@@ -96,7 +96,7 @@ class RecyclerMangaAdapter(private var mangas: MutableList<Manga>, private val c
             title.text = manga.title
             textMarkCurrent.text = manga.currentGeek.toString()
             textMarkTotal.text = manga.totalGeek.toString()
-            note.text = manga.popular?.note.toString()
+            note.text = manga.popular?.grade.toString()
 
             setIconLoadingFavorite(manga.popular?.favorite!!)
 
