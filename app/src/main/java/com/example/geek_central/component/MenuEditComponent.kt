@@ -1,10 +1,12 @@
 package com.example.geek_central.component
 
+import android.graphics.drawable.Drawable
 import android.view.View
 import android.view.animation.TranslateAnimation
 import android.widget.SeekBar
 import android.widget.SeekBar.OnSeekBarChangeListener
 import android.widget.TextView
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import com.example.geek_central.R
 import com.example.geek_central.enums.TypeMethodMath
@@ -175,12 +177,26 @@ class MenuEditComponent(val view: View, val objGeek: WorkGeek? = null) {
     }
 
     private fun setIconFavorite() {
-        if (objGeek?.popular?.favorite!!) inputName.setStartIconTintList(
+
+        var myDrawable: Drawable = view.resources.getDrawable(R.drawable.ic_favorite_border_black_24dp, null)
+        var iconColor =  R.color.colorAccent
+
+        val favorite = objGeek?.popular!!.favorite
+
+        if (favorite) {
+            iconColor = R.color.iconHeartEnable
+            myDrawable = view.resources.getDrawable(R.drawable.ic_favorite_black_24dp, null)
+        }
+
+        inputName.startIconDrawable = myDrawable
+
+        inputName.setStartIconTintList(
             ContextCompat.getColorStateList(
                 view.context,
-                R.color.iconHeartEnable
+                iconColor
             )
         )
+
     }
 
     private fun setValueNote(value: Float) {
@@ -209,5 +225,16 @@ class MenuEditComponent(val view: View, val objGeek: WorkGeek? = null) {
 
             }
         })
+
+        inputName.setStartIconOnClickListener{
+
+            objGeek?.popular!!.favorite = !objGeek.popular!!.favorite
+
+            setIconFavorite()
+
+
+        }
     }
+
+
 }
