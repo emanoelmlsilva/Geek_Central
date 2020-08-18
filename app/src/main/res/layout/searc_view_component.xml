@@ -19,7 +19,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="5dp"
             android:background="@android:color/background_light"
-            android:iconifiedByDefault="false"
+            android:iconifiedByDefault="true"
             android:paddingTop="4dp"
             android:queryHint="@string/message_search"
             app:layout_constraintBottom_toBottomOf="parent"

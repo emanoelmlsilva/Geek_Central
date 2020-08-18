@@ -63,10 +63,9 @@ class MainFragment : Fragment(), IObservable {
         popup!!.inflate(R.menu.header_menu)
 
         popup.setOnMenuItemClickListener(PopupMenu.OnMenuItemClickListener { item: MenuItem? ->
+
             when (item!!.itemId) {
-                R.id.Favorites -> {
-                    filterValue = TypeOrderBy.FAVORITE.toString()
-                }
+                R.id.Favorites -> filterValue = TypeOrderBy.FAVORITE.toString()
                 R.id.Name ->  filterValue = TypeOrderBy.TITLE.toString()
                 R.id.Total ->  filterValue = TypeOrderBy.TOTAL.toString()
                 R.id.Note ->  filterValue = TypeOrderBy.GRADE.toString()
@@ -117,6 +116,12 @@ class MainFragment : Fragment(), IObservable {
                 positionOffset: Float,
                 positionOffsetPixels: Int
             ) {
+                type = when(position){
+                    0 -> TypeWork.MANGA.toString()
+                    1 -> TypeWork.ANIME.toString()
+                    2 -> TypeWork.HQ.toString()
+                    else -> TypeWork.MANGA.toString()
+                }
 
             }
 

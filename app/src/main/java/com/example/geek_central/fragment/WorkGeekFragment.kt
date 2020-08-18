@@ -193,11 +193,40 @@ class WorkGeekFragment(mainFragment: MainFragment, private val typeWork: String)
         if(listHq.size == 0) {
             listHq.add(
                 WorkGeek(
+                    title = "Vagabond",
+                    currentGeek = 40,
+                    totalGeek = 327,
+                    author = Author("Echiro Oda"),
+                    popular = Popular(4.0, false),
+                    hosted = Hosted(
+                        "unionmangas.top/perfil-manga/one-piece",
+                        TypePlataform.SITE.toString()
+                    )
+                )
+            )
+            listHq.add(
+                WorkGeek(
                     title = "One Piece",
                     currentGeek = 824,
                     totalGeek = 977,
                     author = Author("Echiro Oda"),
                     popular = Popular(5.0, true),
+                    hosted = Hosted(
+                        "unionmangas.top/perfil-manga/one-piece",
+                        TypePlataform.SITE.toString()
+                    )
+                )
+            )
+
+
+
+            listHq.add(
+                WorkGeek(
+                    title = "Berserk",
+                    currentGeek = 365,
+                    totalGeek = 654,
+                    author = Author("Echiro Oda"),
+                    popular = Popular(3.5, false),
                     hosted = Hosted(
                         "unionmangas.top/perfil-manga/one-piece",
                         TypePlataform.SITE.toString()
