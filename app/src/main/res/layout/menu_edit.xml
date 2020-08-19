@@ -82,7 +82,7 @@
         app:layout_constraintTop_toBottomOf="@+id/edit_Left" />
 
     <include
-        android:id="@+id/season"
+        android:id="@+id/seasonIncludeMenu"
         layout="@layout/season_component"
         android:layout_width="0dp"
         android:layout_height="0dp"
