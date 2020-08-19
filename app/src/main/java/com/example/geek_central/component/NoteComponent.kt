@@ -3,6 +3,7 @@ package com.example.geek_central.component
 import android.view.View
 import android.widget.SeekBar
 import android.widget.TextView
+import androidx.cardview.widget.CardView
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.example.geek_central.R
 
@@ -22,6 +23,7 @@ class NoteComponent(val view : View) {
     }
 
     private fun initView(){
+
         seekBarNote = view.findViewById(R.id.seekBarNote)
 
         txtNote = view.findViewById(R.id.txtNote)
@@ -43,5 +45,5 @@ class NoteComponent(val view : View) {
 
     fun getTxtNote() : TextView = txtNote
 
-    fun getCard() : ConstraintLayout = constraintView
+    fun getCard() : View = view
 }
