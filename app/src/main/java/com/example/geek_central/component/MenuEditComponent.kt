@@ -63,7 +63,7 @@ class MenuEditComponent(val view: View, val objGeek: WorkGeek? = null) {
         componentCounteRigth = CounterComponent(view.findViewById(R.id.edit_Rigth))
         componentCounteRigth.setHint("Cap. Total")
 
-        note = NoteComponent(view.findViewById(R.id.noteComponent))
+        note = NoteComponent(view.findViewById(R.id.noteIncludeMenu))
 
         categories = CategoriesComponent(view.findViewById(R.id.categoriesComponent))
 
