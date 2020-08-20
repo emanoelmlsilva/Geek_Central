@@ -46,7 +46,7 @@ class BottomSheetLiveData(val context: Context? = null, var objGeek: WorkGeek? =
 
     private fun initComponets(){
 
-        menuEdit = MenuEditComponent(myView, this.objGeek!!)
+        menuEdit = MenuEditComponent(myView.findViewById(R.id.includeEditMenu), this.objGeek!!)
     }
 
     private fun setBottomSheetScreenAll() {

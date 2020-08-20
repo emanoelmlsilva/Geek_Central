@@ -22,7 +22,7 @@
             android:layout_marginStart="5dp"
             android:layout_marginTop="5dp"
             android:text="Nota"
-            android:textSize="18sp"
+            android:textSize="14sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -53,7 +53,7 @@
             android:foregroundGravity="center"
             app:cardBackgroundColor="#F6F6F6"
             app:cardCornerRadius="4dp"
-            app:cardElevation="6dp"
+            app:cardElevation="2dp"
             app:layout_constraintBottom_toBottomOf="@+id/seekBarNote"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/seekBarNote"
