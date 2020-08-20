@@ -9,11 +9,15 @@ class SeasonComponent (val view : View){
 
     private lateinit var spinner : Spinner
     private lateinit var listItem : MutableList<String>
+    private val limitItemList : Int = 100
 
     init{
         initView()
 
         setItemSpinner()
+
+        mountItemList()
+
     }
 
     private fun initView(){
@@ -22,28 +26,29 @@ class SeasonComponent (val view : View){
 
         listItem = mutableListOf("default")
 
-        setList()
-
         ArrayAdapter(view.context, android.R.layout.simple_spinner_item, listItem)
             .also { adapter -> adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
                 spinner.adapter = adapter
             }
     }
 
-    private fun mountItemList(count : Int){
-        for(item in 1..count){
+    private fun mountItemList(){
+        for(item in 1..limitItemList){
             listItem.add(item, item.toString())
         }
     }
 
     fun getSpinner() : Spinner = spinner
 
-    fun setItemSpinner(itemPostion : Int = 0){
-        spinner.setSelection(itemPostion)
-    }
+    fun setItemSpinner(item : String = "default"){
+        for(index in 0..limitItemList){
+            if(item.equals(spinner.adapter.getItem(index).toString())) {
 
-    fun setList(newCountItem : Int = 5){
-        mountItemList(newCountItem)
+                spinner.setSelection(index)
+                break
+            }
+        }
+
     }
 
     fun getCard() : View = view
