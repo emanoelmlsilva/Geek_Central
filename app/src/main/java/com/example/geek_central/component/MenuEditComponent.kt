@@ -27,6 +27,8 @@ class MenuEditComponent(val view: View, val objGeek: WorkGeek? = null) {
 
     private lateinit var note: NoteComponent
 
+    private lateinit var season : SeasonComponent
+
     private lateinit var categories: CategoriesComponent
 
     private lateinit var inputAuthor: TextInputLayout
@@ -41,6 +43,10 @@ class MenuEditComponent(val view: View, val objGeek: WorkGeek? = null) {
     init {
 
         initView()
+
+        if(objGeek!!.season != null) {
+            season.setItemSpinner(objGeek.season.toString())
+        }
 
         clickButtons(componentCounteLeft)
         clickButtons(componentCounteRigth)
@@ -65,6 +71,8 @@ class MenuEditComponent(val view: View, val objGeek: WorkGeek? = null) {
 
         note = NoteComponent(view.findViewById(R.id.noteIncludeMenu))
 
+        if(objGeek!!.season != null) season = SeasonComponent(view.findViewById(R.id.seasonIncludeMenu))
+
         categories = CategoriesComponent(view.findViewById(R.id.categoriesComponent))
 
         inputName = view.findViewById(R.id.inputLayoutName)
@@ -80,10 +88,19 @@ class MenuEditComponent(val view: View, val objGeek: WorkGeek? = null) {
     private fun visibiliteEditMinExtend() {
 
         //transation slide up/down view title
-        title.visibility = if (status < 0.0006F) View.VISIBLE else View.GONE
+        title.visibility = if (status < 0.002F) View.VISIBLE else View.GONE
 
         //set visibility components
+
+        setVisibilite(inputName)
+
         setVisibilite(note.getCard())
+
+        if(objGeek!!.season != null){
+
+            setVisibilite(season.getCard())
+
+        }
 
         setVisibilite(categories.getCard())
 
@@ -91,31 +108,13 @@ class MenuEditComponent(val view: View, val objGeek: WorkGeek? = null) {
 
         setVisibilite(inputSite)
 
-        setVisibilite(inputName)
-
-        //set slide animation component
-
-        slideUp(title)
-
-        if (status == 0.0f) slideUp(inputName, toX = view.width.toFloat()) else slideUp(inputName)
-
-        slideUp(note.getCard())
-
-        slideUp(categories.getCard())
-
-        slideUp(inputAuthor)
-
-        slideUp(inputSite)
-
-        slideUp(btnSave)
-
 
     }
 
 
     private fun setVisibilite(myView: View) {
 
-        if (status == 0.0F) {
+        if (status <= 0.12) {
             myView.visibility = View.GONE
         } else {
             myView.visibility = View.VISIBLE
@@ -125,9 +124,31 @@ class MenuEditComponent(val view: View, val objGeek: WorkGeek? = null) {
     fun setStatus(statusUpdate: Float) {
         status = statusUpdate
         visibiliteEditMinExtend()
+        animationSlide()
     }
 
-    fun slideUp(
+    private fun animationSlide(){
+
+        //set slide animation component
+
+        slideUp(title)
+
+        if (status == 0.0f) slideUp(inputName, toX = view.width.toFloat()) else slideUp(inputName)
+
+        slideUp(note.getCard(), toX = view.width.toFloat() - (status * 1080))
+
+        if(objGeek!!.season != null) slideUp(season.getCard(), toX = view.width.toFloat() - (status * 1080))
+
+        slideUp(categories.getCard())
+
+        slideUp(inputAuthor)
+
+        slideUp(inputSite)
+
+        slideUp(btnSave)
+    }
+
+    private fun slideUp(
         myView: View,
         fromX: Float = myView.width.toFloat() - (status * 1000),
         toX: Float = 0F,
