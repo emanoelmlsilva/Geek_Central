@@ -7,7 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.PopupMenu
 import android.widget.SearchView.OnQueryTextListener
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.viewpager.widget.ViewPager
 import com.example.geek_central.R
 import com.example.geek_central.adapter.ViewPageAdapter
@@ -34,7 +36,7 @@ class MainFragment : Fragment(), IObservable {
     private lateinit var observerHq: IObserver
 
     private var filterValue: String = ""
-    private var type: String = TypeWork.MANGA.toString()
+    private lateinit var type: String
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -96,6 +98,18 @@ class MainFragment : Fragment(), IObservable {
             }
         })
 
+        bindBing.floatingActionButton.setOnClickListener{
+           navToRegister()
+
+        }
+
+    }
+
+    private fun navToRegister() {
+
+        var bundle = bundleOf("type" to type)
+
+        findNavController().navigate(R.id.action_mainFragment_to_registerFragment, bundle)
     }
 
     private fun mountViewPagerWithTabs() {
@@ -109,6 +123,7 @@ class MainFragment : Fragment(), IObservable {
         bindBing.viewPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
 
             override fun onPageScrollStateChanged(state: Int) {
+
             }
 
             override fun onPageScrolled(
@@ -116,17 +131,11 @@ class MainFragment : Fragment(), IObservable {
                 positionOffset: Float,
                 positionOffsetPixels: Int
             ) {
-                type = when(position){
-                    0 -> TypeWork.MANGA.toString()
-                    1 -> TypeWork.ANIME.toString()
-                    2 -> TypeWork.HQ.toString()
-                    else -> TypeWork.MANGA.toString()
-                }
+                setTypeFromPosition(position)
 
             }
 
             override fun onPageSelected(position: Int) {
-
             }
 
         })
@@ -157,4 +166,12 @@ class MainFragment : Fragment(), IObservable {
 
     }
 
+    private fun setTypeFromPosition(position: Int){
+        type = when(position){
+            0 -> TypeWork.MANGA.toString()
+            1 -> TypeWork.ANIME.toString()
+            2 -> TypeWork.HQ.toString()
+            else -> TypeWork.MANGA.toString()
+        }
+    }
 }
