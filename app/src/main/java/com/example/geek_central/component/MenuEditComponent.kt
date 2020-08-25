@@ -170,17 +170,11 @@ class MenuEditComponent(val view: View, val objGeek: WorkGeek? = null) {
 
     fun clickButtons(componentDefault: CounterComponent) {
 
-        componentDefault.getBtnAdd().setOnClickListener {
-            componentDefault.valueMoreLess(TypeMethodMath.SUM.toString())
-        }
+        componentDefault.setLessValue()
 
-        componentDefault.getBtnDel().setOnClickListener {
-            componentDefault.valueMoreLess(TypeMethodMath.SUB.toString())
-        }
+        componentDefault.setMoreValue()
 
-        componentDefault.getInputLayout().setOnClickListener {
-            componentDefault.valueMoreLess(TypeMethodMath.SET.toString())
-        }
+        componentDefault.setInputLayoutValue()
 
     }
 
