@@ -9,5 +9,35 @@
         android:id="@+id/mainFragment"
         android:name="com.example.geek_central.fragment.MainFragment"
         android:label="fragment_main"
-        tools:layout="@layout/fragment_main" />
+        tools:layout="@layout/fragment_main" >
+        <action
+            android:id="@+id/action_mainFragment_to_workGeekFragment"
+            app:destination="@id/workGeekFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_registerFragment"
+            app:destination="@id/registerFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/workGeekFragment"
+        android:name="com.example.geek_central.fragment.WorkGeekFragment"
+        android:label="fragment_workgeek"
+        tools:layout="@layout/fragment_workgeek" >
+        <action
+            android:id="@+id/action_workGeekFragment_to_informationFragment2"
+            app:destination="@id/informationFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/registerFragment"
+        android:name="com.example.geek_central.fragment.RegisterFragment"
+        android:label="fragment_register"
+        tools:layout="@layout/fragment_register" >
+        <action
+            android:id="@+id/action_registerFragment_to_mainFragment"
+            app:destination="@id/mainFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/informationFragment"
+        android:name="com.example.geek_central.fragment.InformationFragment"
+        android:label="fragment_information"
+        tools:layout="@layout/fragment_information" />
 </navigation>
