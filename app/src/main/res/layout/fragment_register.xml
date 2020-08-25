@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".fragment.RegisterFragment">
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/linearLayout2"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:elevation="8dp"
+            android:gravity="center_vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <Button
+                android:id="@+id/btnClose"
+                style="@style/Widget.MaterialComponents.Button.UnelevatedButton.Icon"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:layout_marginStart="16dp"
+                android:background="@drawable/round_button"
+                android:elevation="6dp"
+                android:shadowColor="@color/colorAccent"
+                app:icon="@drawable/ic_baseline_clear_24"
+                app:iconGravity="textEnd"
+                app:iconPadding="4dp"
+                app:layout_constraintBottom_toTopOf="@+id/viewDivider"
+                app:layout_constraintEnd_toStartOf="@+id/txtTitle"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:rippleColor="@color/colorPrimary" />
+
+
+            <TextView
+                android:id="@+id/txtTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:foregroundGravity="center"
+                android:gravity="center"
+                android:text="Cadastrar"
+                android:textColor="@color/textBar"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:typeface="normal"
+                android:verticalScrollbarPosition="defaultPosition"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <View
+                android:id="@+id/viewDivider"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorPrimaryDark"
+                app:layout_constraintBottom_toBottomOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/inputLayoutNameRegister"
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            app:boxStrokeColor="@color/textBar"
+            app:hintTextColor="@color/buttonBackground"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
+            app:startIconContentDescription="@string/description_icon"
+            app:startIconDrawable="@drawable/ic_favorite_black_24dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/colorPrimary"
+                android:hint="@string/nameInput"
+                android:lines="1"
+                android:maxLines="1"
+                android:singleLine="true" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <include
+            android:id="@+id/edit_LeftRegister"
+            layout="@layout/counter_component"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="4dp"
+            app:layout_constraintEnd_toStartOf="@+id/guideline"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/inputLayoutNameRegister" />
+
+        <include
+            android:id="@+id/edit_RigthRegister"
+            layout="@layout/counter_component"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintBottom_toBottomOf="@+id/edit_LeftRegister"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/guideline"
+            app:layout_constraintTop_toTopOf="@+id/edit_LeftRegister" />
+
+        <include
+            android:id="@+id/noteIncludeMenuRegister"
+            layout="@layout/note_component"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintEnd_toEndOf="@+id/edit_LeftRegister"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/edit_LeftRegister" />
+
+        <include
+            android:id="@+id/seasonIncludeMenuRegister"
+            layout="@layout/season_component"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="8dp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@+id/noteIncludeMenuRegister"
+            app:layout_constraintEnd_toEndOf="@+id/edit_RigthRegister"
+            app:layout_constraintStart_toStartOf="@+id/edit_RigthRegister"
+            app:layout_constraintTop_toBottomOf="@+id/edit_RigthRegister"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <include
+            android:id="@+id/categorisRegister"
+            layout="@layout/categories_component"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/noteIncludeMenuRegister" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/inputLayoutAuthorRegister"
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            app:boxStrokeColor="@color/textBar"
+            app:hintTextColor="@color/buttonBackground"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/categorisRegister">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/colorPrimary"
+                android:hint="@string/nameInputAuthor"
+                android:lines="1"
+                android:maxLines="1"
+                android:singleLine="true" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/inputLayoutSiteRegister"
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            app:boxStrokeColor="@color/textBar"
+            app:hintTextColor="@color/buttonBackground"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/inputLayoutAuthorRegister">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:backgroundTint="@color/colorPrimary"
+                android:hint="@string/nameInputSite"
+                android:lines="1"
+                android:maxLines="1"
+                android:singleLine="true" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Button
+            android:id="@+id/btnSaveRegister"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="8dp"
+            android:backgroundTint="@color/textBar"
+            android:foregroundGravity="center"
+            android:gravity="center"
+            android:text="@string/save"
+            android:textColor="@color/colorPrimary"
+            app:icon="@drawable/ic_baseline_save_24"
+            app:iconGravity="textStart"
+            app:iconPadding="16dp"
+            app:iconTint="@color/colorPrimary"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/inputLayoutSiteRegister"
+            app:rippleColor="@color/colorPrimary" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.5" />
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</FrameLayout>
