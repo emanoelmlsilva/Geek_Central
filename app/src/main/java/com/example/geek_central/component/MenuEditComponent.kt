@@ -226,33 +226,13 @@ class MenuEditComponent(val view: View, val objGeek: WorkGeek? = null) {
     }
 
     private fun onClick() {
-        note.getSeekBar().setOnSeekBarChangeListener(object : OnSeekBarChangeListener {
-            override fun onStopTrackingTouch(seekBar: SeekBar) {
-                // TODO Auto-generated method stub
-            }
-
-            override fun onStartTrackingTouch(seekBar: SeekBar) {
-                // TODO Auto-generated method stub
-            }
-
-            override fun onProgressChanged(
-                seekBar: SeekBar,
-                progress: Int,
-                fromUser: Boolean
-            ) {
-
-                val progressHalf: Float = progress * 0.5F
-                note.getTxtNote().text = progressHalf.toString()
-
-            }
-        })
+        note.setOnClickProgress()
 
         inputName.setStartIconOnClickListener{
 
             objGeek?.popular!!.favorite = !objGeek.popular!!.favorite
 
             setIconFavorite()
-
 
         }
     }
