@@ -1,17 +1,18 @@
 package com.example.geek_central.fragment
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.geek_central.R
-import com.example.geek_central.component.*
+import com.example.geek_central.component.CategoriesComponent
+import com.example.geek_central.component.CounterComponent
+import com.example.geek_central.component.NoteComponent
+import com.example.geek_central.component.SeasonComponent
 import com.example.geek_central.databinding.FragmentRegisterBinding
 import com.example.geek_central.enums.TypeWork
-import com.google.android.material.chip.Chip
-import kotlinx.android.synthetic.main.fragment_register.*
 
 class RegisterFragment : Fragment() {
 
@@ -64,7 +65,7 @@ class RegisterFragment : Fragment() {
 
     private fun setOnClicks(){
         bindBing.btnClose.setOnClickListener{
-            natToMainFragment()
+            navToMainFragment()
         }
 
         counterLef.setLessValue()
@@ -82,8 +83,7 @@ class RegisterFragment : Fragment() {
 
     }
 
-    private fun natToMainFragment() {
-        //setar se o conteudo da lista foi atualizado e adicionar qual dos tabs
-        findNavController().navigate(R.id.action_registerFragment_to_mainFragment)
+    private fun navToMainFragment() {
+        findNavController().popBackStack()
     }
 }
