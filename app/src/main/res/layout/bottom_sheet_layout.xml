@@ -26,12 +26,19 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/appCompatImageView"
-                android:layout_width="30dp"
-                android:layout_height="0dp"
+            <Button
+                android:id="@+id/btnCloseBotttom"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:backgroundTint="@color/colorPrimary"
                 android:layout_marginStart="16dp"
-                android:src="@drawable/ic_baseline_cancel_24"
+                android:textColorHighlight="@color/colorPrimary"
+                android:shadowColor="@android:color/transparent"
+                app:iconGravity="textStart"
+                app:iconPadding="1dp"
+                app:strokeColor="@color/colorPrimary"
+                app:icon="@drawable/ic_baseline_clear_24"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -59,7 +66,7 @@
                 android:layout_height="1dp"
                 android:background="@color/colorPrimaryDark"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/appCompatImageView" />
+                app:layout_constraintTop_toBottomOf="@+id/btnCloseBotttom" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <include
