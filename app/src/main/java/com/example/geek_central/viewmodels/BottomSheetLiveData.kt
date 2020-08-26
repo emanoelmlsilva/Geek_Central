@@ -39,6 +39,8 @@ class BottomSheetLiveData(val context: Context? = null, var objGeek: WorkGeek? =
 
         bottomSheetDialog.setCancelable(false)
 
+        bottomSheetDialog.behavior.isHideable = true
+
         myView = view
 
         setBottomSheetScreenAll()
@@ -59,8 +61,12 @@ class BottomSheetLiveData(val context: Context? = null, var objGeek: WorkGeek? =
 
     private fun setOnClicks() {
         btnClose.setOnClickListener {
+
             bottomSheetDialog.setCancelable(true)
-            bottomSheetDialog.behavior.state = BottomSheetBehavior.STATE_HIDDEN}
+            bottomSheetDialog.behavior.state = BottomSheetBehavior.STATE_HIDDEN
+            bottomSheetDialog.setCancelable(false)
+        }
+
 
     }
 
