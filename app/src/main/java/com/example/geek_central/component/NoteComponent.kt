@@ -33,6 +33,33 @@ class NoteComponent(val view : View) {
         setMaxSeekBar(valueInital)
     }
 
+
+
+    fun setOnClickProgress(){
+
+        seekBarNote.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+            override fun onStopTrackingTouch(seekBar: SeekBar) {
+                // TODO Auto-generated method stub
+            }
+
+            override fun onStartTrackingTouch(seekBar: SeekBar) {
+                // TODO Auto-generated method stub
+            }
+
+            override fun onProgressChanged(
+                seekBar: SeekBar,
+                progress: Int,
+                fromUser: Boolean
+            ) {
+
+                val progressHalf: Float = progress * 0.5F
+                setValueComponentTextNote(progressHalf)
+
+            }
+        })
+
+    }
+
     fun setValueComponentTextNote(value : Float = 0F){
         txtNote.text = value.toString()
     }

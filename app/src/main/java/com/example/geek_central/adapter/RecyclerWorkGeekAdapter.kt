@@ -5,12 +5,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
-import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.geek_central.R
 import com.example.geek_central.R.color.iconHeartEnable
-import com.example.geek_central.enums.TypeWork
 import com.example.geek_central.model.WorkGeek
 import com.example.geek_central.observer.IObserver
 import com.example.geek_central.order.OrderBy
@@ -18,8 +16,13 @@ import com.example.geek_central.utils.FilterSearch
 import com.example.geek_central.viewmodels.BottomSheetLiveData
 import com.google.android.material.button.MaterialButton
 
-class RecyclerWorkGeekAdapter(private var workGeeks: MutableList<WorkGeek>, private val context: Context) :
+class RecyclerWorkGeekAdapter(
+    private var workGeeks: MutableList<WorkGeek>,
+    private val context: Context
+) :
     RecyclerView.Adapter<RecyclerWorkGeekAdapter.MyViewHolder>(), IObserver {
+
+    private lateinit var bottomSheetLiveData: BottomSheetLiveData
 
     private val copyListWorkGeek = workGeeks
 
@@ -30,7 +33,7 @@ class RecyclerWorkGeekAdapter(private var workGeeks: MutableList<WorkGeek>, priv
 
         val view = LayoutInflater.from(context).inflate(R.layout.geek_card_adapter, parent, false)
 
-        BottomSheetLiveData.get(context)
+        bottomSheetLiveData = BottomSheetLiveData(context)
 
         return MyViewHolder(view, context)
     }
@@ -48,8 +51,8 @@ class RecyclerWorkGeekAdapter(private var workGeeks: MutableList<WorkGeek>, priv
 
         holder.edit.setOnClickListener {
 
-            BottomSheetLiveData.get().setObjetWorkGeek(myWorkGeek)
-            BottomSheetLiveData.get().showDialog()
+            bottomSheetLiveData.setObjetWorkGeek(myWorkGeek)
+            bottomSheetLiveData.showDialog()
         }
 
     }
@@ -58,17 +61,18 @@ class RecyclerWorkGeekAdapter(private var workGeeks: MutableList<WorkGeek>, priv
         return workGeeks.size
     }
 
-    override fun update(filter: String,  typeOrder : Boolean) {
+    override fun update(filter: String, typeOrder: Boolean) {
 
-        if(typeOrder){
+        if (typeOrder) {
 
             workGeeks = OrderBy.get().ordeBy(filter, workGeeks) as MutableList<WorkGeek>
 
-        }else {
+        } else {
 
-            val newlist : List<WorkGeek> = FilterSearch(copyListWorkGeek , filter).searchText()
+            val newlist: List<WorkGeek> = FilterSearch(copyListWorkGeek, filter).searchText()
 
-            workGeeks = if (filter.isNullOrBlank()) copyListWorkGeek else newlist as MutableList<WorkGeek>
+            workGeeks =
+                if (filter.isNullOrBlank()) copyListWorkGeek else newlist as MutableList<WorkGeek>
 
         }
 
@@ -116,13 +120,13 @@ class RecyclerWorkGeekAdapter(private var workGeeks: MutableList<WorkGeek>, priv
             linearSeason = itemView.findViewById(R.id.linearLayoutSeason)
         }
 
-        private fun setVisibilitySeason(txtSeason: Int?){
+        private fun setVisibilitySeason(txtSeason: Int?) {
 
             var visibilited = 0
 
-            if(txtSeason == null){
+            if (txtSeason == null) {
                 visibilited = View.GONE
-            }else{
+            } else {
                 visibilited = View.VISIBLE
                 season.text = txtSeason.toString()
             }

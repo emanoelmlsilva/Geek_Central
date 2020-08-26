@@ -73,7 +73,8 @@
             android:src="@drawable/ic_add_black_24dp"
             app:backgroundTint="@color/textBar"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:rippleColor="@color/colorPrimary" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

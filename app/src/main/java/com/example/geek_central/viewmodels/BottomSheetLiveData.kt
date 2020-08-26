@@ -7,6 +7,7 @@ import android.util.DisplayMetrics
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import androidx.annotation.MainThread
 import androidx.lifecycle.LiveData
 import com.example.geek_central.R
@@ -19,6 +20,8 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 class BottomSheetLiveData(val context: Context? = null, var objGeek: WorkGeek? = null,var type: String = "min") : LiveData<Int>(),View.OnClickListener {
 
     private var bottomSheetDialog: BottomSheetDialog = BottomSheetDialog(context!!)
+
+    private lateinit var btnClose : Button
 
     private var myView : View
 
@@ -34,6 +37,10 @@ class BottomSheetLiveData(val context: Context? = null, var objGeek: WorkGeek? =
 
         bottomSheetDialog.setContentView(view)
 
+        bottomSheetDialog.setCancelable(false)
+
+        bottomSheetDialog.behavior.isHideable = true
+
         myView = view
 
         setBottomSheetScreenAll()
@@ -42,7 +49,27 @@ class BottomSheetLiveData(val context: Context? = null, var objGeek: WorkGeek? =
 
         if(objGeek != null) initComponets()
 
+        initView()
+
+        setOnClicks()
+
     }
+
+    private fun initView(){
+        btnClose = myView.findViewById(R.id.btnCloseBotttom)
+    }
+
+    private fun setOnClicks() {
+        btnClose.setOnClickListener {
+
+            bottomSheetDialog.setCancelable(true)
+            bottomSheetDialog.behavior.state = BottomSheetBehavior.STATE_HIDDEN
+            bottomSheetDialog.setCancelable(false)
+        }
+
+
+    }
+
 
     private fun initComponets(){
 
@@ -80,7 +107,16 @@ class BottomSheetLiveData(val context: Context? = null, var objGeek: WorkGeek? =
             }
 
             override fun onStateChanged(bottomSheet: View, newState: Int) {
-
+                val text = when(newState){
+                    BottomSheetBehavior.STATE_EXPANDED -> "STATE_EXPANDED"
+                    BottomSheetBehavior.STATE_COLLAPSED -> "STATE_COLLAPSED"
+                    BottomSheetBehavior.STATE_DRAGGING -> "STATE_DRAGGING"
+                    BottomSheetBehavior.STATE_HALF_EXPANDED -> "STATE_HALF_EXPANDED"
+                    BottomSheetBehavior.STATE_HIDDEN -> "STATE_HIDDEN"
+                    BottomSheetBehavior.STATE_SETTLING -> "STATE_SETTLING"
+                    else -> null
+                }
+                println("printando ===================== ${text}")
             }
         })
     }
@@ -104,15 +140,5 @@ class BottomSheetLiveData(val context: Context? = null, var objGeek: WorkGeek? =
 
     override fun onClick(v: View?) {
         TODO("Not yet implemented")
-    }
-
-    companion object{
-        private lateinit var instance: BottomSheetLiveData
-
-        @MainThread
-        fun get(context: Context? = null, objt: WorkGeek? = null): BottomSheetLiveData {
-            instance = if(::instance.isInitialized) instance else BottomSheetLiveData(context, objt)
-            return instance
-        }
     }
 }
