@@ -23,22 +23,24 @@
 
             <Button
                 android:id="@+id/btnClose"
-                style="@style/Widget.MaterialComponents.Button.UnelevatedButton.Icon"
-                android:layout_width="28dp"
-                android:layout_height="28dp"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
                 android:layout_marginStart="16dp"
-                android:background="@drawable/round_button"
-                android:elevation="6dp"
-                android:shadowColor="@color/colorAccent"
+                android:backgroundTint="@color/colorPrimary"
+                android:gravity="center"
+                android:shadowColor="@android:color/transparent"
+                android:textColorHighlight="@color/colorPrimary"
                 app:icon="@drawable/ic_baseline_clear_24"
-                app:iconGravity="textEnd"
-                app:iconPadding="4dp"
+                app:iconGravity="textStart"
+                app:iconPadding="1dp"
+                app:iconTint="@color/textBar"
                 app:layout_constraintBottom_toTopOf="@+id/viewDivider"
                 app:layout_constraintEnd_toStartOf="@+id/txtTitle"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:rippleColor="@color/colorPrimary" />
+                app:strokeColor="@color/colorPrimary" />
 
 
             <TextView
@@ -202,7 +204,7 @@
 
         <Button
             android:id="@+id/btnSaveRegister"
-            style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
+            style="@style/Widget.MaterialComponents.Button.UnelevatedButton.Icon"
             android:layout_width="0dp"
             android:layout_height="50dp"
             android:layout_marginStart="8dp"
@@ -228,8 +230,6 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             app:layout_constraintGuide_percent="0.5" />
-
-
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>
