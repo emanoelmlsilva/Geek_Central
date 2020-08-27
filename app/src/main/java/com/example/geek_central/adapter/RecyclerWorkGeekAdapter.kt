@@ -13,7 +13,7 @@ import com.example.geek_central.model.WorkGeek
 import com.example.geek_central.observer.IObserver
 import com.example.geek_central.order.OrderBy
 import com.example.geek_central.utils.FilterSearch
-import com.example.geek_central.viewmodels.BottomSheetLiveData
+import com.example.geek_central.BottomSheetLiveData
 import com.google.android.material.button.MaterialButton
 
 class RecyclerWorkGeekAdapter(
@@ -33,7 +33,8 @@ class RecyclerWorkGeekAdapter(
 
         val view = LayoutInflater.from(context).inflate(R.layout.geek_card_adapter, parent, false)
 
-        bottomSheetLiveData = BottomSheetLiveData(context)
+        bottomSheetLiveData =
+            BottomSheetLiveData(context)
 
         return MyViewHolder(view, context)
     }

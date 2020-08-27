@@ -1,4 +1,4 @@
-package com.example.geek_central.viewmodels
+package com.example.geek_central
 
 import android.app.Activity
 import android.content.Context
