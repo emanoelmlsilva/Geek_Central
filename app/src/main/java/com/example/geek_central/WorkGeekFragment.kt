@@ -1,4 +1,4 @@
-package com.example.geek_central.fragment
+package com.example.geek_central
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView.AdapterDataObserver
+import com.example.geek_central.MainFragment
 import com.example.geek_central.R
 import com.example.geek_central.adapter.RecyclerWorkGeekAdapter
 import com.example.geek_central.databinding.FragmentWorkgeekBinding

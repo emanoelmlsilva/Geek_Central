@@ -1,4 +1,4 @@
-package com.example.geek_central.fragment
+package com.example.geek_central
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import com.example.geek_central.R
 import com.example.geek_central.component.CategoriesComponent
 import com.example.geek_central.component.CounterComponent
 import com.example.geek_central.component.NoteComponent

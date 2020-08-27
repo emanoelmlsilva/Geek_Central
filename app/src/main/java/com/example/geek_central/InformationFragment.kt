@@ -1,4 +1,4 @@
-package com.example.geek_central.fragment
+package com.example.geek_central
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/mainFragment"
-        android:name="com.example.geek_central.fragment.MainFragment"
+        android:name="com.example.geek_central.MainFragment"
         android:label="fragment_main"
         tools:layout="@layout/fragment_main" >
         <action
@@ -19,7 +19,7 @@
     </fragment>
     <fragment
         android:id="@+id/workGeekFragment"
-        android:name="com.example.geek_central.fragment.WorkGeekFragment"
+        android:name="com.example.geek_central.WorkGeekFragment"
         android:label="fragment_workgeek"
         tools:layout="@layout/fragment_workgeek" >
         <action
@@ -28,7 +28,7 @@
     </fragment>
     <fragment
         android:id="@+id/registerFragment"
-        android:name="com.example.geek_central.fragment.RegisterFragment"
+        android:name="com.example.geek_central.RegisterFragment"
         android:label="fragment_register"
         tools:layout="@layout/fragment_register" >
         <action
@@ -37,7 +37,7 @@
     </fragment>
     <fragment
         android:id="@+id/informationFragment"
-        android:name="com.example.geek_central.fragment.InformationFragment"
+        android:name="com.example.geek_central.InformationFragment"
         android:label="fragment_information"
         tools:layout="@layout/fragment_information" />
 </navigation>

@@ -1,4 +1,4 @@
-package com.example.geek_central.fragment
+package com.example.geek_central
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,7 +11,6 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.viewpager.widget.ViewPager
-import com.example.geek_central.R
 import com.example.geek_central.adapter.ViewPageAdapter
 import com.example.geek_central.component.SearchViewComponent
 import com.example.geek_central.databinding.FragmentMainBinding
@@ -114,9 +113,21 @@ class MainFragment : Fragment(), IObservable {
 
     private fun mountViewPagerWithTabs() {
         adapter = ViewPageAdapter(childFragmentManager)
-        adapter.addFragment(WorkGeekFragment(this, TypeWork.MANGA.toString()), resources.getString(R.string.nameManga))
-        adapter.addFragment(WorkGeekFragment(this, TypeWork.ANIME.toString()), resources.getString(R.string.nameAnime))
-        adapter.addFragment(WorkGeekFragment(this, TypeWork.HQ.toString()), resources.getString(R.string.nameHq))
+        adapter.addFragment(
+            WorkGeekFragment(
+                this,
+                TypeWork.MANGA.toString()
+            ), resources.getString(R.string.nameManga))
+        adapter.addFragment(
+            WorkGeekFragment(
+                this,
+                TypeWork.ANIME.toString()
+            ), resources.getString(R.string.nameAnime))
+        adapter.addFragment(
+            WorkGeekFragment(
+                this,
+                TypeWork.HQ.toString()
+            ), resources.getString(R.string.nameHq))
         bindBing.viewPager.adapter = adapter
         bindBing.tabs.setupWithViewPager(bindBing.viewPager)
 
