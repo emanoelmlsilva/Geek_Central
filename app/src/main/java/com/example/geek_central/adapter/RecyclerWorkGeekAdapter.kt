@@ -8,79 +8,118 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.geek_central.R
-import com.example.geek_central.R.color.iconHeartEnable
-import com.example.geek_central.model.WorkGeek
 import com.example.geek_central.observer.IObserver
-import com.example.geek_central.order.OrderBy
-import com.example.geek_central.utils.FilterSearch
 import com.example.geek_central.BottomSheetLiveData
+import com.example.geek_central.model.WorkGeekAnimeWithPopularAndHosted
+import com.example.geek_central.model.WorkGeekMangaWithPopularAndHosted
 import com.google.android.material.button.MaterialButton
 
-class RecyclerWorkGeekAdapter(
-    private var workGeeks: MutableList<WorkGeek>,
-    private val context: Context
-) :
-    RecyclerView.Adapter<RecyclerWorkGeekAdapter.MyViewHolder>(), IObserver {
+class RecyclerWorkGeekAdapter : RecyclerView.Adapter<RecyclerWorkGeekAdapter.BaseViewHolder<*>>(),
+    IObserver {
+
+    private var data: MutableList<Comparable<*>> = ArrayList()
+
+    private val copyListData = ArrayList<Comparable<*>>()
+
+    private lateinit var context: Context
 
     private lateinit var bottomSheetLiveData: BottomSheetLiveData
 
-    private val copyListWorkGeek = workGeeks
-
-    override fun onCreateViewHolder(
-        parent: ViewGroup,
-        viewType: Int
-    ): MyViewHolder {
-
-        val view = LayoutInflater.from(context).inflate(R.layout.geek_card_adapter, parent, false)
-
-        bottomSheetLiveData =
-            BottomSheetLiveData(context)
-
-        return MyViewHolder(view, context)
+    companion object {
+        private val TYPE_MANGA = 0
+        private val TYPE_ANIME = 1
+        private val TYPE_HQ = 2
     }
 
-    override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-
-        val workGeek = workGeeks[position]
-
-        holder.bindDate(workGeek)
-
-        addValue(holder, workGeek)
+    fun setData(newData: List<Comparable<*>>) {
+        data = newData as MutableList<Comparable<*>>
+        notifyDataSetChanged()
     }
 
-    private fun addValue(holder: MyViewHolder, myWorkGeek: WorkGeek) {
+    private fun addValue(holder: BaseViewHolder<*>, itemData: Comparable<*>) {
 
         holder.edit.setOnClickListener {
-
-            bottomSheetLiveData.setObjetWorkGeek(myWorkGeek)
+            bottomSheetLiveData = BottomSheetLiveData(context, itemData)
             bottomSheetLiveData.showDialog()
         }
 
     }
 
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int
+    ): BaseViewHolder<*> {
+
+        context = parent.context
+
+        val view = LayoutInflater.from(context).inflate(R.layout.geek_card_adapter, parent, false)
+
+        return when (viewType) {
+            TYPE_MANGA -> MangaViewHolder(view)
+            TYPE_ANIME -> AnimeViewHolder(view)
+            else -> throw IllegalArgumentException("Invalid view type")
+        }
+
+    }
+
+    override fun onBindViewHolder(holder: BaseViewHolder<*>, position: Int) {
+        val itemData = data.get(position)
+
+        when (holder) {
+            is MangaViewHolder -> {
+                addValue(holder, itemData)
+                holder.bindDate(itemData as WorkGeekMangaWithPopularAndHosted)
+            }
+            is AnimeViewHolder -> {
+                addValue(holder, itemData)
+                holder.bindDate(itemData as WorkGeekAnimeWithPopularAndHosted)
+            }
+            else -> throw IllegalArgumentException()
+        }
+
+    }
+
+    override fun getItemViewType(position: Int): Int {
+        val comparable = data[position]
+
+        return when (comparable) {
+            is WorkGeekMangaWithPopularAndHosted -> TYPE_MANGA
+            is WorkGeekAnimeWithPopularAndHosted -> TYPE_ANIME
+            else -> throw IllegalArgumentException("Invalid type of data " + position)
+        }
+
+    }
+
     override fun getItemCount(): Int {
-        return workGeeks.size
+        return data.size
     }
 
     override fun update(filter: String, typeOrder: Boolean) {
-
-        if (typeOrder) {
-
-            workGeeks = OrderBy.get().ordeBy(filter, workGeeks) as MutableList<WorkGeek>
-
-        } else {
-
-            val newlist: List<WorkGeek> = FilterSearch(copyListWorkGeek, filter).searchText()
-
-            workGeeks =
-                if (filter.isNullOrBlank()) copyListWorkGeek else newlist as MutableList<WorkGeek>
-
-        }
-
-        notifyDataSetChanged()
+        println("trestando")
     }
 
-    class MyViewHolder(itemView: View, val context: Context) : RecyclerView.ViewHolder(itemView) {
+//
+//
+//    override fun update(filter: String, typeOrder: Boolean) {
+//
+//        if (typeOrder) {
+//
+//            //workGeeks = OrderBy.get().ordeBy(filter, workGeeks) as MutableList<WorkGeek>
+//
+//        } else {
+//
+//            //val newlist: List<WorkGeek> = FilterSearch(copyListWorkGeek, filter).searchText()
+//
+//            //workGeeks = if (filter.isNullOrBlank()) copyListWorkGeek else newlist as MutableList<WorkGeek>
+//
+//        }
+//
+//        notifyDataSetChanged()
+//    }
+
+
+    //viewholder padrão para a criação dos tipos manga, anime e hq
+    abstract class BaseViewHolder<in T>(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         lateinit var title: TextView
         lateinit var season: TextView
@@ -93,21 +132,9 @@ class RecyclerWorkGeekAdapter(
         lateinit var note: TextView
         lateinit var linearSeason: LinearLayout
 
-        init {
-            bindView()
-        }
+        abstract fun bindDate(item: T)
 
-        fun bindDate(workGeek: WorkGeek) {
-            title.text = workGeek.title
-            textMarkCurrent.text = workGeek.currentGeek.toString()
-            textMarkTotal.text = workGeek.totalGeek.toString()
-            note.text = workGeek.popular?.grade.toString()
-            setVisibilitySeason(workGeek.season)
-            setIconLoadingFavorite(workGeek.popular?.favorite!!)
-
-        }
-
-        private fun bindView() {
+        fun bindView() {
 
             title = itemView.findViewById(R.id.title)
             season = itemView.findViewById(R.id.txtSeason)
@@ -121,7 +148,7 @@ class RecyclerWorkGeekAdapter(
             linearSeason = itemView.findViewById(R.id.linearLayoutSeason)
         }
 
-        private fun setVisibilitySeason(txtSeason: Int?) {
+        fun setVisibilitySeason(txtSeason: Int?) {
 
             var visibilited = 0
 
@@ -135,7 +162,7 @@ class RecyclerWorkGeekAdapter(
             linearSeason.visibility = visibilited
         }
 
-        private fun setIconLoadingFavorite(checkIcon: Boolean) {
+        fun setIconLoadingFavorite(checkIcon: Boolean) {
 
             var myColor: Int = R.color.colorAccent
 
@@ -143,7 +170,7 @@ class RecyclerWorkGeekAdapter(
 
             if (checkIcon) {
                 myDrawable = R.drawable.ic_favorite_black_24dp
-                myColor = iconHeartEnable
+                myColor = R.color.iconHeartEnable
             } else {
                 myDrawable = R.drawable.ic_favorite_border_black_24dp
             }
@@ -152,6 +179,48 @@ class RecyclerWorkGeekAdapter(
             favorite.setIconTintResource(myColor)
         }
 
+
+    }
+
+    class MangaViewHolder(val view: View) :
+        BaseViewHolder<WorkGeekMangaWithPopularAndHosted>(view) {
+
+        init {
+            this.bindView()
+        }
+
+        override fun bindDate(item: WorkGeekMangaWithPopularAndHosted) {
+
+            this.title.text = item.workGeek.title
+            this.author.text = "nome do autor"
+            textMarkCurrent.text = item.workGeek.currentGeek.toString()
+            textMarkTotal.text = item.workGeek.totalGeek.toString()
+            note.text = item.popular.grade.toString()
+
+            setIconLoadingFavorite(item.popular.favorite)
+        }
+
+    }
+
+    class AnimeViewHolder(val view: View) :
+        BaseViewHolder<WorkGeekAnimeWithPopularAndHosted>(view) {
+
+        init {
+            this.bindView()
+        }
+
+        override fun bindDate(item: WorkGeekAnimeWithPopularAndHosted) {
+
+            this.title.text = item.workGeek.title
+            this.author.text = "nome do autor"
+            textMarkCurrent.text = item.workGeek.currentGeek.toString()
+            textMarkTotal.text = item.workGeek.totalGeek.toString()
+            note.text = item.popular.grade.toString()
+
+            setVisibilitySeason(item.workGeek.season)
+
+            setIconLoadingFavorite(item.popular.favorite)
+        }
     }
 
 }
