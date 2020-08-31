@@ -43,6 +43,8 @@ class WorkGeekRepository(private val workGeekDao: WorkGeekDao, private val popul
 
         popular.workGeekOwnerId = idWorkGeek
 
+        hosted.workGeekOwnerId = idWorkGeek
+
         popularDao.insert(popular)
 
         hostedDao.insert(hosted)
