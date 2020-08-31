@@ -8,32 +8,45 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import androidx.annotation.MainThread
 import androidx.lifecycle.LiveData
-import com.example.geek_central.R
 import com.example.geek_central.component.MenuEditComponent
-import com.example.geek_central.model.WorkGeek
+import com.example.geek_central.model.WorkGeekAnimeWithPopularAndHosted
+import com.example.geek_central.model.WorkGeekMangaWithPopularAndHosted
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 
 
-class BottomSheetLiveData(val context: Context? = null, var objGeek: WorkGeek? = null,var type: String = "min") : LiveData<Int>(),View.OnClickListener {
+class BottomSheetLiveData(val context: Context, var objGeek: Comparable<*>) :
+    LiveData<Int>(), View.OnClickListener {
 
-    private var bottomSheetDialog: BottomSheetDialog = BottomSheetDialog(context!!)
+    private var bottomSheetDialog: BottomSheetDialog = BottomSheetDialog(context)
 
-    private lateinit var btnClose : Button
+    private lateinit var btnClose: Button
 
-    private var myView : View
+    private var myView: View
 
-    private lateinit var menuEdit : MenuEditComponent
+    private var menuEdit: MenuEditComponent
 
-    private val listener = {v: View -> showDialog()}
-
-    init{
+    init {
 
         val layoutInflater: LayoutInflater = LayoutInflater.from(context)
 
         val view = layoutInflater.inflate(R.layout.bottom_sheet_layout, null)
+
+        menuEdit = when (objGeek) {
+            is WorkGeekMangaWithPopularAndHosted -> MenuEditComponent(
+                view.findViewById(R.id.includeEditMenu),
+                objGeek
+            )
+            is WorkGeekAnimeWithPopularAndHosted -> MenuEditComponent(
+                view.findViewById(R.id.includeEditMenu),
+                objGeek
+            )
+            else -> MenuEditComponent(
+                view.findViewById(R.id.includeEditMenu),
+                objGeek as WorkGeekMangaWithPopularAndHosted
+            )
+        }
 
         bottomSheetDialog.setContentView(view)
 
@@ -47,15 +60,13 @@ class BottomSheetLiveData(val context: Context? = null, var objGeek: WorkGeek? =
 
         statusBottomSheet()
 
-        if(objGeek != null) initComponets()
-
         initView()
 
         setOnClicks()
 
     }
 
-    private fun initView(){
+    private fun initView() {
         btnClose = myView.findViewById(R.id.btnCloseBotttom)
     }
 
@@ -70,23 +81,18 @@ class BottomSheetLiveData(val context: Context? = null, var objGeek: WorkGeek? =
 
     }
 
-
-    private fun initComponets(){
-
-        menuEdit = MenuEditComponent(myView.findViewById(R.id.includeEditMenu), this.objGeek!!)
-    }
-
     private fun setBottomSheetScreenAll() {
 
-        val bottomSheetBehavior  = bottomSheetDialog.behavior
+        val bottomSheetBehavior = bottomSheetDialog.behavior
 
-        val bottomSheetPeekHeight = context!!.resources.getDimensionPixelSize(R.dimen.dimension_behavior)
+        val bottomSheetPeekHeight =
+            context!!.resources.getDimensionPixelSize(R.dimen.dimension_behavior)
 
         bottomSheetBehavior.setPeekHeight(bottomSheetPeekHeight)
 
-        val childLayoutParams : ViewGroup.LayoutParams = myView.layoutParams
+        val childLayoutParams: ViewGroup.LayoutParams = myView.layoutParams
 
-        val displayMetrics : DisplayMetrics = DisplayMetrics()
+        val displayMetrics: DisplayMetrics = DisplayMetrics()
 
         Resources.getSystem().displayMetrics
 
@@ -99,34 +105,19 @@ class BottomSheetLiveData(val context: Context? = null, var objGeek: WorkGeek? =
         myView.layoutParams = childLayoutParams
     }
 
-    fun statusBottomSheet(){
+    fun statusBottomSheet() {
 
-        bottomSheetDialog.behavior.addBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
+        bottomSheetDialog.behavior.addBottomSheetCallback(object :
+            BottomSheetBehavior.BottomSheetCallback() {
             override fun onSlide(bottomSheet: View, slideOffset: Float) {
                 menuEdit.setStatus(slideOffset)
             }
 
-            override fun onStateChanged(bottomSheet: View, newState: Int) {
-                val text = when(newState){
-                    BottomSheetBehavior.STATE_EXPANDED -> "STATE_EXPANDED"
-                    BottomSheetBehavior.STATE_COLLAPSED -> "STATE_COLLAPSED"
-                    BottomSheetBehavior.STATE_DRAGGING -> "STATE_DRAGGING"
-                    BottomSheetBehavior.STATE_HALF_EXPANDED -> "STATE_HALF_EXPANDED"
-                    BottomSheetBehavior.STATE_HIDDEN -> "STATE_HIDDEN"
-                    BottomSheetBehavior.STATE_SETTLING -> "STATE_SETTLING"
-                    else -> null
-                }
-                println("printando ===================== ${text}")
-            }
+            override fun onStateChanged(bottomSheet: View, newState: Int) {}
         })
     }
 
-    fun setObjetWorkGeek(objt: WorkGeek){
-        objGeek = objt
-        initComponets()
-    }
-
-    fun showDialog(){
+    fun showDialog() {
         bottomSheetDialog.show()
     }
 
