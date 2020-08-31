@@ -4,7 +4,7 @@ import androidx.room.Embedded
 import androidx.room.Relation
 
 class WorkGeekAnimeWithPopularAndHosted(
-    @Embedded val workGeekAnime: WorkGeekAnime,
+    @Embedded val workGeek: WorkGeekAnime,
     @Relation(
         parentColumn = "id_work_geek_anime",
         entityColumn = "workgeek_popular_id"
