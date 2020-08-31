@@ -14,5 +14,6 @@ data class WorkGeekMangaWithPopularAndHosted
         parentColumn = "id_work_geek_manga",
         entityColumn = "workgeek_hosted_id"
     ) val hosted : Hosted
-) {
+) : Comparable<WorkGeekMangaWithPopularAndHosted>  {
+    override fun compareTo(other: WorkGeekMangaWithPopularAndHosted): Int = if(popular.grade > other.popular.grade) 1 else 0
 }
