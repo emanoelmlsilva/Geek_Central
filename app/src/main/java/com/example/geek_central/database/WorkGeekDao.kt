@@ -1,23 +1,35 @@
 package com.example.geek_central.database
 
-import androidx.room.Dao
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.Query
-import com.example.geek_central.model.WorkGeek
+import androidx.lifecycle.LiveData
+import androidx.room.*
+import com.example.geek_central.model.*
 
 @Dao
 interface WorkGeekDao {
 
-    @Query("SELECT * FROM work_geek_table")
-    fun getAll() : List<WorkGeek>
+    @Transaction
+    @Query("SELECT * FROM work_geeks_mangas")
+    fun getWorkGeeksMangas() : LiveData<List<WorkGeekMangaWithPopularAndHosted>>
 
-    @Query("SELECT * FROM work_geek_table WHERE title LIKE :title LIMIT 1")
-    fun finByTitle(title : String): WorkGeek
+    @Transaction
+    @Query("SELECT * FROM work_geeks_animes")
+    fun getWorkGeeksAnimes() : LiveData<List<WorkGeekAnimeWithPopularAndHosted>>
+    
+    @Query("SELECT id_work_geek_manga FROM work_geeks_mangas WHERE title = :title LIMIT 1")
+    fun findIdMangaByTitle(title : String) : Long
 
-    @Insert
-    fun insertAll(vararg workGeeks: WorkGeek)
+    @Query("SELECT id_work_geek_anime FROM work_geeks_animes WHERE title = :title LIMIT 1")
+    fun findIdAnimeByTitle(title: String) : Long
 
-    @Delete
-    fun delete(workGeek: WorkGeek)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertManga(workGeek: WorkGeekManga)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertAnime(workGeekAnime: WorkGeekAnime)
+
+    @Query("DELETE FROM work_geeks_mangas WHERE id_work_geek_manga = :id")
+    fun deleteManga(id : Long)
+
+    @Query("DELETE FROM work_geeks_animes WHERE id_work_geek_anime = :id")
+    fun deleteAnime(id : Long)
 }
