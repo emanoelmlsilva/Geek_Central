@@ -58,4 +58,16 @@ class WorkGeekRepository(private val workGeekDao: WorkGeekDao, private val popul
     fun findByTitleAnime(title : String) : Boolean{
         return workGeekDao.findIdAnimeByTitle(title) != 0L
     }
+
+    fun updateManga(workGeek: WorkGeekMangaWithPopularAndHosted){
+        hostedDao.update(workGeek.hosted)
+        popularDao.update(workGeek.popular)
+        workGeekDao.updateManga(workGeek.workGeek)
+    }
+
+    fun updateAnime(workGeek: WorkGeekAnimeWithPopularAndHosted){
+        hostedDao.update(workGeek.hosted)
+        popularDao.update(workGeek.popular)
+        workGeekDao.updateAnime(workGeek.workGeek)
+    }
 }

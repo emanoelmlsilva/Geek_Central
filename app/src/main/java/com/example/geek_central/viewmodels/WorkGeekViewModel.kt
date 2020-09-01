@@ -58,6 +58,18 @@ class WorkGeekViewModel(application: Application) : AndroidViewModel(application
 
     }
 
+    fun update(workGeekManga: WorkGeekMangaWithPopularAndHosted){
+        viewModelScope.launch(Dispatchers.IO) {
+            workRespository.updateManga(workGeekManga)
+        }
+    }
+
+    fun update(workGeekAnime: WorkGeekAnimeWithPopularAndHosted){
+        viewModelScope.launch(Dispatchers.IO) {
+            workRespository.updateAnime(workGeekAnime)
+        }
+    }
+
     fun delete(type: String, id: Long) {
         viewModelScope.launch { workRespository.delete(id, type) }
     }
