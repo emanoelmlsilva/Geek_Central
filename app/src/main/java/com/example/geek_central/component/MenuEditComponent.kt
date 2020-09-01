@@ -247,14 +247,14 @@ class MenuEditComponent(val view: View, val objGeek: Comparable<*>) {
             when(objGeek){
                 is WorkGeekMangaWithPopularAndHosted -> {
 
-                    objGeek.popular.favorite = objGeek.popular.favorite
+                    objGeek.popular.favorite = !objGeek.popular.favorite
 
                     setIconFavorite(objGeek.popular.favorite)
                 }
 
                 is WorkGeekAnimeWithPopularAndHosted -> {
 
-                    objGeek.popular.favorite = objGeek.popular.favorite
+                    objGeek.popular.favorite = !objGeek.popular.favorite
 
                     setIconFavorite(objGeek.popular.favorite)
                 }
