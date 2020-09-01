@@ -8,7 +8,7 @@ import com.example.geek_central.model.*
 interface WorkGeekDao {
 
     @Transaction
-    @Query("SELECT * FROM work_geeks_mangas")
+    @Query("SELECT * FROM work_geeks_mangas ORDER BY title ASC")
     fun getWorkGeeksMangas() : LiveData<List<WorkGeekMangaWithPopularAndHosted>>
 
     @Transaction
