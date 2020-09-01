@@ -6,7 +6,7 @@ import com.example.geek_central.model.*
 
 class WorkGeekRepository(private val workGeekDao: WorkGeekDao, private val popularDao: PopularDao, private val hostedDao : HostedDao) {
 
-    fun getAllWorkGeeksMangas() : LiveData<List<WorkGeekMangaWithPopularAndHosted>> = workGeekDao.getWorkGeeksMangas()
+    fun getAllWorkGeeksMangas() : LiveData<List<WorkGeekMangaWithPopularAndHosted>> = workGeekDao.getWorkGeeksMangasOrdeByFavorite()
 
     fun getAllWorkGeeksAnimes() : LiveData<List<WorkGeekAnimeWithPopularAndHosted>> = workGeekDao.getWorkGeeksAnimes()
 
@@ -19,7 +19,7 @@ class WorkGeekRepository(private val workGeekDao: WorkGeekDao, private val popul
 
     }
 
-    fun insert(popular: Popular, hosted: Hosted, workGeek: WorkGeekManga){
+    fun insert(popular: Popular, host: Host, workGeek: WorkGeekManga){
 
             workGeekDao.insertManga(workGeek)
 
@@ -27,15 +27,15 @@ class WorkGeekRepository(private val workGeekDao: WorkGeekDao, private val popul
 
             popular.workGeekOwnerId = idWorkGeek
 
-            hosted.workGeekOwnerId = idWorkGeek
+            host.workGeekOwnerId = idWorkGeek
 
             popularDao.insert(popular)
 
-            hostedDao.insert(hosted)
+            hostedDao.insert(host)
 
     }
 
-    fun insert(popular: Popular, hosted: Hosted, workGeekAnime: WorkGeekAnime){
+    fun insert(popular: Popular, host: Host, workGeekAnime: WorkGeekAnime){
 
         workGeekDao.insertAnime(workGeekAnime)
 
@@ -43,11 +43,11 @@ class WorkGeekRepository(private val workGeekDao: WorkGeekDao, private val popul
 
             popular.workGeekOwnerId = idWorkGeek
 
-            hosted.workGeekOwnerId = idWorkGeek
+            host.workGeekOwnerId = idWorkGeek
 
             popularDao.insert(popular)
 
-            hostedDao.insert(hosted)
+            hostedDao.insert(host)
 
     }
 
@@ -60,13 +60,13 @@ class WorkGeekRepository(private val workGeekDao: WorkGeekDao, private val popul
     }
 
     fun updateManga(workGeek: WorkGeekMangaWithPopularAndHosted){
-        hostedDao.update(workGeek.hosted)
+        hostedDao.update(workGeek.host)
         popularDao.update(workGeek.popular)
         workGeekDao.updateManga(workGeek.workGeek)
     }
 
     fun updateAnime(workGeek: WorkGeekAnimeWithPopularAndHosted){
-        hostedDao.update(workGeek.hosted)
+        hostedDao.update(workGeek.host)
         popularDao.update(workGeek.popular)
         workGeekDao.updateAnime(workGeek.workGeek)
     }

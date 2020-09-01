@@ -11,7 +11,6 @@ import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.viewModelScope
 import androidx.navigation.fragment.findNavController
 import com.example.geek_central.component.CategoriesComponent
 import com.example.geek_central.component.CounterComponent
@@ -162,7 +161,7 @@ class RegisterFragment : Fragment() {
         val title = bindBing.inputLayoutNameRegister.editText?.text.toString()
 
         val popular = Popular(grade = 5.0, favorite = true)
-        val hosted = Hosted(site = bindBing.inputLayoutNameRegister.editText?.text.toString(), type = "site")
+        val hosted = Host(site = bindBing.inputLayoutNameRegister.editText?.text.toString(), type = "site")
         val workGeek = WorkGeekManga(title = title,currentGeek = 3, totalGeek = 5)
         val workGeekAnime = WorkGeekAnime(title = title,currentGeek = 3, totalGeek = 5, season = 1)
         when(typeWork){

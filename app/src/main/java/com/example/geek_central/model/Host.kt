@@ -5,8 +5,8 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import org.jetbrains.annotations.NotNull
 
-@Entity(tableName = "hosteres")
-class Hosted(
+@Entity(tableName = "hosts")
+class Host(
     @PrimaryKey(autoGenerate = true) @NotNull @ColumnInfo(name = "id_hosted") val hostedId: Long? = null,
 
     @ColumnInfo(name = "workgeek_hosted_id") var workGeekOwnerId: Long? =  null,

@@ -12,6 +12,10 @@ interface WorkGeekDao {
     fun getWorkGeeksMangas() : LiveData<List<WorkGeekMangaWithPopularAndHosted>>
 
     @Transaction
+    @Query("SELECT * FROM work_geeks_mangas INNER JOIN populares ON populares.workgeek_popular_id = work_geeks_mangas.id_work_geek_manga INNER JOIN hosts ON hosts.workgeek_hosted_id = work_geeks_mangas.id_work_geek_manga ORDER BY favorite DESC")
+    fun getWorkGeeksMangasOrdeByFavorite() : LiveData<List<WorkGeekMangaWithPopularAndHosted>>
+
+    @Transaction
     @Query("SELECT * FROM work_geeks_animes")
     fun getWorkGeeksAnimes() : LiveData<List<WorkGeekAnimeWithPopularAndHosted>>
     

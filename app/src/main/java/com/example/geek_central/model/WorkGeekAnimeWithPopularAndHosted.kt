@@ -12,7 +12,7 @@ class WorkGeekAnimeWithPopularAndHosted(
     @Relation(
         parentColumn = "id_work_geek_anime",
         entityColumn = "workgeek_hosted_id"
-    ) val hosted: Hosted
+    ) val host: Host
 ) : Comparable<WorkGeekAnimeWithPopularAndHosted>  {
     override fun compareTo(other: WorkGeekAnimeWithPopularAndHosted): Int = if(popular.grade > other.popular.grade) 1 else 0
 }

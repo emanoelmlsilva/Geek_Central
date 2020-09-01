@@ -38,21 +38,21 @@ class WorkGeekViewModel(application: Application) : AndroidViewModel(application
     fun getAllWorkGeeksAnimes(): LiveData<List<WorkGeekAnimeWithPopularAndHosted>> =
         workRespository.getAllWorkGeeksAnimes()
 
-    fun insert(popular: Popular, hosted: Hosted, workGeekManga: WorkGeekManga) {
+    fun insert(popular: Popular, host: Host, workGeekManga: WorkGeekManga) {
 
         viewModelScope.launch(Dispatchers.IO) {
 
-            workRespository.insert(popular, hosted, workGeekManga)
+            workRespository.insert(popular, host, workGeekManga)
 
         }
 
     }
 
-    fun insert(popular: Popular, hosted: Hosted, workGeekAnime: WorkGeekAnime) {
+    fun insert(popular: Popular, host: Host, workGeekAnime: WorkGeekAnime) {
 
         viewModelScope.launch(Dispatchers.IO) {
 
-            workRespository.insert(popular, hosted, workGeekAnime)
+            workRespository.insert(popular, host, workGeekAnime)
 
         }
 

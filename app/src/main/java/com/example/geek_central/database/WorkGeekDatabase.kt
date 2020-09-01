@@ -8,7 +8,7 @@ import androidx.room.RoomDatabase
 import com.example.geek_central.model.*
 
 
-@Database(entities = [WorkGeekManga::class,WorkGeekAnime::class, Author::class, Popular::class, Hosted::class], version = 1, exportSchema = false)
+@Database(entities = [WorkGeekManga::class,WorkGeekAnime::class, Author::class, Popular::class, Host::class], version = 1, exportSchema = false)
 abstract class WorkGeekDatabase : RoomDatabase(){
 
     abstract fun workGeekDao() : WorkGeekDao
