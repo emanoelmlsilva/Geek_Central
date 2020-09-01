@@ -24,6 +24,14 @@ class WorkGeekViewModel(application: Application) : AndroidViewModel(application
 
     }
 
+    fun findByTitleManta(title : String) : Boolean{
+        return workRespository.findByTitleManta(title)
+    }
+
+    fun findByTitleAnime(title : String) : Boolean{
+        return workRespository.findByTitleAnime(title)
+    }
+
     fun getAllWorkGeeksMangas(): LiveData<List<WorkGeekMangaWithPopularAndHosted>> =
         workRespository.getAllWorkGeeksMangas()
 

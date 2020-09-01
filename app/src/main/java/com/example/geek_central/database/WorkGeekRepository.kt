@@ -50,4 +50,12 @@ class WorkGeekRepository(private val workGeekDao: WorkGeekDao, private val popul
             hostedDao.insert(hosted)
 
     }
+
+    fun findByTitleManta(title : String) : Boolean{
+        return workGeekDao.findIdMangaByTitle(title) != 0L
+    }
+
+    fun findByTitleAnime(title : String) : Boolean{
+        return workGeekDao.findIdAnimeByTitle(title) != 0L
+    }
 }
