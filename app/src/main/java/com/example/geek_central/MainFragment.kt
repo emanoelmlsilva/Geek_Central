@@ -66,14 +66,15 @@ class MainFragment : Fragment(), IObservable {
 
         popup.setOnMenuItemClickListener(PopupMenu.OnMenuItemClickListener { item: MenuItem? ->
 
-            when (item!!.itemId) {
-                R.id.Favorites -> filterValue = TypeOrderBy.FAVORITE.toString()
-                R.id.Name -> filterValue = TypeOrderBy.TITLE.toString()
-                R.id.Total -> filterValue = TypeOrderBy.TOTAL.toString()
-                R.id.Note -> filterValue = TypeOrderBy.GRADE.toString()
+            val typeOrder = when (item!!.itemId) {
+                R.id.Favorites -> TypeOrderBy.FAVORITE.toString()
+                R.id.Name -> TypeOrderBy.TITLE.toString()
+                R.id.Total -> TypeOrderBy.TOTAL.toString()
+                R.id.Note -> TypeOrderBy.GRADE.toString()
+                else -> TypeOrderBy.TOTAL.toString()
             }
 
-            sendUpdate(true)
+            sendUpdate(typeOrder = typeOrder)
 
             true
         })
@@ -93,7 +94,7 @@ class MainFragment : Fragment(), IObservable {
 
             override fun onQueryTextChange(newText: String): Boolean {
                 filterValue = newText
-                sendUpdate(false)
+                sendUpdate()
                 return false
             }
         })
@@ -170,7 +171,7 @@ class MainFragment : Fragment(), IObservable {
 
     }
 
-    override fun sendUpdate(typeOrder: Boolean) {
+    override fun sendUpdate(typeOrder: String) {
 
         when (type) {
             TypeWork.MANGA.toString() -> observerManga.update(filterValue, typeOrder)
