@@ -19,35 +19,49 @@ class WorkGeekRepository(private val workGeekDao: WorkGeekDao, private val popul
 
     }
 
-    fun insert(popular: Popular, hosted: Hosted, workGeek: WorkGeekManga){
+    fun insert(popular: Popular, hosted: Hosted, workGeek: WorkGeekManga) : Boolean{
 
-        workGeekDao.insertManga(workGeek)
+        if(workGeekDao.findIdMangaByTitle(workGeek.title) != 0L){
+            return false;
+        }else {
 
-        val idWorkGeek  = workGeekDao.findIdMangaByTitle(workGeek.title)
+            workGeekDao.insertManga(workGeek)
 
-        popular.workGeekOwnerId = idWorkGeek
+            val idWorkGeek = workGeekDao.findIdMangaByTitle(workGeek.title)
 
-        hosted.workGeekOwnerId = idWorkGeek
+            popular.workGeekOwnerId = idWorkGeek
 
-        popularDao.insert(popular)
+            hosted.workGeekOwnerId = idWorkGeek
 
-        hostedDao.insert(hosted)
+            popularDao.insert(popular)
+
+            hostedDao.insert(hosted)
+
+            return true;
+        }
 
     }
 
-    fun insert(popular: Popular, hosted: Hosted, workGeekAnime: WorkGeekAnime){
+    fun insert(popular: Popular, hosted: Hosted, workGeekAnime: WorkGeekAnime) : Boolean{
 
-        workGeekDao.insertAnime(workGeekAnime)
+        if(workGeekDao.findIdAnimeByTitle(workGeekAnime.title) != 0L){
+            return false;
+        }else {
+            workGeekDao.insertAnime(workGeekAnime)
 
-        val idWorkGeek  = workGeekDao.findIdAnimeByTitle(workGeekAnime.title)
+            val idWorkGeek  = workGeekDao.findIdAnimeByTitle(workGeekAnime.title)
 
-        popular.workGeekOwnerId = idWorkGeek
+            popular.workGeekOwnerId = idWorkGeek
 
-        hosted.workGeekOwnerId = idWorkGeek
+            hosted.workGeekOwnerId = idWorkGeek
 
-        popularDao.insert(popular)
+            popularDao.insert(popular)
 
-        hostedDao.insert(hosted)
+            hostedDao.insert(hosted)
+
+            return true;
+        }
+
 
     }
 }
