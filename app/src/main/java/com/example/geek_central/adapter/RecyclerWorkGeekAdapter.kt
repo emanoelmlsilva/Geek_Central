@@ -7,14 +7,16 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.geek_central.R
-import com.example.geek_central.observer.IObserver
 import com.example.geek_central.BottomSheetLiveData
+import com.example.geek_central.R
 import com.example.geek_central.model.WorkGeekAnimeWithPopularAndHosted
 import com.example.geek_central.model.WorkGeekMangaWithPopularAndHosted
+import com.example.geek_central.observer.IObserver
+import com.example.geek_central.viewmodels.WorkGeekViewModel
 import com.google.android.material.button.MaterialButton
 
-class RecyclerWorkGeekAdapter : RecyclerView.Adapter<RecyclerWorkGeekAdapter.BaseViewHolder<*>>(),
+class RecyclerWorkGeekAdapter(val mWorkGeekViewModel: WorkGeekViewModel) :
+    RecyclerView.Adapter<RecyclerWorkGeekAdapter.BaseViewHolder<*>>(),
     IObserver {
 
     private var data: MutableList<Comparable<*>> = ArrayList()
@@ -39,7 +41,7 @@ class RecyclerWorkGeekAdapter : RecyclerView.Adapter<RecyclerWorkGeekAdapter.Bas
     private fun addValue(holder: BaseViewHolder<*>, itemData: Comparable<*>) {
 
         holder.edit.setOnClickListener {
-            bottomSheetLiveData = BottomSheetLiveData(context, itemData)
+            bottomSheetLiveData = BottomSheetLiveData(context, itemData, mWorkGeekViewModel)
             bottomSheetLiveData.showDialog()
         }
 

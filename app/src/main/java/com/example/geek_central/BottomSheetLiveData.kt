@@ -12,11 +12,16 @@ import androidx.lifecycle.LiveData
 import com.example.geek_central.component.MenuEditComponent
 import com.example.geek_central.model.WorkGeekAnimeWithPopularAndHosted
 import com.example.geek_central.model.WorkGeekMangaWithPopularAndHosted
+import com.example.geek_central.viewmodels.WorkGeekViewModel
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 
 
-class BottomSheetLiveData(val context: Context, var objGeek: Comparable<*>) :
+class BottomSheetLiveData(
+    val context: Context,
+    objGeek: Comparable<*>,
+    mWorkGeekViewModel: WorkGeekViewModel
+) :
     LiveData<Int>(), View.OnClickListener {
 
     private var bottomSheetDialog: BottomSheetDialog = BottomSheetDialog(context)
@@ -36,15 +41,15 @@ class BottomSheetLiveData(val context: Context, var objGeek: Comparable<*>) :
         menuEdit = when (objGeek) {
             is WorkGeekMangaWithPopularAndHosted -> MenuEditComponent(
                 view.findViewById(R.id.includeEditMenu),
-                objGeek
+                objGeek, mWorkGeekViewModel
             )
             is WorkGeekAnimeWithPopularAndHosted -> MenuEditComponent(
                 view.findViewById(R.id.includeEditMenu),
-                objGeek
+                objGeek, mWorkGeekViewModel
             )
             else -> MenuEditComponent(
                 view.findViewById(R.id.includeEditMenu),
-                objGeek as WorkGeekMangaWithPopularAndHosted
+                objGeek as WorkGeekMangaWithPopularAndHosted, mWorkGeekViewModel
             )
         }
 
