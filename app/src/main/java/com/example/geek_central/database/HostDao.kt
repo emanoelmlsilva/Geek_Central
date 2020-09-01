@@ -5,7 +5,7 @@ import androidx.room.*
 import com.example.geek_central.model.Host
 
 @Dao
-interface HostedDao {
+interface HostDao {
 
     @Transaction
     @Query("SELECT * FROM hosts")

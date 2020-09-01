@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import com.example.geek_central.enums.TypeWork
 import com.example.geek_central.model.*
 
-class WorkGeekRepository(private val workGeekDao: WorkGeekDao, private val popularDao: PopularDao, private val hostedDao : HostedDao) {
+class WorkGeekRepository(private val workGeekDao: WorkGeekDao, private val popularDao: PopularDao, private val hostDao : HostDao) {
 
     fun getAllWorkGeeksMangas() : LiveData<List<WorkGeekMangaWithPopularAndHosted>> = workGeekDao.getWorkGeeksMangasOrdeByFavorite()
 
@@ -31,7 +31,7 @@ class WorkGeekRepository(private val workGeekDao: WorkGeekDao, private val popul
 
             popularDao.insert(popular)
 
-            hostedDao.insert(host)
+            hostDao.insert(host)
 
     }
 
@@ -47,7 +47,7 @@ class WorkGeekRepository(private val workGeekDao: WorkGeekDao, private val popul
 
             popularDao.insert(popular)
 
-            hostedDao.insert(host)
+            hostDao.insert(host)
 
     }
 
@@ -60,13 +60,13 @@ class WorkGeekRepository(private val workGeekDao: WorkGeekDao, private val popul
     }
 
     fun updateManga(workGeek: WorkGeekMangaWithPopularAndHosted){
-        hostedDao.update(workGeek.host)
+        hostDao.update(workGeek.host)
         popularDao.update(workGeek.popular)
         workGeekDao.updateManga(workGeek.workGeek)
     }
 
     fun updateAnime(workGeek: WorkGeekAnimeWithPopularAndHosted){
-        hostedDao.update(workGeek.host)
+        hostDao.update(workGeek.host)
         popularDao.update(workGeek.popular)
         workGeekDao.updateAnime(workGeek.workGeek)
     }

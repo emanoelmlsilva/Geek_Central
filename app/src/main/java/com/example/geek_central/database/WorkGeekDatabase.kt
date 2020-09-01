@@ -13,7 +13,7 @@ abstract class WorkGeekDatabase : RoomDatabase(){
 
     abstract fun workGeekDao() : WorkGeekDao
     abstract fun popularDao() : PopularDao
-    abstract fun hostedDao() : HostedDao
+    abstract fun hostedDao() : HostDao
 
     companion object {
         private var INSTANCE: WorkGeekDatabase? = null
