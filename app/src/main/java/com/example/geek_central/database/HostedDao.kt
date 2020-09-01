@@ -1,10 +1,7 @@
 package com.example.geek_central.database
 
 import androidx.lifecycle.LiveData
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.Query
-import androidx.room.Transaction
+import androidx.room.*
 import com.example.geek_central.model.Hosted
 import com.example.geek_central.model.Popular
 
@@ -17,4 +14,7 @@ interface HostedDao {
 
     @Insert
     fun insert(hosted: Hosted)
+
+    @Update
+    fun update(hosted: Hosted)
 }

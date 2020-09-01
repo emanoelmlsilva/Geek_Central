@@ -27,6 +27,12 @@ interface WorkGeekDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertAnime(workGeekAnime: WorkGeekAnime)
 
+    @Update
+    fun updateManga(workGeek: WorkGeekManga)
+
+    @Update
+    fun updateAnime(workGeek: WorkGeekAnime)
+
     @Query("DELETE FROM work_geeks_mangas WHERE id_work_geek_manga = :id")
     fun deleteManga(id : Long)
 
