@@ -244,7 +244,7 @@ class MenuEditComponent(
         objGeek.workGeek.currentGeek.let { componentCounteLeft.setTextLayout(it) }
         objGeek.workGeek.totalGeek.let { componentCounteRigth.setTextLayout(it) }
         objGeek.popular.grade.let { setValueNote(it.toFloat()) }
-        objGeek.hosted.site.let { inputSite.editText?.setText(it) }
+        objGeek.host.site.let { inputSite.editText?.setText(it) }
     }
 
     private fun loagindManga(objGeek: WorkGeekMangaWithPopularAndHosted) {
@@ -259,7 +259,7 @@ class MenuEditComponent(
         objGeek.workGeek.currentGeek.let { componentCounteLeft.setTextLayout(it) }
         objGeek.workGeek.totalGeek.let { componentCounteRigth.setTextLayout(it) }
         objGeek.popular.grade.let { setValueNote(it.toFloat()) }
-        objGeek.hosted.site.let { inputSite.editText?.setText(it) }
+        objGeek.host.site.let { inputSite.editText?.setText(it) }
     }
 
     private fun setIconFavorite(isFavorite: Boolean) {
