@@ -46,10 +46,6 @@ class WorkGeekFragment(mainFragment: MainFragment, private val typeWork: String)
 
         txtMessageEmpty.text = "${txtMessageEmpty.text} ${textMessage}"
 
-        //listManga = OrderBy.get().ordeBy(TypeOrderBy.TITLE.toString(), listManga) as MutableList<WorkGeek>
-        //listAnime = OrderBy.get().ordeBy(TypeOrderBy.TOTAL.toString(), listAnime) as MutableList<WorkGeek>
-        //listHq = OrderBy.get().ordeBy(TypeOrderBy.GRADE.toString(), listHq) as MutableList<WorkGeek>
-
         val adapter: RecyclerWorkGeekAdapter = RecyclerWorkGeekAdapter(workGeekViewModel)
 
         recycler_work_geek.layoutManager = LinearLayoutManager(context)
