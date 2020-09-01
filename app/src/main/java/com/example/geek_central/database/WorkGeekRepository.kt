@@ -19,11 +19,7 @@ class WorkGeekRepository(private val workGeekDao: WorkGeekDao, private val popul
 
     }
 
-    fun insert(popular: Popular, hosted: Hosted, workGeek: WorkGeekManga) : Boolean{
-
-        if(workGeekDao.findIdMangaByTitle(workGeek.title) != 0L){
-            return false;
-        }else {
+    fun insert(popular: Popular, hosted: Hosted, workGeek: WorkGeekManga){
 
             workGeekDao.insertManga(workGeek)
 
@@ -37,17 +33,11 @@ class WorkGeekRepository(private val workGeekDao: WorkGeekDao, private val popul
 
             hostedDao.insert(hosted)
 
-            return true;
-        }
-
     }
 
-    fun insert(popular: Popular, hosted: Hosted, workGeekAnime: WorkGeekAnime) : Boolean{
+    fun insert(popular: Popular, hosted: Hosted, workGeekAnime: WorkGeekAnime){
 
-        if(workGeekDao.findIdAnimeByTitle(workGeekAnime.title) != 0L){
-            return false;
-        }else {
-            workGeekDao.insertAnime(workGeekAnime)
+        workGeekDao.insertAnime(workGeekAnime)
 
             val idWorkGeek  = workGeekDao.findIdAnimeByTitle(workGeekAnime.title)
 
@@ -58,10 +48,6 @@ class WorkGeekRepository(private val workGeekDao: WorkGeekDao, private val popul
             popularDao.insert(popular)
 
             hostedDao.insert(hosted)
-
-            return true;
-        }
-
 
     }
 }
