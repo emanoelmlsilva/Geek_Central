@@ -16,11 +16,11 @@ class WorkGeekRepository(private val workGeekDao: WorkGeekDao, private val popul
 
     fun getAllWorkGeeksAnimes() : LiveData<List<WorkGeekAnimeWithPopularAndHosted>> = workGeekDao.getWorkGeeksAnimes()
 
-    fun getAllWorkGeeksAnimesFavorites() : LiveData<List<WorkGeekMangaWithPopularAndHosted>> = workGeekDao.getWorkGeeksAnimesOrdeByFavorite()
+    fun getAllWorkGeeksAnimesFavorites() : LiveData<List<WorkGeekAnimeWithPopularAndHosted>> = workGeekDao.getWorkGeeksAnimesOrdeByFavorite()
 
-    fun getAllWorkGeeksAnimesTotal() : LiveData<List<WorkGeekMangaWithPopularAndHosted>> = workGeekDao.getWorkGeeksAnimesOrdeByTotal()
+    fun getAllWorkGeeksAnimesTotal() : LiveData<List<WorkGeekAnimeWithPopularAndHosted>> = workGeekDao.getWorkGeeksAnimesOrdeByTotal()
 
-    fun getAllWorkGeeksAnimesGrades() : LiveData<List<WorkGeekMangaWithPopularAndHosted>> = workGeekDao.getWorkGeeksAnimesOrdeByGrade()
+    fun getAllWorkGeeksAnimesGrades() : LiveData<List<WorkGeekAnimeWithPopularAndHosted>> = workGeekDao.getWorkGeeksAnimesOrdeByGrade()
 
     fun delete(id: Long, type: String){
 
