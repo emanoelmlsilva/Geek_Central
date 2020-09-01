@@ -34,15 +34,15 @@ interface WorkGeekDao {
 
     @Transaction
     @Query("SELECT * FROM work_geeks_animes INNER JOIN populares ON populares.workgeek_popular_id = work_geeks_animes.id_work_geek_anime INNER JOIN hosts ON hosts.workgeek_hosted_id = work_geeks_animes.id_work_geek_anime ORDER BY favorite DESC")
-    fun getWorkGeeksAnimesOrdeByFavorite(): LiveData<List<WorkGeekMangaWithPopularAndHosted>>
+    fun getWorkGeeksAnimesOrdeByFavorite(): LiveData<List<WorkGeekAnimeWithPopularAndHosted>>
 
     @Transaction
     @Query("SELECT * FROM work_geeks_animes INNER JOIN populares ON populares.workgeek_popular_id = work_geeks_animes.id_work_geek_anime INNER JOIN hosts ON hosts.workgeek_hosted_id = work_geeks_animes.id_work_geek_anime ORDER BY total_geek ASC")
-    fun getWorkGeeksAnimesOrdeByTotal(): LiveData<List<WorkGeekMangaWithPopularAndHosted>>
+    fun getWorkGeeksAnimesOrdeByTotal(): LiveData<List<WorkGeekAnimeWithPopularAndHosted>>
 
     @Transaction
     @Query("SELECT * FROM work_geeks_animes INNER JOIN populares ON populares.workgeek_popular_id = work_geeks_animes.id_work_geek_anime INNER JOIN hosts ON hosts.workgeek_hosted_id = work_geeks_animes.id_work_geek_anime ORDER BY grade DESC")
-    fun getWorkGeeksAnimesOrdeByGrade(): LiveData<List<WorkGeekMangaWithPopularAndHosted>>
+    fun getWorkGeeksAnimesOrdeByGrade(): LiveData<List<WorkGeekAnimeWithPopularAndHosted>>
 
     @Query("SELECT id_work_geek_manga FROM work_geeks_mangas WHERE title = :title LIMIT 1")
     fun findIdMangaByTitle(title: String): Long
