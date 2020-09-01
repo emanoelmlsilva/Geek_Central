@@ -10,6 +10,7 @@ import com.example.geek_central.model.WorkGeekMangaWithPopularAndHosted
 @Dao
 interface WorkGeekDao {
 
+    //lista mangas
     @Transaction
     @Query("SELECT * FROM work_geeks_mangas ORDER BY title ASC")
     fun getWorkGeeksMangasOrderByTitle(): LiveData<List<WorkGeekMangaWithPopularAndHosted>>
@@ -26,9 +27,22 @@ interface WorkGeekDao {
     @Query("SELECT * FROM work_geeks_mangas INNER JOIN populares ON populares.workgeek_popular_id = work_geeks_mangas.id_work_geek_manga INNER JOIN hosts ON hosts.workgeek_hosted_id = work_geeks_mangas.id_work_geek_manga ORDER BY grade DESC")
     fun getWorkGeeksMangasOrdeByGrade(): LiveData<List<WorkGeekMangaWithPopularAndHosted>>
 
+    //lista animes
     @Transaction
     @Query("SELECT * FROM work_geeks_animes ORDER BY title ASC")
     fun getWorkGeeksAnimes(): LiveData<List<WorkGeekAnimeWithPopularAndHosted>>
+
+    @Transaction
+    @Query("SELECT * FROM work_geeks_animes INNER JOIN populares ON populares.workgeek_popular_id = work_geeks_animes.id_work_geek_anime INNER JOIN hosts ON hosts.workgeek_hosted_id = work_geeks_animes.id_work_geek_anime ORDER BY favorite DESC")
+    fun getWorkGeeksAnimesOrdeByFavorite(): LiveData<List<WorkGeekMangaWithPopularAndHosted>>
+
+    @Transaction
+    @Query("SELECT * FROM work_geeks_animes INNER JOIN populares ON populares.workgeek_popular_id = work_geeks_animes.id_work_geek_anime INNER JOIN hosts ON hosts.workgeek_hosted_id = work_geeks_animes.id_work_geek_anime ORDER BY total_geek ASC")
+    fun getWorkGeeksAnimesOrdeByTotal(): LiveData<List<WorkGeekMangaWithPopularAndHosted>>
+
+    @Transaction
+    @Query("SELECT * FROM work_geeks_animes INNER JOIN populares ON populares.workgeek_popular_id = work_geeks_animes.id_work_geek_anime INNER JOIN hosts ON hosts.workgeek_hosted_id = work_geeks_animes.id_work_geek_anime ORDER BY grade DESC")
+    fun getWorkGeeksAnimesOrdeByGrade(): LiveData<List<WorkGeekMangaWithPopularAndHosted>>
 
     @Query("SELECT id_work_geek_manga FROM work_geeks_mangas WHERE title = :title LIMIT 1")
     fun findIdMangaByTitle(title: String): Long
