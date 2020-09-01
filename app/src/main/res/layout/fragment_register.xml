@@ -81,7 +81,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
             app:startIconContentDescription="@string/description_icon"
-            app:startIconDrawable="@drawable/ic_favorite_black_24dp">
+            app:startIconDrawable="@drawable/ic_favorite_border_black_24dp">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
