@@ -6,9 +6,21 @@ import com.example.geek_central.model.*
 
 class WorkGeekRepository(private val workGeekDao: WorkGeekDao, private val popularDao: PopularDao, private val hostDao : HostDao) {
 
-    fun getAllWorkGeeksMangas() : LiveData<List<WorkGeekMangaWithPopularAndHosted>> = workGeekDao.getWorkGeeksMangasOrdeByFavorite()
+    fun getAllWorkGeeksMangas() : LiveData<List<WorkGeekMangaWithPopularAndHosted>> = workGeekDao.getWorkGeeksMangasOrderByTitle()
+
+    fun getAllWorkGeeksMangasFavorites() : LiveData<List<WorkGeekMangaWithPopularAndHosted>> = workGeekDao.getWorkGeeksMangasOrdeByFavorite()
+
+    fun getAllWorkGeeksMangasTotal() : LiveData<List<WorkGeekMangaWithPopularAndHosted>> = workGeekDao.getWorkGeeksMangasOrdeByTotal()
+
+    fun getAllWorkGeeksMangasGrades() : LiveData<List<WorkGeekMangaWithPopularAndHosted>> = workGeekDao.getWorkGeeksMangasOrdeByGrade()
 
     fun getAllWorkGeeksAnimes() : LiveData<List<WorkGeekAnimeWithPopularAndHosted>> = workGeekDao.getWorkGeeksAnimes()
+
+    fun getAllWorkGeeksAnimesFavorites() : LiveData<List<WorkGeekMangaWithPopularAndHosted>> = workGeekDao.getWorkGeeksAnimesOrdeByFavorite()
+
+    fun getAllWorkGeeksAnimesTotal() : LiveData<List<WorkGeekMangaWithPopularAndHosted>> = workGeekDao.getWorkGeeksAnimesOrdeByTotal()
+
+    fun getAllWorkGeeksAnimesGrades() : LiveData<List<WorkGeekMangaWithPopularAndHosted>> = workGeekDao.getWorkGeeksAnimesOrdeByGrade()
 
     fun delete(id: Long, type: String){
 
