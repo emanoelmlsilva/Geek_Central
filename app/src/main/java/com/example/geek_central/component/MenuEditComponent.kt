@@ -8,6 +8,7 @@ import android.view.animation.TranslateAnimation
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import com.example.geek_central.R
+import com.example.geek_central.model.BaseWorkGeek
 import com.example.geek_central.model.WorkGeekAnimeWithPopularAndHosted
 import com.example.geek_central.model.WorkGeekMangaWithPopularAndHosted
 import com.example.geek_central.viewmodels.WorkGeekViewModel
@@ -17,7 +18,7 @@ import com.google.android.material.textfield.TextInputLayout
 
 class MenuEditComponent(
     val view: View,
-    val objGeek: Comparable<*>,
+    val objGeek: BaseWorkGeek,
     val mWorkGeekViewModel: WorkGeekViewModel
 ) {
 
@@ -43,7 +44,7 @@ class MenuEditComponent(
 
     private var status: Float = 0.0f
 
-    private val isSeason = objGeek is WorkGeekAnimeWithPopularAndHosted
+    private val isSeason = objGeek.season != null
 
     init {
 
@@ -178,13 +179,9 @@ class MenuEditComponent(
         componentDefault.setInputLayoutValue()
 
         btnSave.setOnClickListener {
-            when (objGeek) {
-                is WorkGeekMangaWithPopularAndHosted -> {
-                    objGeek.workGeek.title = inputName.editText?.text.toString()
-                    saveManga(objGeek)
-                }
-                is WorkGeekAnimeWithPopularAndHosted -> loagindAnime(objGeek)
-            }
+
+            objGeek.title = inputName.editText?.text.toString()
+            saveManga(objGeek)
         }
 
         inputName.editText?.addTextChangedListener(object : TextWatcher {
@@ -201,17 +198,9 @@ class MenuEditComponent(
 
         inputName.setStartIconOnClickListener {
 
-            when (objGeek) {
-                is WorkGeekMangaWithPopularAndHosted -> {
+            objGeek.popular.favorite = !objGeek.popular.favorite
 
-                    objGeek.popular.favorite = !objGeek.popular.favorite
-
-                    setIconFavorite(objGeek.popular.favorite)
-
-                }
-                is WorkGeekAnimeWithPopularAndHosted -> loagindAnime(objGeek)
-            }
-
+            setIconFavorite(objGeek.popular.favorite)
 
         }
 
@@ -219,15 +208,27 @@ class MenuEditComponent(
 
     fun loadingObject() {
 
-        when (objGeek) {
-            is WorkGeekMangaWithPopularAndHosted -> loagindManga(objGeek)
-            is WorkGeekAnimeWithPopularAndHosted -> loagindAnime(objGeek)
+        if(objGeek.season != null) season.setItemSpinner(objGeek.season.toString())
+
+        setIconFavorite(objGeek.popular.favorite)
+
+        objGeek.title.let {
+            title.text = it
+            inputName.editText?.setText(it)
         }
+
+        objGeek.currentGeek.let { componentCounteLeft.setTextLayout(it) }
+        objGeek.totalGeek.let { componentCounteRigth.setTextLayout(it) }
+        objGeek.popular.grade.let { setValueNote(it.toFloat()) }
+        objGeek.host.site.let { inputSite.editText?.setText(it) }
+
 
     }
 
-    private fun saveManga(objGeek: WorkGeekMangaWithPopularAndHosted) {
-        mWorkGeekViewModel.update(objGeek)
+    private fun saveManga(objGeek: BaseWorkGeek) {
+
+        val workGeekAnimeWithPopularAndHosted = WorkGeekMangaWithPopularAndHosted(objGeek.workGeekManga!!, objGeek.popular, objGeek.host)
+        mWorkGeekViewModel.update(workGeekAnimeWithPopularAndHosted)
     }
 
     private fun loagindAnime(objGeek: WorkGeekAnimeWithPopularAndHosted) {
@@ -294,22 +295,9 @@ class MenuEditComponent(
 
         inputName.setStartIconOnClickListener {
 
-            when (objGeek) {
-                is WorkGeekMangaWithPopularAndHosted -> {
+            objGeek.popular.favorite = !objGeek.popular.favorite
 
-                    objGeek.popular.favorite = !objGeek.popular.favorite
-
-                    setIconFavorite(objGeek.popular.favorite)
-                }
-
-                is WorkGeekAnimeWithPopularAndHosted -> {
-
-                    objGeek.popular.favorite = !objGeek.popular.favorite
-
-                    setIconFavorite(objGeek.popular.favorite)
-                }
-            }
-
+            setIconFavorite(objGeek.popular.favorite)
 
         }
     }
