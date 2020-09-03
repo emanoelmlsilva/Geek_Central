@@ -10,8 +10,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import androidx.lifecycle.LiveData
 import com.example.geek_central.component.MenuEditComponent
-import com.example.geek_central.model.WorkGeekAnimeWithPopularAndHosted
-import com.example.geek_central.model.WorkGeekMangaWithPopularAndHosted
+import com.example.geek_central.model.BaseWorkGeek
 import com.example.geek_central.viewmodels.WorkGeekViewModel
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -19,7 +18,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 
 class BottomSheetLiveData(
     val context: Context,
-    objGeek: Comparable<*>,
+    objGeek: BaseWorkGeek,
     mWorkGeekViewModel: WorkGeekViewModel
 ) :
     LiveData<Int>(), View.OnClickListener {
@@ -38,20 +37,10 @@ class BottomSheetLiveData(
 
         val view = layoutInflater.inflate(R.layout.bottom_sheet_layout, null)
 
-        menuEdit = when (objGeek) {
-            is WorkGeekMangaWithPopularAndHosted -> MenuEditComponent(
-                view.findViewById(R.id.includeEditMenu),
-                objGeek, mWorkGeekViewModel
-            )
-            is WorkGeekAnimeWithPopularAndHosted -> MenuEditComponent(
-                view.findViewById(R.id.includeEditMenu),
-                objGeek, mWorkGeekViewModel
-            )
-            else -> MenuEditComponent(
-                view.findViewById(R.id.includeEditMenu),
-                objGeek as WorkGeekMangaWithPopularAndHosted, mWorkGeekViewModel
-            )
-        }
+        menuEdit = MenuEditComponent(
+            view.findViewById(R.id.includeEditMenu),
+            objGeek, mWorkGeekViewModel
+        )
 
         bottomSheetDialog.setContentView(view)
 
