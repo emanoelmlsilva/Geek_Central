@@ -2,7 +2,7 @@ package com.example.geek_central.observer
 
 interface IObservable {
 
-    fun add(observer : IObserver, type: String)
+    fun add(observer : IObserver)
 
     fun remove(observer: IObserver)
 
