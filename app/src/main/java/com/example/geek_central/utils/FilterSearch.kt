@@ -1,16 +1,16 @@
 package com.example.geek_central.utils
 
-import com.example.geek_central.model.WorkGeek
+import com.example.geek_central.model.BaseWorkGeek
 
-open class FilterSearch(var list: List<WorkGeek>, val text : String) {
+open class FilterSearch(var list: List<BaseWorkGeek>, val text: String) {
 
-    fun searchText() : List<WorkGeek>{
+    fun searchText(): List<BaseWorkGeek> {
 
-        val newList : ArrayList<WorkGeek> = ArrayList()
+        val newList: ArrayList<BaseWorkGeek> = ArrayList()
 
-        for(item : WorkGeek in list){
+        for (item: BaseWorkGeek in list) {
 
-            if(item.title!!.toLowerCase().contains(text.toLowerCase())) {
+            if (item.title!!.toLowerCase().contains(text.toLowerCase())) {
                 newList.add(item)
             }
         }
