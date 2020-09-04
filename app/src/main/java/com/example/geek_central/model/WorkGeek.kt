@@ -4,7 +4,7 @@ package com.example.geek_central.model
       var workGeekId: Long?
       var title: String
       var currentGeek: Int
-      var season: Int?
+      var season: String?
       var totalGeek: Int
 
  }
