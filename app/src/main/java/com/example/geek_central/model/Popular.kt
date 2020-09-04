@@ -15,8 +15,7 @@ data class Popular(
         @ColumnInfo(name = "workgeek_popular_id") var workGeekOwnerId: Long? =  null,
 
         @ColumnInfo(name = "grade")
-        var grade: Double,
+        var grade: Double = 0.0,
         @ColumnInfo(name = "favorite")
-        var favorite: Boolean) {
-
+        var favorite: Boolean = false) {
 }

@@ -12,9 +12,9 @@ class Host(
     @ColumnInfo(name = "workgeek_hosted_id") var workGeekOwnerId: Long? =  null,
 
     @ColumnInfo(name = "site")
-    var site: String,
+    var site: String = "",
     @ColumnInfo(name = "type")
-    var type: String
+    var type: String = ""
 ) {
 
 }
