@@ -52,21 +52,6 @@ class WorkGeekFragment(mainFragment: MainFragment, private var typeWork: String)
         var listManga: List<WorkGeekMangaWithPopularAndHosted> = ArrayList()
         var listAnime: List<WorkGeekAnimeWithPopularAndHosted> = ArrayList()
 
-
-
-        when (typeWork) {
-            TypeWork.MANGA.toString() -> workGeekViewModel.getAllWorkGeeksMangas()
-                .observeForever { workgeeks ->
-                    listManga = workgeeks
-                }
-
-            TypeWork.ANIME.toString() -> workGeekViewModel.getAllWorkGeeksAnimes()
-                .observeForever { workgeeks ->
-                    listAnime = workgeeks
-                }
-        }
-
-
         val adapter: RecyclerWorkGeekAdapter = when (typeWork) {
             TypeWork.MANGA.toString() -> {
                 RecyclerWorkGeekAdapter(
@@ -92,9 +77,9 @@ class WorkGeekFragment(mainFragment: MainFragment, private var typeWork: String)
             override fun onChanged() {
                 super.onChanged()
                 if (adapter.itemCount == 0) {
-                    txtMessageEmpty.visibility = View.VISIBLE
+//                    txtMessageEmpty.visibility = View.VISIBLE
                 } else {
-                    txtMessageEmpty.visibility = View.GONE
+//                    txtMessageEmpty.visibility = View.GONE
                 }
             }
         })
@@ -104,21 +89,17 @@ class WorkGeekFragment(mainFragment: MainFragment, private var typeWork: String)
 //        val hqs = workGeekViewModel.getAllWorkGeeksHqs()
 
         mangas.observe(viewLifecycleOwner, Observer { workGeeks ->
-
             if (typeWork.equals(TypeWork.MANGA.toString())) {
                 adapter.setData(
-                    ConvertToBaseWorkGeek.get().workGeekMnagaFromBaseWorkGeek(workGeeks),
-                    typeWork
+                    ConvertToBaseWorkGeek.get().workGeekMnagaFromBaseWorkGeek(workGeeks)
                 )
             }
         })
 
         animes.observe(viewLifecycleOwner, Observer { workGeeks ->
-
             if (typeWork.equals(TypeWork.ANIME.toString())) {
                 adapter.setData(
-                    ConvertToBaseWorkGeek.get().workGeekAnimeFromBaseWorkGeek(workGeeks),
-                    typeWork
+                    ConvertToBaseWorkGeek.get().workGeekAnimeFromBaseWorkGeek(workGeeks)
                 )
             }
         })
