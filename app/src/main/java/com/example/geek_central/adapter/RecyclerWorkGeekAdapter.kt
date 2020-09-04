@@ -13,6 +13,7 @@ import com.example.geek_central.enums.TypeWork
 import com.example.geek_central.model.BaseWorkGeek
 import com.example.geek_central.observer.IObserver
 import com.example.geek_central.utils.ConvertToBaseWorkGeek
+import com.example.geek_central.utils.FilterSearch
 import com.example.geek_central.viewmodels.WorkGeekViewModel
 import com.google.android.material.button.MaterialButton
 
@@ -24,13 +25,13 @@ class RecyclerWorkGeekAdapter(
     RecyclerView.Adapter<RecyclerWorkGeekAdapter.BaseViewHolder>(),
     IObserver {
 
-    private val copyListData = ArrayList<Comparable<*>>()
+    private var copyListData: MutableList<BaseWorkGeek> = baseWorkGeeks
 
     private lateinit var context: Context
 
     private lateinit var bottomSheetLiveData: BottomSheetLiveData
 
-    fun setData(newData: List<BaseWorkGeek>, type: String) {
+    fun setData(newData: List<BaseWorkGeek>) {
 
         baseWorkGeeks = newData as MutableList<BaseWorkGeek>
 
@@ -50,6 +51,7 @@ class RecyclerWorkGeekAdapter(
         parent: ViewGroup,
         viewType: Int
     ): BaseViewHolder {
+        copyListData = baseWorkGeeks
 
         context = parent.context
 
@@ -82,6 +84,7 @@ class RecyclerWorkGeekAdapter(
                     .observeForever { workgeeks ->
                         baseWorkGeeks =
                             ConvertToBaseWorkGeek.get().workGeekAnimeFromBaseWorkGeek(workgeeks)
+
                         notifyDataSetChanged()
                     }
 
@@ -93,34 +96,24 @@ class RecyclerWorkGeekAdapter(
 
                         baseWorkGeeks =
                             ConvertToBaseWorkGeek.get().workGeekMnagaFromBaseWorkGeek(workgeeks)
+
                         notifyDataSetChanged()
                     }
 
             }
-        } else {
-            println("entrou para filtar")
+        } else if(filter != null){
+
+            if (typeWorkGeek.equals(TypeWork.MANGA.toString())) {
+
+
+                val newlist: List<BaseWorkGeek> = FilterSearch(copyListData, filter).searchText()
+
+                baseWorkGeeks =
+                    if (filter.isNullOrBlank()) copyListData else newlist as MutableList<BaseWorkGeek>
+                notifyDataSetChanged()
+            }
         }
     }
-
-//
-//
-//    override fun update(filter: String, typeOrder: Boolean) {
-//
-//        if (typeOrder) {
-//
-//            //workGeeks = OrderBy.get().ordeBy(filter, workGeeks) as MutableList<WorkGeek>
-//
-//        } else {
-//
-//            //val newlist: List<WorkGeek> = FilterSearch(copyListWorkGeek, filter).searchText()
-//
-//            //workGeeks = if (filter.isNullOrBlank()) copyListWorkGeek else newlist as MutableList<WorkGeek>
-//
-//        }
-//
-//        notifyDataSetChanged()
-//    }
-
 
     //viewholder padrão para a criação dos tipos manga, anime e hq
     class BaseViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
