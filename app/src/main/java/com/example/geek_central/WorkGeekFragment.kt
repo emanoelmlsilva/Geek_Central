@@ -12,12 +12,15 @@ import androidx.recyclerview.widget.RecyclerView.AdapterDataObserver
 import com.example.geek_central.adapter.RecyclerWorkGeekAdapter
 import com.example.geek_central.databinding.FragmentWorkgeekBinding
 import com.example.geek_central.enums.TypeWork
+import com.example.geek_central.model.WorkGeekAnimeWithPopularAndHosted
+import com.example.geek_central.model.WorkGeekMangaWithPopularAndHosted
 import com.example.geek_central.observer.IObservable
+import com.example.geek_central.utils.ConvertToBaseWorkGeek
 import com.example.geek_central.viewmodels.WorkGeekViewModel
 import kotlinx.android.synthetic.main.fragment_workgeek.*
 
 
-class WorkGeekFragment(mainFragment: MainFragment, private val typeWork: String) : Fragment() {
+class WorkGeekFragment(mainFragment: MainFragment, private var typeWork: String) : Fragment() {
 
     private var iOBservable: IObservable = mainFragment
 
@@ -46,12 +49,44 @@ class WorkGeekFragment(mainFragment: MainFragment, private val typeWork: String)
 
         txtMessageEmpty.text = "${txtMessageEmpty.text} ${textMessage}"
 
-        val adapter: RecyclerWorkGeekAdapter = RecyclerWorkGeekAdapter(workGeekViewModel)
+        var listManga: List<WorkGeekMangaWithPopularAndHosted> = ArrayList()
+        var listAnime: List<WorkGeekAnimeWithPopularAndHosted> = ArrayList()
+
+
+
+        when (typeWork) {
+            TypeWork.MANGA.toString() -> workGeekViewModel.getAllWorkGeeksMangas()
+                .observeForever { workgeeks ->
+                    listManga = workgeeks
+                }
+
+            TypeWork.ANIME.toString() -> workGeekViewModel.getAllWorkGeeksAnimes()
+                .observeForever { workgeeks ->
+                    listAnime = workgeeks
+                }
+        }
+
+
+        val adapter: RecyclerWorkGeekAdapter = when (typeWork) {
+            TypeWork.MANGA.toString() -> {
+                RecyclerWorkGeekAdapter(
+                    ConvertToBaseWorkGeek.get().workGeekMnagaFromBaseWorkGeek(
+                        listManga
+                    ), workGeekViewModel, TypeWork.MANGA.toString()
+                )
+            }
+            else -> RecyclerWorkGeekAdapter(
+                ConvertToBaseWorkGeek.get().workGeekAnimeFromBaseWorkGeek(
+                    listAnime
+                ), workGeekViewModel, TypeWork.ANIME.toString()
+            )
+        }
+
 
         recycler_work_geek.layoutManager = LinearLayoutManager(context)
         recycler_work_geek.adapter = adapter
 
-        iOBservable.add(adapter)
+        iOBservable.add(adapter, typeWork)
 
         adapter.registerAdapterDataObserver(object : AdapterDataObserver() {
             override fun onChanged() {
@@ -64,14 +99,28 @@ class WorkGeekFragment(mainFragment: MainFragment, private val typeWork: String)
             }
         })
 
-        val list = when (typeWork) {
-            TypeWork.MANGA.toString() -> workGeekViewModel.getAllWorkGeeksMangas()
-            TypeWork.ANIME.toString() -> workGeekViewModel.getAllWorkGeeksAnimes()
-            else -> workGeekViewModel.getAllWorkGeeksMangas()
-        }
+        val mangas = workGeekViewModel.getAllWorkGeeksMangas()
+        val animes = workGeekViewModel.getAllWorkGeeksAnimes()
+//        val hqs = workGeekViewModel.getAllWorkGeeksHqs()
 
-        list.observe(viewLifecycleOwner, Observer { workGeeks ->
-            adapter.setData(workGeeks)
+        mangas.observe(viewLifecycleOwner, Observer { workGeeks ->
+
+            if (typeWork.equals(TypeWork.MANGA.toString())) {
+                adapter.setData(
+                    ConvertToBaseWorkGeek.get().workGeekMnagaFromBaseWorkGeek(workGeeks),
+                    typeWork
+                )
+            }
+        })
+
+        animes.observe(viewLifecycleOwner, Observer { workGeeks ->
+
+            if (typeWork.equals(TypeWork.ANIME.toString())) {
+                adapter.setData(
+                    ConvertToBaseWorkGeek.get().workGeekAnimeFromBaseWorkGeek(workGeeks),
+                    typeWork
+                )
+            }
         })
     }
 
