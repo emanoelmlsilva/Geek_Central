@@ -19,6 +19,7 @@ import com.example.geek_central.enums.TypeWork
 import com.example.geek_central.observer.IObservable
 import com.example.geek_central.observer.IObserver
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import java.lang.reflect.Type
 
 /**
  * A simple [Fragment] subclass.
@@ -35,7 +36,7 @@ class MainFragment : Fragment(), IObservable {
     private lateinit var observerHq: IObserver
 
     private var filterValue: String = ""
-    private var type: String = TypeWork.MANGA.toString()
+    private var type: String? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -50,6 +51,8 @@ class MainFragment : Fragment(), IObservable {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
+        type = TypeWork.MANGA.toString()
 
         mountViewPagerWithTabs()
         setClicledViews()
@@ -127,12 +130,12 @@ class MainFragment : Fragment(), IObservable {
                 TypeWork.ANIME.toString()
             ), resources.getString(R.string.nameAnime)
         )
-        adapter.addFragment(
-            WorkGeekFragment(
-                this,
-                TypeWork.HQ.toString()
-            ), resources.getString(R.string.nameHq)
-        )
+//        adapter.addFragment(
+//            WorkGeekFragment(
+//                this,
+//                TypeWork.HQ.toString()
+//            ), resources.getString(R.string.nameHq)
+//        )
         bindBing.viewPager.adapter = adapter
         bindBing.tabs.setupWithViewPager(bindBing.viewPager)
 
@@ -160,11 +163,23 @@ class MainFragment : Fragment(), IObservable {
     }
 
     override fun add(observer: IObserver) {
+        println("type add ${type}")
         when (type) {
-            TypeWork.MANGA.toString() -> observerManga = observer
-            TypeWork.ANIME.toString() -> observerAnime = observer
-            TypeWork.HQ.toString() -> observerHq = observer
+            TypeWork.MANGA.toString() -> {
+                observerManga = observer
+                type = TypeWork.ANIME.toString()
+            }
+            TypeWork.ANIME.toString() -> {
+                observerAnime = observer
+                type = TypeWork.MANGA.toString()
+         //       type = TypeWork.HQ.toString()
+            }
+            TypeWork.HQ.toString() -> {
+                type = TypeWork.MANGA.toString()
+                observerHq = observer
+            }
         }
+        //modificar valor do type ao instanciar como manga
     }
 
     override fun remove(observer: IObserver) {
@@ -172,11 +187,11 @@ class MainFragment : Fragment(), IObservable {
     }
 
     override fun sendUpdate(typeOrder: String) {
-
+        println("type sendUpdate ${type}")
         when (type) {
-            TypeWork.MANGA.toString() -> observerManga.update(filterValue, typeOrder, type)
-            TypeWork.ANIME.toString() -> observerAnime.update(filterValue, typeOrder, type)
-            TypeWork.HQ.toString() -> observerHq.update(filterValue, typeOrder, type)
+            TypeWork.MANGA.toString() -> observerManga.update(filterValue, typeOrder, type!!)
+            TypeWork.ANIME.toString() -> observerAnime.update(filterValue, typeOrder, type!!)
+            TypeWork.HQ.toString() -> observerHq.update(filterValue, typeOrder, type!!)
 
         }
 
