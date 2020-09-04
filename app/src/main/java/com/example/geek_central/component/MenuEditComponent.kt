@@ -181,7 +181,7 @@ class MenuEditComponent(
         btnSave.setOnClickListener {
 
             objGeek.title = inputName.editText?.text.toString()
-            saveManga(objGeek)
+            save(objGeek)
         }
 
         inputName.editText?.addTextChangedListener(object : TextWatcher {
@@ -225,10 +225,16 @@ class MenuEditComponent(
 
     }
 
-    private fun saveManga(objGeek: BaseWorkGeek) {
+    private fun save(objGeek: BaseWorkGeek) {
 
-        val workGeekAnimeWithPopularAndHosted = WorkGeekMangaWithPopularAndHosted(objGeek.workGeekManga!!, objGeek.popular, objGeek.host)
-        mWorkGeekViewModel.update(workGeekAnimeWithPopularAndHosted)
+        if(objGeek.season == null){
+            val workGeekMangaWithPopularAndHosted = WorkGeekMangaWithPopularAndHosted(objGeek.workGeekManga!!, objGeek.popular, objGeek.host)
+            mWorkGeekViewModel.update(workGeekMangaWithPopularAndHosted)
+        }else{
+            val workGeekAnimeWithPopularAndHosted = WorkGeekAnimeWithPopularAndHosted(objGeek.workGeekAnimne!!, objGeek.popular, objGeek.host)
+            mWorkGeekViewModel.update(workGeekAnimeWithPopularAndHosted)
+        }
+
     }
 
     private fun loagindAnime(objGeek: WorkGeekAnimeWithPopularAndHosted) {
