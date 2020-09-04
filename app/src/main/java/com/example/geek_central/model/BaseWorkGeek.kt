@@ -4,7 +4,7 @@ class BaseWorkGeek {
     var workGeekId: Long? = null
     lateinit var title: String
     var currentGeek: Int = 0
-    var season: Int? = null
+    var season: String? = null
     var totalGeek: Int = 0
     lateinit var popular: Popular
     lateinit var host: Host
