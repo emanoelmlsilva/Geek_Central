@@ -161,7 +161,7 @@ class RecyclerWorkGeekAdapter(
 
         }
 
-        fun setVisibilitySeason(txtSeason: Int?) {
+        fun setVisibilitySeason(txtSeason: String?) {
 
             var visibilited = 0
 
