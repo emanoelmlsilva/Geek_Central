@@ -15,7 +15,7 @@ override var title: String = "",
 override var currentGeek: Int = 0,
 
                          @ColumnInfo(name = "season")
-override var season: Int? = null,
+override var season: String? = null,
                          @ColumnInfo(name = "total_geek")
 override var totalGeek: Int = 0): WorkGeek {
 
