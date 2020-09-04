@@ -36,6 +36,12 @@ class RegisterFragment : Fragment() {
     private var isFavorite : Boolean = false
     private var check : Boolean = false
 
+    //objects
+    private val popular = Popular()
+    private val host = Host()
+    private val workGeek = WorkGeekManga()
+    private val workGeekAnime = WorkGeekAnime()
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
@@ -47,6 +53,7 @@ class RegisterFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
         typeWork = arguments?.getString("type").toString()
 
         val textTitle = when(typeWork){
@@ -158,24 +165,57 @@ class RegisterFragment : Fragment() {
 
     private fun insertDataToDatabase() {
 
-        val title = bindBing.inputLayoutNameRegister.editText?.text.toString()
+        if(checkDataToSave()){
 
-        val popular = Popular(grade = 5.0, favorite = true)
-        val hosted = Host(site = bindBing.inputLayoutNameRegister.editText?.text.toString(), type = "site")
-        val workGeek = WorkGeekManga(title = title,currentGeek = 3, totalGeek = 5)
-        val workGeekAnime = WorkGeekAnime(title = title,currentGeek = 3, totalGeek = 5, season = 1)
-        when(typeWork){
-            TypeWork.MANGA.toString() -> {
-              mWorkGeekViewModel.insert(popular, hosted, workGeek)
+            val title = bindBing.inputLayoutNameRegister.editText?.text.toString()
+            val currentGeek = counterLef.getValueInput()
+            val totalGeek = counterRigth.getValueInput()
+            val grade = noteComponent.getGrade()
+            val favorite = isFavorite
+            val site = bindBing.inputLayoutSiteRegister.editText?.text.toString()
+
+            when(typeWork){
+
+                TypeWork.MANGA.toString() -> {
+
+                    workGeek.title = title
+                    workGeek.currentGeek = currentGeek
+                    workGeek.totalGeek = totalGeek
+                    popular.grade = grade
+                    popular.favorite = favorite
+
+                    host.site = site
+
+                    mWorkGeekViewModel.insert(popular, host, workGeek)
+                }
+                TypeWork.ANIME.toString() -> {
+
+                    workGeekAnime.title = title
+                    workGeekAnime.currentGeek = currentGeek
+                    workGeekAnime.totalGeek = totalGeek
+                    workGeekAnime.season = seasonComponent.getSeason()
+                    popular.grade = grade
+                    popular.favorite = favorite
+
+                    host.site = site
+
+                    mWorkGeekViewModel.insert(popular,host, workGeekAnime)}
+                else -> "Mangá"
             }
-            TypeWork.ANIME.toString() -> {
-                mWorkGeekViewModel.insert(popular,hosted, workGeekAnime)}
-            else -> "Mangá"
+
+            Toast.makeText(requireContext(), "Salvo com sucesso", Toast.LENGTH_LONG).show()
+            navToMainFragment()
+        }else{
+            Toast.makeText(context, "Dados incorretos",Toast.LENGTH_LONG).show()
         }
 
-        Toast.makeText(requireContext(), "Salvo com sucesso", Toast.LENGTH_LONG).show()
-        navToMainFragment()
 
+    }
+
+    private fun checkDataToSave(): Boolean{
+
+        val checkName = !bindBing.inputLayoutNameRegister.editText?.text.toString().isNullOrBlank()
+        return checkName
     }
 
     private fun navToMainFragment() {
