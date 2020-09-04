@@ -86,7 +86,7 @@ class WorkGeekFragment(mainFragment: MainFragment, private var typeWork: String)
         recycler_work_geek.layoutManager = LinearLayoutManager(context)
         recycler_work_geek.adapter = adapter
 
-        iOBservable.add(adapter, typeWork)
+        iOBservable.add(adapter)
 
         adapter.registerAdapterDataObserver(object : AdapterDataObserver() {
             override fun onChanged() {

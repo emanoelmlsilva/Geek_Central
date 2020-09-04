@@ -151,8 +151,8 @@ class MainFragment : Fragment(), IObservable {
             }
 
             override fun onPageSelected(position: Int) {
-
                 setTypeFromPosition(position)
+
             }
 
         })
@@ -174,21 +174,19 @@ class MainFragment : Fragment(), IObservable {
     override fun sendUpdate(typeOrder: String) {
 
         when (type) {
-            TypeWork.MANGA.toString() -> observerManga.update(filterValue, typeOrder)
-            TypeWork.ANIME.toString() -> observerAnime.update(filterValue, typeOrder)
-            TypeWork.HQ.toString() -> observerHq.update(filterValue, typeOrder)
+            TypeWork.MANGA.toString() -> observerManga.update(filterValue, typeOrder, type)
+            TypeWork.ANIME.toString() -> observerAnime.update(filterValue, typeOrder, type)
+            TypeWork.HQ.toString() -> observerHq.update(filterValue, typeOrder, type)
 
         }
 
     }
 
     private fun setTypeFromPosition(position: Int) {
-
         type = when (position) {
             0 -> TypeWork.MANGA.toString()
             1 -> TypeWork.ANIME.toString()
-            2 -> TypeWork.HQ.toString()
-            else -> TypeWork.MANGA.toString()
+            else -> TypeWork.HQ.toString()
         }
     }
 }
