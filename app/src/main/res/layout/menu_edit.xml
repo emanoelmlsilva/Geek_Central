@@ -113,6 +113,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
+        android:visibility="gone"
         app:boxStrokeColor="@color/textBar"
         app:hintTextColor="@color/buttonBackground"
         app:layout_constraintEnd_toEndOf="parent"
@@ -160,7 +161,7 @@
         android:layout_width="0dp"
         android:layout_height="50dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="32dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="24dp"
         android:backgroundTint="@color/textBar"
@@ -168,7 +169,6 @@
         android:gravity="center"
         android:text="@string/save"
         android:textColor="@color/colorPrimary"
-        app:rippleColor="@color/colorPrimary"
         app:icon="@drawable/ic_baseline_save_24"
         app:iconGravity="textStart"
         app:iconPadding="16dp"
@@ -176,7 +176,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/inputLayoutSite" />
+        app:layout_constraintTop_toBottomOf="@+id/inputLayoutSite"
+        app:rippleColor="@color/colorPrimary" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline"
