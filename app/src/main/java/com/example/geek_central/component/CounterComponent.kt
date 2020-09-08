@@ -13,6 +13,7 @@ class CounterComponent(view: View) {
     private lateinit var btnDel: MaterialButton
     private lateinit var layutValue: TextInputLayout
     private lateinit var cardView: ConstraintLayout
+    private val VALUE_DEFAULT = 0
 
     init {
         setType(view)
@@ -59,6 +60,11 @@ class CounterComponent(view: View) {
         counter = sum(counter, typeValue)
 
         setTextLayout(counter)
+    }
+
+    fun isNullSetDefault(){
+        if(layutValue.editText!!.text.toString().isBlank()) setTextLayout(VALUE_DEFAULT)
+
     }
 
     private fun sum(counterWhen: Int, typeSumSub: String): Int {
