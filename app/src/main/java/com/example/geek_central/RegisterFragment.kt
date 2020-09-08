@@ -168,6 +168,9 @@ class RegisterFragment : Fragment() {
 
         if(checkDataToSave()){
 
+            counterLef.isNullSetDefault()
+            counterRigth.isNullSetDefault()
+
             val title = bindBing.inputLayoutNameRegister.editText?.text.toString()
             val currentGeek = counterLef.getValueInput()
             val totalGeek = counterRigth.getValueInput()
@@ -217,9 +220,7 @@ class RegisterFragment : Fragment() {
 
         val checkName = !bindBing.inputLayoutNameRegister.editText?.text.toString().isNullOrBlank()
         verificarInputName(bindBing.inputLayoutNameRegister.editText?.text.toString())
-        val checkCountLeft = !counterLef.getInputLayout().editText?.text.toString().isNullOrBlank()
-        val checkCountRigth =  !counterRigth.getInputLayout().editText?.text.toString().isNullOrBlank()
-        return checkName && checkCountLeft && checkCountRigth
+        return checkName
     }
 
     private fun navToMainFragment() {
