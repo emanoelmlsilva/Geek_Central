@@ -1,5 +1,6 @@
 package com.example.geek_central.adapter
 
+import android.app.AlertDialog
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
@@ -45,7 +46,29 @@ class RecyclerWorkGeekAdapter(
             bottomSheetLiveData.showDialog()
         }
 
+        holder.delete.setOnClickListener {
+            callAlertDialog(baseWorkGeek)
+        }
+
     }
+
+    private fun callAlertDialog(baseWorkGeek: BaseWorkGeek){
+        val alertDialog = AlertDialog.Builder(context)
+        alertDialog.setCancelable(false)
+        alertDialog.setTitle("Excluir")
+        alertDialog.setMessage("Pretende deletar ${baseWorkGeek.title}?")
+        alertDialog.setPositiveButton("Sim") { _, _ ->
+            baseWorkGeek.workGeekId?.let { it1 ->
+                mWorkGeekViewModel.delete(
+                    typeAdapter,
+                    it1
+                )
+            }
+        }
+        alertDialog.setNegativeButton("Não") { _, _ -> }
+        alertDialog.show()
+    }
+
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
