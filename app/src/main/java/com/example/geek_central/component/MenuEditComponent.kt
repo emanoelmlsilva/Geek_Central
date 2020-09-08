@@ -237,38 +237,6 @@ class MenuEditComponent(
 
     }
 
-    private fun loagindAnime(objGeek: WorkGeekAnimeWithPopularAndHosted) {
-
-        setIconFavorite(objGeek.popular.favorite)
-
-        season.setItemSpinner(objGeek.workGeek.season.toString())
-
-        objGeek.workGeek.title.let {
-            title.text = it
-            inputName.editText?.setText(it)
-        }
-
-        objGeek.workGeek.currentGeek.let { componentCounteLeft.setTextLayout(it) }
-        objGeek.workGeek.totalGeek.let { componentCounteRigth.setTextLayout(it) }
-        objGeek.popular.grade.let { setValueNote(it.toFloat()) }
-        objGeek.host.site.let { inputSite.editText?.setText(it) }
-    }
-
-    private fun loagindManga(objGeek: WorkGeekMangaWithPopularAndHosted) {
-
-        setIconFavorite(objGeek.popular.favorite)
-
-        objGeek.workGeek.title.let {
-            title.text = it
-            inputName.editText?.setText(it)
-        }
-
-        objGeek.workGeek.currentGeek.let { componentCounteLeft.setTextLayout(it) }
-        objGeek.workGeek.totalGeek.let { componentCounteRigth.setTextLayout(it) }
-        objGeek.popular.grade.let { setValueNote(it.toFloat()) }
-        objGeek.host.site.let { inputSite.editText?.setText(it) }
-    }
-
     private fun setIconFavorite(isFavorite: Boolean) {
 
         var myDrawable: Drawable =
