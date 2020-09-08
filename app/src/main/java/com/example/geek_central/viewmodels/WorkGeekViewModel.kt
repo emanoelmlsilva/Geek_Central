@@ -91,7 +91,7 @@ class WorkGeekViewModel(application: Application) : AndroidViewModel(application
     }
 
     fun delete(type: String, id: Long) {
-        viewModelScope.launch { workRespository.delete(id, type) }
+        viewModelScope.launch(Dispatchers.IO) { workRespository.delete(id, type) }
     }
 
 }
