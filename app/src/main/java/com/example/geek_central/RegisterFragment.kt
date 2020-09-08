@@ -158,7 +158,8 @@ class RegisterFragment : Fragment() {
             }
         } }
 
-        bindBing.inputLayoutNameRegister.error = if(check) getString(R.string.error) else null
+        val message = if(title.isNullOrBlank()) getString(R.string.errorNotNull) else getString(R.string.error)
+        bindBing.inputLayoutNameRegister.error = if(check || title.isNullOrBlank()) message  else null
 
 
     }
@@ -215,7 +216,10 @@ class RegisterFragment : Fragment() {
     private fun checkDataToSave(): Boolean{
 
         val checkName = !bindBing.inputLayoutNameRegister.editText?.text.toString().isNullOrBlank()
-        return checkName
+        verificarInputName(bindBing.inputLayoutNameRegister.editText?.text.toString())
+        val checkCountLeft = !counterLef.getInputLayout().editText?.text.toString().isNullOrBlank()
+        val checkCountRigth =  !counterRigth.getInputLayout().editText?.text.toString().isNullOrBlank()
+        return checkName && checkCountLeft && checkCountRigth
     }
 
     private fun navToMainFragment() {
