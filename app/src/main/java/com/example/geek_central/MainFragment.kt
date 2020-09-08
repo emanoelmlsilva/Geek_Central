@@ -1,4 +1,4 @@
-package com.example.geek_central.fragment
+package com.example.geek_central
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,7 +11,6 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.viewpager.widget.ViewPager
-import com.example.geek_central.R
 import com.example.geek_central.adapter.ViewPageAdapter
 import com.example.geek_central.component.SearchViewComponent
 import com.example.geek_central.databinding.FragmentMainBinding
@@ -20,6 +19,7 @@ import com.example.geek_central.enums.TypeWork
 import com.example.geek_central.observer.IObservable
 import com.example.geek_central.observer.IObserver
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import java.lang.reflect.Type
 
 /**
  * A simple [Fragment] subclass.
@@ -36,7 +36,7 @@ class MainFragment : Fragment(), IObservable {
     private lateinit var observerHq: IObserver
 
     private var filterValue: String = ""
-    private lateinit var type: String
+    private var type: String? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -51,6 +51,9 @@ class MainFragment : Fragment(), IObservable {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
+        type = TypeWork.MANGA.toString()
+
         mountViewPagerWithTabs()
         setClicledViews()
     }
@@ -66,14 +69,15 @@ class MainFragment : Fragment(), IObservable {
 
         popup.setOnMenuItemClickListener(PopupMenu.OnMenuItemClickListener { item: MenuItem? ->
 
-            when (item!!.itemId) {
-                R.id.Favorites -> filterValue = TypeOrderBy.FAVORITE.toString()
-                R.id.Name ->  filterValue = TypeOrderBy.TITLE.toString()
-                R.id.Total ->  filterValue = TypeOrderBy.TOTAL.toString()
-                R.id.Note ->  filterValue = TypeOrderBy.GRADE.toString()
+            val typeOrder = when (item!!.itemId) {
+                R.id.Favorites -> TypeOrderBy.FAVORITE.toString()
+                R.id.Name -> TypeOrderBy.TITLE.toString()
+                R.id.Total -> TypeOrderBy.TOTAL.toString()
+                R.id.Note -> TypeOrderBy.GRADE.toString()
+                else -> TypeOrderBy.TOTAL.toString()
             }
 
-            sendUpdate(true)
+            sendUpdate(typeOrder = typeOrder)
 
             true
         })
@@ -93,13 +97,13 @@ class MainFragment : Fragment(), IObservable {
 
             override fun onQueryTextChange(newText: String): Boolean {
                 filterValue = newText
-                sendUpdate(false)
+                sendUpdate()
                 return false
             }
         })
 
-        bindBing.floatingActionButton.setOnClickListener{
-           navToRegister()
+        bindBing.floatingActionButton.setOnClickListener {
+            navToRegister()
 
         }
 
@@ -114,16 +118,31 @@ class MainFragment : Fragment(), IObservable {
 
     private fun mountViewPagerWithTabs() {
         adapter = ViewPageAdapter(childFragmentManager)
-        adapter.addFragment(WorkGeekFragment(this, TypeWork.MANGA.toString()), resources.getString(R.string.nameManga))
-        adapter.addFragment(WorkGeekFragment(this, TypeWork.ANIME.toString()), resources.getString(R.string.nameAnime))
-        adapter.addFragment(WorkGeekFragment(this, TypeWork.HQ.toString()), resources.getString(R.string.nameHq))
+        adapter.addFragment(
+            WorkGeekFragment(
+                this,
+                TypeWork.MANGA.toString()
+            ), resources.getString(R.string.nameManga)
+        )
+        adapter.addFragment(
+            WorkGeekFragment(
+                this,
+                TypeWork.ANIME.toString()
+            ), resources.getString(R.string.nameAnime)
+        )
+//        adapter.addFragment(
+//            WorkGeekFragment(
+//                this,
+//                TypeWork.HQ.toString()
+//            ), resources.getString(R.string.nameHq)
+//        )
         bindBing.viewPager.adapter = adapter
         bindBing.tabs.setupWithViewPager(bindBing.viewPager)
+
 
         bindBing.viewPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
 
             override fun onPageScrollStateChanged(state: Int) {
-
             }
 
             override fun onPageScrolled(
@@ -131,47 +150,58 @@ class MainFragment : Fragment(), IObservable {
                 positionOffset: Float,
                 positionOffsetPixels: Int
             ) {
-                setTypeFromPosition(position)
 
             }
 
             override fun onPageSelected(position: Int) {
+                setTypeFromPosition(position)
+
             }
 
         })
 
     }
 
-    override fun add(observer: IObserver, type: String) {
-        this.type = type
+    override fun add(observer: IObserver) {
+        println("type add ${type}")
         when (type) {
-            TypeWork.MANGA.toString() -> observerManga = observer
-            TypeWork.ANIME.toString() -> observerAnime = observer
-            TypeWork.HQ.toString() -> observerHq = observer
+            TypeWork.MANGA.toString() -> {
+                observerManga = observer
+                type = TypeWork.ANIME.toString()
+            }
+            TypeWork.ANIME.toString() -> {
+                observerAnime = observer
+                type = TypeWork.MANGA.toString()
+         //       type = TypeWork.HQ.toString()
+            }
+            TypeWork.HQ.toString() -> {
+                type = TypeWork.MANGA.toString()
+                observerHq = observer
+            }
         }
+        //modificar valor do type ao instanciar como manga
     }
 
     override fun remove(observer: IObserver) {
 
     }
 
-    override fun sendUpdate(typeOrder : Boolean) {
-
+    override fun sendUpdate(typeOrder: String) {
+        println("type sendUpdate ${type}")
         when (type) {
-            TypeWork.MANGA.toString()  -> observerManga.update(filterValue, typeOrder)
-            TypeWork.ANIME.toString()  -> observerAnime.update(filterValue, typeOrder)
-            TypeWork.HQ.toString()  -> observerHq.update(filterValue, typeOrder)
+            TypeWork.MANGA.toString() -> observerManga.update(filterValue, typeOrder, type!!)
+            TypeWork.ANIME.toString() -> observerAnime.update(filterValue, typeOrder, type!!)
+            TypeWork.HQ.toString() -> observerHq.update(filterValue, typeOrder, type!!)
 
         }
 
     }
 
-    private fun setTypeFromPosition(position: Int){
-        type = when(position){
+    private fun setTypeFromPosition(position: Int) {
+        type = when (position) {
             0 -> TypeWork.MANGA.toString()
             1 -> TypeWork.ANIME.toString()
-            2 -> TypeWork.HQ.toString()
-            else -> TypeWork.MANGA.toString()
+            else -> TypeWork.HQ.toString()
         }
     }
 }

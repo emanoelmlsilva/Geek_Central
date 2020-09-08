@@ -1,21 +1,26 @@
 package com.example.geek_central.component
 
 import android.graphics.drawable.Drawable
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.View
 import android.view.animation.TranslateAnimation
-import android.widget.SeekBar
-import android.widget.SeekBar.OnSeekBarChangeListener
 import android.widget.TextView
-import android.widget.Toast
 import androidx.core.content.ContextCompat
 import com.example.geek_central.R
-import com.example.geek_central.enums.TypeMethodMath
-import com.example.geek_central.model.WorkGeek
+import com.example.geek_central.model.BaseWorkGeek
+import com.example.geek_central.model.WorkGeekAnimeWithPopularAndHosted
+import com.example.geek_central.model.WorkGeekMangaWithPopularAndHosted
+import com.example.geek_central.viewmodels.WorkGeekViewModel
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputLayout
 
 
-class MenuEditComponent(val view: View, val objGeek: WorkGeek? = null) {
+class MenuEditComponent(
+    val view: View,
+    val objGeek: BaseWorkGeek,
+    val mWorkGeekViewModel: WorkGeekViewModel
+) {
 
     lateinit var title: TextView
 
@@ -27,7 +32,7 @@ class MenuEditComponent(val view: View, val objGeek: WorkGeek? = null) {
 
     private lateinit var note: NoteComponent
 
-    private lateinit var season : SeasonComponent
+    private lateinit var season: SeasonComponent
 
     private lateinit var categories: CategoriesComponent
 
@@ -39,14 +44,11 @@ class MenuEditComponent(val view: View, val objGeek: WorkGeek? = null) {
 
     private var status: Float = 0.0f
 
+    private val isSeason = objGeek.season != null
 
     init {
 
         initView()
-
-        if(objGeek!!.season != null) {
-            season.setItemSpinner(objGeek.season.toString())
-        }
 
         clickButtons(componentCounteLeft)
         clickButtons(componentCounteRigth)
@@ -71,7 +73,7 @@ class MenuEditComponent(val view: View, val objGeek: WorkGeek? = null) {
 
         note = NoteComponent(view.findViewById(R.id.noteIncludeMenu))
 
-        if(objGeek!!.season != null) season = SeasonComponent(view.findViewById(R.id.seasonIncludeMenu))
+        if (isSeason) season = SeasonComponent(view.findViewById(R.id.seasonIncludeMenu))
 
         categories = CategoriesComponent(view.findViewById(R.id.categoriesComponent))
 
@@ -96,7 +98,7 @@ class MenuEditComponent(val view: View, val objGeek: WorkGeek? = null) {
 
         setVisibilite(note.getCard())
 
-        if(objGeek!!.season != null){
+        if (isSeason) {
 
             setVisibilite(season.getCard())
 
@@ -127,7 +129,7 @@ class MenuEditComponent(val view: View, val objGeek: WorkGeek? = null) {
         animationSlide()
     }
 
-    private fun animationSlide(){
+    private fun animationSlide() {
 
         //set slide animation component
 
@@ -137,7 +139,7 @@ class MenuEditComponent(val view: View, val objGeek: WorkGeek? = null) {
 
         slideUp(note.getCard(), toX = view.width.toFloat() - (status * 1080))
 
-        if(objGeek!!.season != null) slideUp(season.getCard(), toX = view.width.toFloat() - (status * 1080))
+        if (isSeason) slideUp(season.getCard(), toX = view.width.toFloat() - (status * 1080))
 
         slideUp(categories.getCard())
 
@@ -176,29 +178,104 @@ class MenuEditComponent(val view: View, val objGeek: WorkGeek? = null) {
 
         componentDefault.setInputLayoutValue()
 
+        btnSave.setOnClickListener {
+
+            objGeek.title = inputName.editText?.text.toString()
+            save(objGeek)
+        }
+
+        inputName.editText?.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                title.text = s.toString()
+            }
+        })
+
+        inputName.setStartIconOnClickListener {
+
+            objGeek.popular.favorite = !objGeek.popular.favorite
+
+            setIconFavorite(objGeek.popular.favorite)
+
+        }
+
     }
 
     fun loadingObject() {
 
-        objGeek?.title?.let { title.text = it }
-        objGeek?.title?.let { inputName.editText?.setText(it) }
-        objGeek?.currentGeek?.let { componentCounteLeft.setTextLayout(it) }
-        objGeek?.totalGeek?.let { componentCounteRigth.setTextLayout(it) }
-        objGeek?.popular?.grade?.let { setValueNote(it.toFloat()) }
-        objGeek?.author?.name?.let { inputAuthor.editText?.setText(it) }
-        objGeek?.hosted?.site?.let { inputSite.editText?.setText(it) }
+        if(objGeek.season != null) season.setItemSpinner(objGeek.season.toString())
 
-        setIconFavorite()
+        setIconFavorite(objGeek.popular.favorite)
+
+        objGeek.title.let {
+            title.text = it
+            inputName.editText?.setText(it)
+        }
+
+        objGeek.currentGeek.let { componentCounteLeft.setTextLayout(it) }
+        objGeek.totalGeek.let { componentCounteRigth.setTextLayout(it) }
+        objGeek.popular.grade.let { setValueNote(it.toFloat()) }
+        objGeek.host.site.let { inputSite.editText?.setText(it) }
+
+
     }
 
-    private fun setIconFavorite() {
+    private fun save(objGeek: BaseWorkGeek) {
 
-        var myDrawable: Drawable = view.resources.getDrawable(R.drawable.ic_favorite_border_black_24dp, null)
-        var iconColor =  R.color.colorAccent
+        if(objGeek.season == null){
+            val workGeekMangaWithPopularAndHosted = WorkGeekMangaWithPopularAndHosted(objGeek.workGeekManga!!, objGeek.popular, objGeek.host)
+            mWorkGeekViewModel.update(workGeekMangaWithPopularAndHosted)
+        }else{
+            val workGeekAnimeWithPopularAndHosted = WorkGeekAnimeWithPopularAndHosted(objGeek.workGeekAnimne!!, objGeek.popular, objGeek.host)
+            mWorkGeekViewModel.update(workGeekAnimeWithPopularAndHosted)
+        }
 
-        val favorite = objGeek?.popular!!.favorite
+    }
 
-        if (favorite) {
+    private fun loagindAnime(objGeek: WorkGeekAnimeWithPopularAndHosted) {
+
+        setIconFavorite(objGeek.popular.favorite)
+
+        season.setItemSpinner(objGeek.workGeek.season.toString())
+
+        objGeek.workGeek.title.let {
+            title.text = it
+            inputName.editText?.setText(it)
+        }
+
+        objGeek.workGeek.currentGeek.let { componentCounteLeft.setTextLayout(it) }
+        objGeek.workGeek.totalGeek.let { componentCounteRigth.setTextLayout(it) }
+        objGeek.popular.grade.let { setValueNote(it.toFloat()) }
+        objGeek.host.site.let { inputSite.editText?.setText(it) }
+    }
+
+    private fun loagindManga(objGeek: WorkGeekMangaWithPopularAndHosted) {
+
+        setIconFavorite(objGeek.popular.favorite)
+
+        objGeek.workGeek.title.let {
+            title.text = it
+            inputName.editText?.setText(it)
+        }
+
+        objGeek.workGeek.currentGeek.let { componentCounteLeft.setTextLayout(it) }
+        objGeek.workGeek.totalGeek.let { componentCounteRigth.setTextLayout(it) }
+        objGeek.popular.grade.let { setValueNote(it.toFloat()) }
+        objGeek.host.site.let { inputSite.editText?.setText(it) }
+    }
+
+    private fun setIconFavorite(isFavorite: Boolean) {
+
+        var myDrawable: Drawable =
+            view.resources.getDrawable(R.drawable.ic_favorite_border_black_24dp, null)
+        var iconColor = R.color.colorAccent
+
+        if (isFavorite) {
             iconColor = R.color.iconHeartEnable
             myDrawable = view.resources.getDrawable(R.drawable.ic_favorite_black_24dp, null)
         }
@@ -222,11 +299,11 @@ class MenuEditComponent(val view: View, val objGeek: WorkGeek? = null) {
     private fun onClick() {
         note.setOnClickProgress()
 
-        inputName.setStartIconOnClickListener{
+        inputName.setStartIconOnClickListener {
 
-            objGeek?.popular!!.favorite = !objGeek.popular!!.favorite
+            objGeek.popular.favorite = !objGeek.popular.favorite
 
-            setIconFavorite()
+            setIconFavorite(objGeek.popular.favorite)
 
         }
     }

@@ -1,5 +1,6 @@
 package com.example.geek_central.adapter
 
+import android.app.AlertDialog
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
@@ -7,79 +8,138 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.geek_central.BottomSheetLiveData
 import com.example.geek_central.R
-import com.example.geek_central.R.color.iconHeartEnable
-import com.example.geek_central.model.WorkGeek
+import com.example.geek_central.enums.TypeWork
+import com.example.geek_central.model.BaseWorkGeek
 import com.example.geek_central.observer.IObserver
-import com.example.geek_central.order.OrderBy
+import com.example.geek_central.utils.ConvertToBaseWorkGeek
 import com.example.geek_central.utils.FilterSearch
-import com.example.geek_central.viewmodels.BottomSheetLiveData
+import com.example.geek_central.viewmodels.WorkGeekViewModel
 import com.google.android.material.button.MaterialButton
 
 class RecyclerWorkGeekAdapter(
-    private var workGeeks: MutableList<WorkGeek>,
-    private val context: Context
+    private var baseWorkGeeks: MutableList<BaseWorkGeek>,
+    val mWorkGeekViewModel: WorkGeekViewModel,
+    var typeAdapter: String
 ) :
-    RecyclerView.Adapter<RecyclerWorkGeekAdapter.MyViewHolder>(), IObserver {
+    RecyclerView.Adapter<RecyclerWorkGeekAdapter.BaseViewHolder>(),
+    IObserver {
+
+    private var copyListData: MutableList<BaseWorkGeek> = baseWorkGeeks
+
+    private lateinit var context: Context
 
     private lateinit var bottomSheetLiveData: BottomSheetLiveData
 
-    private val copyListWorkGeek = workGeeks
+    fun setData(newData: List<BaseWorkGeek>) {
 
-    override fun onCreateViewHolder(
-        parent: ViewGroup,
-        viewType: Int
-    ): MyViewHolder {
-
-        val view = LayoutInflater.from(context).inflate(R.layout.geek_card_adapter, parent, false)
-
-        bottomSheetLiveData = BottomSheetLiveData(context)
-
-        return MyViewHolder(view, context)
-    }
-
-    override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-
-        val workGeek = workGeeks[position]
-
-        holder.bindDate(workGeek)
-
-        addValue(holder, workGeek)
-    }
-
-    private fun addValue(holder: MyViewHolder, myWorkGeek: WorkGeek) {
-
-        holder.edit.setOnClickListener {
-
-            bottomSheetLiveData.setObjetWorkGeek(myWorkGeek)
-            bottomSheetLiveData.showDialog()
-        }
-
-    }
-
-    override fun getItemCount(): Int {
-        return workGeeks.size
-    }
-
-    override fun update(filter: String, typeOrder: Boolean) {
-
-        if (typeOrder) {
-
-            workGeeks = OrderBy.get().ordeBy(filter, workGeeks) as MutableList<WorkGeek>
-
-        } else {
-
-            val newlist: List<WorkGeek> = FilterSearch(copyListWorkGeek, filter).searchText()
-
-            workGeeks =
-                if (filter.isNullOrBlank()) copyListWorkGeek else newlist as MutableList<WorkGeek>
-
-        }
+        baseWorkGeeks = newData as MutableList<BaseWorkGeek>
 
         notifyDataSetChanged()
     }
 
-    class MyViewHolder(itemView: View, val context: Context) : RecyclerView.ViewHolder(itemView) {
+    private fun addValue(holder: BaseViewHolder, baseWorkGeek: BaseWorkGeek) {
+
+        holder.edit.setOnClickListener {
+            bottomSheetLiveData = BottomSheetLiveData(context, baseWorkGeek, mWorkGeekViewModel)
+            bottomSheetLiveData.showDialog()
+        }
+
+        holder.delete.setOnClickListener {
+            callAlertDialog(baseWorkGeek)
+        }
+
+    }
+
+    private fun callAlertDialog(baseWorkGeek: BaseWorkGeek){
+        val alertDialog = AlertDialog.Builder(context)
+        alertDialog.setCancelable(false)
+        alertDialog.setTitle("Excluir")
+        alertDialog.setMessage("Pretende deletar ${baseWorkGeek.title}?")
+        alertDialog.setPositiveButton("Sim") { _, _ ->
+            baseWorkGeek.workGeekId?.let { it1 ->
+                mWorkGeekViewModel.delete(
+                    typeAdapter,
+                    it1
+                )
+            }
+        }
+        alertDialog.setNegativeButton("Não") { _, _ -> }
+        alertDialog.show()
+    }
+
+
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int
+    ): BaseViewHolder {
+        copyListData = baseWorkGeeks
+
+        context = parent.context
+
+        val view = LayoutInflater.from(context).inflate(R.layout.geek_card_adapter, parent, false)
+
+        return BaseViewHolder(view)
+    }
+
+    override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
+        val itemData = baseWorkGeeks.get(position)
+
+        addValue(holder, itemData)
+        holder.bindDate(itemData, typeAdapter)
+
+    }
+
+
+    override fun getItemCount(): Int {
+        return baseWorkGeeks.size
+    }
+
+    override fun update(filter: String?, typeOrder: String, typeWorkGeek: String) {
+
+        typeAdapter = typeWorkGeek
+        if (filter.isNullOrBlank() && !typeOrder.isNullOrBlank()) {
+
+            if (typeWorkGeek.equals(TypeWork.ANIME.toString())) {
+
+                mWorkGeekViewModel.getAllWorkGeeksAnimes(typeOrder)
+                    .observeForever { workgeeks ->
+                        baseWorkGeeks =
+                            ConvertToBaseWorkGeek.get().workGeekAnimeFromBaseWorkGeek(workgeeks)
+
+                        notifyDataSetChanged()
+                    }
+
+
+            } else {
+
+                mWorkGeekViewModel.getAllWorkGeeksMangas(typeOrder)
+                    .observeForever { workgeeks ->
+
+                        baseWorkGeeks =
+                            ConvertToBaseWorkGeek.get().workGeekMnagaFromBaseWorkGeek(workgeeks)
+
+                        notifyDataSetChanged()
+                    }
+
+            }
+        } else if(filter != null){
+
+            if (typeWorkGeek.equals(TypeWork.MANGA.toString())) {
+
+
+                val newlist: List<BaseWorkGeek> = FilterSearch(copyListData, filter).searchText()
+
+                baseWorkGeeks =
+                    if (filter.isNullOrBlank()) copyListData else newlist as MutableList<BaseWorkGeek>
+                notifyDataSetChanged()
+            }
+        }
+    }
+
+    //viewholder padrão para a criação dos tipos manga, anime e hq
+    class BaseViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         lateinit var title: TextView
         lateinit var season: TextView
@@ -96,17 +156,7 @@ class RecyclerWorkGeekAdapter(
             bindView()
         }
 
-        fun bindDate(workGeek: WorkGeek) {
-            title.text = workGeek.title
-            textMarkCurrent.text = workGeek.currentGeek.toString()
-            textMarkTotal.text = workGeek.totalGeek.toString()
-            note.text = workGeek.popular?.grade.toString()
-            setVisibilitySeason(workGeek.season)
-            setIconLoadingFavorite(workGeek.popular?.favorite!!)
-
-        }
-
-        private fun bindView() {
+        fun bindView() {
 
             title = itemView.findViewById(R.id.title)
             season = itemView.findViewById(R.id.txtSeason)
@@ -120,7 +170,21 @@ class RecyclerWorkGeekAdapter(
             linearSeason = itemView.findViewById(R.id.linearLayoutSeason)
         }
 
-        private fun setVisibilitySeason(txtSeason: Int?) {
+        fun bindDate(baseWorkGeek: BaseWorkGeek, type: String) {
+
+            this.title.text = baseWorkGeek.title
+            this.author.text = "nome do autor"
+            textMarkCurrent.text = baseWorkGeek.currentGeek.toString()
+            textMarkTotal.text = baseWorkGeek.totalGeek.toString()
+            note.text = baseWorkGeek.popular.grade.toString()
+
+            if (type.equals(TypeWork.ANIME.toString())) setVisibilitySeason(baseWorkGeek.season)
+
+            setIconLoadingFavorite(baseWorkGeek.popular.favorite)
+
+        }
+
+        fun setVisibilitySeason(txtSeason: String?) {
 
             var visibilited = 0
 
@@ -134,7 +198,7 @@ class RecyclerWorkGeekAdapter(
             linearSeason.visibility = visibilited
         }
 
-        private fun setIconLoadingFavorite(checkIcon: Boolean) {
+        fun setIconLoadingFavorite(checkIcon: Boolean) {
 
             var myColor: Int = R.color.colorAccent
 
@@ -142,7 +206,7 @@ class RecyclerWorkGeekAdapter(
 
             if (checkIcon) {
                 myDrawable = R.drawable.ic_favorite_black_24dp
-                myColor = iconHeartEnable
+                myColor = R.color.iconHeartEnable
             } else {
                 myDrawable = R.drawable.ic_favorite_border_black_24dp
             }
@@ -150,6 +214,7 @@ class RecyclerWorkGeekAdapter(
             favorite.setIconResource(myDrawable)
             favorite.setIconTintResource(myColor)
         }
+
 
     }
 

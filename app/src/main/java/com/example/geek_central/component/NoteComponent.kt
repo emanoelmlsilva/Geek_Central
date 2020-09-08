@@ -72,5 +72,7 @@ class NoteComponent(val view : View) {
 
     fun getTxtNote() : TextView = txtNote
 
+    fun getGrade() : Double = txtNote.text.toString().toDouble()
+
     fun getCard() : View = view
 }

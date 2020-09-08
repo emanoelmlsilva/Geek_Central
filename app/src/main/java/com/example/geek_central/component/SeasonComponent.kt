@@ -52,4 +52,6 @@ class SeasonComponent (val view : View){
     }
 
     fun getCard() : View = view
+
+    fun getSeason(): String = spinner.selectedItem.toString()
 }
