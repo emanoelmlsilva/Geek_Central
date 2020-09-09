@@ -14,5 +14,19 @@ class BaseWorkGeek {
         return "BaseWorkGeek(workGeekId=$workGeekId, title='$title', currentGeek=$currentGeek, season=$season, totalGeek=$totalGeek, popular=$popular, host=$host, workGeekManga=$workGeekManga, workGeekAnimne=$workGeekAnimne)"
     }
 
+    fun copyFromWorkGeekManga(){
+        workGeekManga?.workGeekId = workGeekId
+        workGeekManga?.title = title
+        workGeekManga?.currentGeek = currentGeek
+        workGeekManga?.totalGeek = totalGeek
+    }
+
+    fun copyFromWorkGeekAnime(){
+        workGeekAnimne?.workGeekId = workGeekId
+        workGeekAnimne?.title = title
+        workGeekAnimne?.season = season
+        workGeekAnimne?.currentGeek = currentGeek
+        workGeekAnimne?.totalGeek = totalGeek
+    }
 
 }
