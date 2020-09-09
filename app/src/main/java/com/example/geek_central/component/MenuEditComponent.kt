@@ -7,6 +7,7 @@ import android.view.View
 import android.view.animation.TranslateAnimation
 import android.widget.TextView
 import androidx.core.content.ContextCompat
+import com.example.geek_central.BottomSheetLiveData
 import com.example.geek_central.R
 import com.example.geek_central.model.BaseWorkGeek
 import com.example.geek_central.model.WorkGeekAnimeWithPopularAndHosted
@@ -14,12 +15,16 @@ import com.example.geek_central.model.WorkGeekMangaWithPopularAndHosted
 import com.example.geek_central.viewmodels.WorkGeekViewModel
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputLayout
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 
 
 class MenuEditComponent(
     val view: View,
     val objGeek: BaseWorkGeek,
-    val mWorkGeekViewModel: WorkGeekViewModel
+    val mWorkGeekViewModel: WorkGeekViewModel,
+    val bottomSheetLiveData: BottomSheetLiveData
 ) {
 
     lateinit var title: TextView
@@ -45,6 +50,10 @@ class MenuEditComponent(
     private var status: Float = 0.0f
 
     private val isSeason = objGeek.season != null
+
+    private val NAME_INITAL = objGeek.title
+
+    var check: Boolean = false
 
     init {
 
@@ -178,37 +187,11 @@ class MenuEditComponent(
 
         componentDefault.setInputLayoutValue()
 
-        btnSave.setOnClickListener {
-
-            objGeek.title = inputName.editText?.text.toString()
-            save(objGeek)
-        }
-
-        inputName.editText?.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(s: Editable?) {
-            }
-
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-            }
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                title.text = s.toString()
-            }
-        })
-
-        inputName.setStartIconOnClickListener {
-
-            objGeek.popular.favorite = !objGeek.popular.favorite
-
-            setIconFavorite(objGeek.popular.favorite)
-
-        }
-
     }
 
     fun loadingObject() {
 
-        if(objGeek.season != null) season.setItemSpinner(objGeek.season.toString())
+        if (objGeek.season != null) season.setItemSpinner(objGeek.season.toString())
 
         setIconFavorite(objGeek.popular.favorite)
 
@@ -225,15 +208,55 @@ class MenuEditComponent(
 
     }
 
+    fun validation(): Boolean {
+
+        checkInputName(objGeek.title)
+
+        return !objGeek.title.isNullOrBlank() && !check || (check && NAME_INITAL.equals(objGeek.title))
+    }
+
+    private fun checkInputName(title: String) {
+
+        runBlocking {
+            launch(Dispatchers.IO) {
+                check =
+                    if (objGeek.season == null) mWorkGeekViewModel.findByTitleManta(title) else mWorkGeekViewModel.findByTitleAnime(
+                        title
+                    )
+            }
+        }
+
+        val message =
+            if (title.isNullOrBlank()) view.context.getString(R.string.errorNotNull) else view.context.getString(
+                R.string.error
+            )
+        inputName.error = if (check || title.isNullOrBlank()) message else null
+
+
+    }
+
+
     private fun save(objGeek: BaseWorkGeek) {
 
-        if(objGeek.season == null){
-            val workGeekMangaWithPopularAndHosted = WorkGeekMangaWithPopularAndHosted(objGeek.workGeekManga!!, objGeek.popular, objGeek.host)
+        if (objGeek.season == null) {
+
+            objGeek.copyFromWorkGeekManga()
+            val workGeekMangaWithPopularAndHosted = WorkGeekMangaWithPopularAndHosted(
+                objGeek.workGeekManga!!,
+                objGeek.popular,
+                objGeek.host
+            )
             mWorkGeekViewModel.update(workGeekMangaWithPopularAndHosted)
-        }else{
-            val workGeekAnimeWithPopularAndHosted = WorkGeekAnimeWithPopularAndHosted(objGeek.workGeekAnimne!!, objGeek.popular, objGeek.host)
+        } else {
+            objGeek.copyFromWorkGeekAnime()
+            val workGeekAnimeWithPopularAndHosted = WorkGeekAnimeWithPopularAndHosted(
+                objGeek.workGeekAnimne!!,
+                objGeek.popular,
+                objGeek.host
+            )
             mWorkGeekViewModel.update(workGeekAnimeWithPopularAndHosted)
         }
+
 
     }
 
@@ -274,6 +297,39 @@ class MenuEditComponent(
             setIconFavorite(objGeek.popular.favorite)
 
         }
+
+        btnSave.setOnClickListener {
+
+            objGeek.title = inputName.editText?.text.toString()
+
+            if (validation()) {
+
+                save(objGeek)
+                bottomSheetLiveData.close()
+            }
+
+        }
+
+        inputName.editText?.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                title.text = s.toString()
+            }
+        })
+
+        inputName.setStartIconOnClickListener {
+
+            objGeek.popular.favorite = !objGeek.popular.favorite
+
+            setIconFavorite(objGeek.popular.favorite)
+
+        }
+
     }
 
 
