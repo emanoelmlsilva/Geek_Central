@@ -39,7 +39,8 @@ class BottomSheetLiveData(
 
         menuEdit = MenuEditComponent(
             view.findViewById(R.id.includeEditMenu),
-            objGeek, mWorkGeekViewModel
+            objGeek, mWorkGeekViewModel,
+            this
         )
 
         bottomSheetDialog.setContentView(view)
@@ -67,12 +68,14 @@ class BottomSheetLiveData(
     private fun setOnClicks() {
         btnClose.setOnClickListener {
 
-            bottomSheetDialog.setCancelable(true)
-            bottomSheetDialog.behavior.state = BottomSheetBehavior.STATE_HIDDEN
-            bottomSheetDialog.setCancelable(false)
+          close()
         }
 
 
+    }
+
+    fun close(){
+        bottomSheetDialog.dismiss()
     }
 
     private fun setBottomSheetScreenAll() {
