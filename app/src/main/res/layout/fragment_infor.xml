@@ -449,7 +449,7 @@
                                 android:textStyle="bold" />
 
                             <TextView
-                                android:id="@+id/textCapTotal"
+                                android:id="@+id/txtCapTotal"
                                 android:layout_width="50dp"
                                 android:layout_height="47dp"
                                 android:layout_gravity="center"
