@@ -16,16 +16,15 @@
         <action
             android:id="@+id/action_mainFragment_to_registerFragment"
             app:destination="@id/registerFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_inforFragment"
+            app:destination="@id/inforFragment" />
     </fragment>
     <fragment
         android:id="@+id/workGeekFragment"
         android:name="com.example.geek_central.WorkGeekFragment"
         android:label="fragment_workgeek"
-        tools:layout="@layout/fragment_workgeek" >
-        <action
-            android:id="@+id/action_workGeekFragment_to_informationFragment2"
-            app:destination="@id/informationFragment" />
-    </fragment>
+        tools:layout="@layout/fragment_workgeek" />
     <fragment
         android:id="@+id/registerFragment"
         android:name="com.example.geek_central.RegisterFragment"
@@ -36,8 +35,8 @@
             app:destination="@id/mainFragment" />
     </fragment>
     <fragment
-        android:id="@+id/informationFragment"
-        android:name="com.example.geek_central.InformationFragment"
-        android:label="fragment_information"
-        tools:layout="@layout/fragment_information" />
+        android:id="@+id/inforFragment"
+        android:name="com.example.geek_central.InforFragment"
+        android:label="fragment_infor"
+        tools:layout="@layout/fragment_infor" />
 </navigation>
