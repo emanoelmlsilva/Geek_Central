@@ -55,12 +55,14 @@ class WorkGeekFragment(mainFragment: MainFragment, private var typeWork: String)
         val adapter: RecyclerWorkGeekAdapter = when (typeWork) {
             TypeWork.MANGA.toString() -> {
                 RecyclerWorkGeekAdapter(
+                    this,
                     ConvertToBaseWorkGeek.get().workGeekMnagaFromBaseWorkGeek(
                         listManga
                     ), workGeekViewModel, TypeWork.MANGA.toString()
                 )
             }
             else -> RecyclerWorkGeekAdapter(
+                this,
                 ConvertToBaseWorkGeek.get().workGeekAnimeFromBaseWorkGeek(
                     listAnime
                 ), workGeekViewModel, TypeWork.ANIME.toString()
