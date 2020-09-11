@@ -7,9 +7,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.core.os.bundleOf
+import androidx.navigation.fragment.NavHostFragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.geek_central.BottomSheetLiveData
 import com.example.geek_central.R
+import com.example.geek_central.WorkGeekFragment
 import com.example.geek_central.enums.TypeWork
 import com.example.geek_central.model.BaseWorkGeek
 import com.example.geek_central.observer.IObserver
@@ -19,6 +22,7 @@ import com.example.geek_central.viewmodels.WorkGeekViewModel
 import com.google.android.material.button.MaterialButton
 
 class RecyclerWorkGeekAdapter(
+    private val workGeekFragment: WorkGeekFragment,
     private var baseWorkGeeks: MutableList<BaseWorkGeek>,
     val mWorkGeekViewModel: WorkGeekViewModel,
     var typeAdapter: String
@@ -50,9 +54,20 @@ class RecyclerWorkGeekAdapter(
             callAlertDialog(baseWorkGeek)
         }
 
+        holder.title.setOnClickListener {
+            navToInfor(baseWorkGeek)
+        }
+
     }
 
-    private fun callAlertDialog(baseWorkGeek: BaseWorkGeek){
+    private fun navToInfor(dataBaseWorkGeek: BaseWorkGeek) {
+
+        var bundle = bundleOf("dataBaseWorkGeek" to dataBaseWorkGeek)
+        findNavController(workGeekFragment).navigate(R.id.action_mainFragment_to_inforFragment,bundle)
+
+    }
+
+    private fun callAlertDialog(baseWorkGeek: BaseWorkGeek) {
         val alertDialog = AlertDialog.Builder(context)
         alertDialog.setCancelable(false)
         alertDialog.setTitle("Excluir")
@@ -124,7 +139,7 @@ class RecyclerWorkGeekAdapter(
                     }
 
             }
-        } else if(filter != null){
+        } else if (filter != null) {
 
             if (typeWorkGeek.equals(TypeWork.MANGA.toString())) {
 
