@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.core.os.bundleOf
 import androidx.navigation.fragment.NavHostFragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.geek_central.BottomSheetLiveData
@@ -54,14 +55,15 @@ class RecyclerWorkGeekAdapter(
         }
 
         holder.title.setOnClickListener {
-            navToInfor()
+            navToInfor(baseWorkGeek)
         }
 
     }
 
-    private fun navToInfor() {
+    private fun navToInfor(dataBaseWorkGeek: BaseWorkGeek) {
 
-        findNavController(workGeekFragment).navigate(R.id.action_mainFragment_to_inforFragment)
+        var bundle = bundleOf("dataBaseWorkGeek" to dataBaseWorkGeek)
+        findNavController(workGeekFragment).navigate(R.id.action_mainFragment_to_inforFragment,bundle)
 
     }
 
