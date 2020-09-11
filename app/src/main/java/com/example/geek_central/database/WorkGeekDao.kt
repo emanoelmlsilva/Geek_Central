@@ -33,15 +33,15 @@ interface WorkGeekDao {
     fun getWorkGeeksAnimes(): LiveData<List<WorkGeekAnimeWithPopularAndHosted>>
 
     @Transaction
-    @Query("SELECT * FROM work_geeks_animes INNER JOIN populares ON populares.workgeek_popular_id = work_geeks_animes.id_work_geek_anime ORDER BY favorite DESC")
+    @Query("SELECT DISTINCT work_geeks_animes.* FROM work_geeks_animes, populares, hosts WHERE (id_work_geek_anime = workgeek_popular_id AND id_work_geek_anime = workgeek_hosted_id) ORDER BY favorite DESC")
     fun getWorkGeeksAnimesOrdeByFavorite(): LiveData<List<WorkGeekAnimeWithPopularAndHosted>>
 
     @Transaction
-    @Query("SELECT * FROM work_geeks_animes INNER JOIN populares ON populares.workgeek_popular_id = work_geeks_animes.id_work_geek_anime ORDER BY total_geek ASC")
+    @Query("SELECT DISTINCT work_geeks_animes.* FROM work_geeks_animes, populares, hosts WHERE (id_work_geek_anime = workgeek_popular_id AND id_work_geek_anime = workgeek_hosted_id) ORDER BY total_geek DESC")
     fun getWorkGeeksAnimesOrdeByTotal(): LiveData<List<WorkGeekAnimeWithPopularAndHosted>>
 
     @Transaction
-    @Query("SELECT * FROM work_geeks_animes INNER JOIN populares ON populares.workgeek_popular_id = work_geeks_animes.id_work_geek_anime ORDER BY grade DESC")
+    @Query("SELECT DISTINCT work_geeks_animes.* FROM work_geeks_animes, populares, hosts WHERE (id_work_geek_anime = workgeek_popular_id AND id_work_geek_anime = workgeek_hosted_id) ORDER BY grade DESC")
     fun getWorkGeeksAnimesOrdeByGrade(): LiveData<List<WorkGeekAnimeWithPopularAndHosted>>
 
     @Query("SELECT id_work_geek_manga FROM work_geeks_mangas WHERE title = :title LIMIT 1")
