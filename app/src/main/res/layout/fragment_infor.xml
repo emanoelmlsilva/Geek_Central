@@ -544,8 +544,11 @@
                             android:layout_gravity="center"
                             android:layout_marginLeft="18dp"
                             android:layout_weight="1"
+                            android:ellipsize="marquee"
                             android:gravity="center_vertical"
+                            android:marqueeRepeatLimit="marquee_forever"
                             android:text="TextView"
+                            android:textIsSelectable="true"
                             android:textSize="18sp" />
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
