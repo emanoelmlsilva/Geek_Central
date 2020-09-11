@@ -43,7 +43,7 @@ class InforFragment : Fragment() {
     private fun setDataInComponents() {
         bindBing.txtTitle.setText(baseWorkGeek.title)
         bindBing.txtCapCurrent.setText(baseWorkGeek.currentGeek.toString())
-        bindBing.txtCapTotal.setText(baseWorkGeek.currentGeek.toString())
+        bindBing.txtCapTotal.setText(baseWorkGeek.totalGeek.toString())
         bindBing.txtGrade.setText(baseWorkGeek.popular.grade.toString())
         bindBing.txtSite.setText(baseWorkGeek.host.site)
     }
