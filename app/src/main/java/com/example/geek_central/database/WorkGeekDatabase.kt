@@ -5,10 +5,12 @@ import androidx.annotation.MainThread
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
 import com.example.geek_central.model.*
 
 
 @Database(entities = [WorkGeekManga::class,WorkGeekAnime::class, Author::class, Popular::class, Host::class], version = 1, exportSchema = false)
+@TypeConverters(Converters::class)
 abstract class WorkGeekDatabase : RoomDatabase(){
 
     abstract fun workGeekDao() : WorkGeekDao
