@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.content.ContextCompat
+import androidx.core.view.forEach
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -18,9 +19,17 @@ import com.example.geek_central.component.NoteComponent
 import com.example.geek_central.component.SeasonComponent
 import com.example.geek_central.databinding.FragmentRegisterBinding
 import com.example.geek_central.enums.TypeWork
-import com.example.geek_central.model.*
+import com.example.geek_central.model.Host
+import com.example.geek_central.model.Popular
+import com.example.geek_central.model.WorkGeekAnime
+import com.example.geek_central.model.WorkGeekManga
 import com.example.geek_central.viewmodels.WorkGeekViewModel
-import kotlinx.coroutines.*
+import com.google.android.material.chip.Chip
+import com.google.android.material.chip.ChipGroup
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
+
 
 class RegisterFragment : Fragment() {
 
@@ -42,8 +51,10 @@ class RegisterFragment : Fragment() {
     private val workGeek = WorkGeekManga()
     private val workGeekAnime = WorkGeekAnime()
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         // Inflate the layout for this fragment
         bindBing = FragmentRegisterBinding.inflate(layoutInflater, container, false)
 
@@ -105,11 +116,15 @@ class RegisterFragment : Fragment() {
 
         actionInputLayoutName()
 
+        categoriesComponent.getClickCips()
     }
 
     private fun setIconFavorite(isFavorite: Boolean) {
 
-        var myDrawable: Drawable = resources.getDrawable(R.drawable.ic_favorite_border_black_24dp, null)
+        var myDrawable: Drawable = resources.getDrawable(
+            R.drawable.ic_favorite_border_black_24dp,
+            null
+        )
         var iconColor =  R.color.colorAccent
 
         if (isFavorite) {
@@ -148,12 +163,12 @@ class RegisterFragment : Fragment() {
         }
     }
 
-    private fun verificarInputName(title : String){
+    private fun verificarInputName(title: String){
 
        runBlocking {  launch(Dispatchers.IO) {
            check =  when(typeWork){
-                TypeWork.MANGA.toString() -> mWorkGeekViewModel.findByTitleManta(title)
-                TypeWork.ANIME.toString() -> mWorkGeekViewModel.findByTitleAnime(title)
+               TypeWork.MANGA.toString() -> mWorkGeekViewModel.findByTitleManta(title)
+               TypeWork.ANIME.toString() -> mWorkGeekViewModel.findByTitleAnime(title)
                 else -> false
             }
         } }
@@ -203,14 +218,15 @@ class RegisterFragment : Fragment() {
 
                     host.site = site
 
-                    mWorkGeekViewModel.insert(popular,host, workGeekAnime)}
+                    mWorkGeekViewModel.insert(popular, host, workGeekAnime)
+                }
                 else -> "Mangá"
             }
 
             Toast.makeText(requireContext(), "Salvo com sucesso", Toast.LENGTH_LONG).show()
             navToMainFragment()
         }else{
-            Toast.makeText(context, "Dados incorretos",Toast.LENGTH_LONG).show()
+            Toast.makeText(context, "Dados incorretos", Toast.LENGTH_LONG).show()
         }
 
 
