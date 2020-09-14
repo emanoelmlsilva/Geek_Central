@@ -192,6 +192,7 @@ class RegisterFragment : Fragment() {
             val grade = noteComponent.getGrade()
             val favorite = isFavorite
             val site = bindBing.inputLayoutSiteRegister.editText?.text.toString()
+            val categories = categoriesComponent.getListItem()
 
             when(typeWork){
 
@@ -200,6 +201,7 @@ class RegisterFragment : Fragment() {
                     workGeek.title = title
                     workGeek.currentGeek = currentGeek
                     workGeek.totalGeek = totalGeek
+                    workGeek.categories = categories
                     popular.grade = grade
                     popular.favorite = favorite
 
@@ -213,6 +215,7 @@ class RegisterFragment : Fragment() {
                     workGeekAnime.currentGeek = currentGeek
                     workGeekAnime.totalGeek = totalGeek
                     workGeekAnime.season = seasonComponent.getSeason()
+                    workGeekAnime.categories = categories
                     popular.grade = grade
                     popular.favorite = favorite
 
