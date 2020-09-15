@@ -29,6 +29,7 @@ class ConvertToBaseWorkGeek {
             baseWorkGeek.workGeekId = workgeek.workGeek.workGeekId
             baseWorkGeek.title = workgeek.workGeek.title
             baseWorkGeek.currentGeek = workgeek.workGeek.currentGeek
+            baseWorkGeek.categories = workgeek.workGeek.categories
             baseWorkGeek.totalGeek = workgeek.workGeek.totalGeek
             baseWorkGeek.season = workgeek.workGeek.season
             baseWorkGeek.popular = workgeek.popular
@@ -51,6 +52,7 @@ class ConvertToBaseWorkGeek {
             baseWorkGeek.title = workgeek.workGeek.title
             baseWorkGeek.currentGeek = workgeek.workGeek.currentGeek
             baseWorkGeek.totalGeek = workgeek.workGeek.totalGeek
+            baseWorkGeek.categories = workgeek.workGeek.categories
             baseWorkGeek.season = workgeek.workGeek.season
             baseWorkGeek.popular = workgeek.popular
             baseWorkGeek.host = workgeek.host
