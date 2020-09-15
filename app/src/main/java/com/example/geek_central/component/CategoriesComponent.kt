@@ -30,6 +30,13 @@ class CategoriesComponent(val view: View) {
         }
     }
 
+    fun setListCategories(list: List<String>){
+        for(index in list.indices){
+            val chipCurrent = groupCategories.getChildAt(index) as Chip
+            chipCurrent.isChecked = true
+        }
+    }
+
     fun getCard(): LinearLayout = linearLayout
 
     fun getListItem() = listNames
