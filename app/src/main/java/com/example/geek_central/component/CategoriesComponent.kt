@@ -31,10 +31,17 @@ class CategoriesComponent(val view: View) {
     }
 
     fun setListCategories(list: List<String>){
-        for(index in list.indices){
+        for (index in 0 until groupCategories.childCount) {
             val chipCurrent = groupCategories.getChildAt(index) as Chip
-            chipCurrent.isChecked = true
+            if(list.indexOf(chipCurrent.text.toString()) != -1) {
+                chipCurrent.isChecked = true
+            }
         }
+    }
+
+    fun setListName(newList: List<String>){
+        listNames.clear()
+        listNames.addAll(newList)
     }
 
     fun getCard(): LinearLayout = linearLayout
