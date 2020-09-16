@@ -9,6 +9,7 @@ class BaseWorkGeek() : Parcelable{
     var currentGeek: Int = 0
     var season: String? = null
     var totalGeek: Int = 0
+    var categories: List<String> = ArrayList()
     lateinit var popular: Popular
     lateinit var host: Host
     var workGeekManga: WorkGeekManga? = null
@@ -20,10 +21,11 @@ class BaseWorkGeek() : Parcelable{
         currentGeek = parcel.readInt()
         season = parcel.readString()
         totalGeek = parcel.readInt()
+        parcel.readStringList(categories)
     }
 
     override fun toString(): String {
-        return "BaseWorkGeek(workGeekId=$workGeekId, title='$title', currentGeek=$currentGeek, season=$season, totalGeek=$totalGeek, popular=$popular, host=$host, workGeekManga=$workGeekManga, workGeekAnimne=$workGeekAnimne)"
+        return "BaseWorkGeek(workGeekId=$workGeekId, title='$title', currentGeek=$currentGeek, season=$season, totalGeek=$totalGeek, categories=$categories, popular=$popular, host=$host, workGeekManga=$workGeekManga, workGeekAnimne=$workGeekAnimne)"
     }
 
     fun copyFromWorkGeekManga(){
@@ -31,6 +33,7 @@ class BaseWorkGeek() : Parcelable{
         workGeekManga?.title = title
         workGeekManga?.currentGeek = currentGeek
         workGeekManga?.totalGeek = totalGeek
+        workGeekManga?.categories = categories
     }
 
     fun copyFromWorkGeekAnime(){
@@ -39,6 +42,7 @@ class BaseWorkGeek() : Parcelable{
         workGeekAnimne?.season = season
         workGeekAnimne?.currentGeek = currentGeek
         workGeekAnimne?.totalGeek = totalGeek
+        workGeekAnimne?.categories = categories
     }
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
@@ -47,6 +51,7 @@ class BaseWorkGeek() : Parcelable{
         parcel.writeInt(currentGeek)
         parcel.writeString(season)
         parcel.writeInt(totalGeek)
+        parcel.writeStringList(categories)
     }
 
     override fun describeContents(): Int {
@@ -62,5 +67,6 @@ class BaseWorkGeek() : Parcelable{
             return arrayOfNulls(size)
         }
     }
+
 
 }

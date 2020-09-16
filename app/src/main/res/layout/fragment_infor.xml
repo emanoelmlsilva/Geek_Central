@@ -244,116 +244,13 @@
                             android:layout_weight="1"
                             app:srcCompat="@drawable/ic_baseline_category_24" />
 
-                        <HorizontalScrollView
+                        <include
+                            android:id="@+id/categoriesInfor"
+                            layout="@layout/categories_component"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_gravity="center"
-                            android:layout_weight="1"
-                            android:foregroundGravity="center"
-                            android:scrollbars="none">
-
-
-                            <com.google.android.material.chip.ChipGroup
-                                android:id="@+id/groupCategoriesInfo"
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="10dp"
-                                android:layout_marginTop="5dp"
-                                android:paddingRight="10dp"
-                                app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toBottomOf="@+id/textView2"
-                                app:singleLine="true">
-
-                                <com.google.android.material.chip.Chip
-                                    android:id="@+id/chipShounen"
-                                    style="@style/Widget.MaterialComponents.Chip.Filter"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_margin="1dp"
-                                    android:elevation="2dp"
-                                    android:text="@string/shounen"
-                                    app:chipBackgroundColor="@color/textBar"
-                                    app:rippleColor="@color/colorPrimaryOpcity" />
-
-                                <com.google.android.material.chip.Chip
-                                    android:id="@+id/chipKodomo"
-                                    style="@style/Widget.MaterialComponents.Chip.Filter"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_margin="1dp"
-                                    android:elevation="2dp"
-                                    android:text="@string/kodomo"
-                                    app:chipBackgroundColor="@color/textBar"
-                                    app:rippleColor="@color/colorPrimaryOpcity" />
-
-                                <com.google.android.material.chip.Chip
-                                    android:id="@+id/chipShoujo"
-                                    style="@style/Widget.MaterialComponents.Chip.Filter"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_margin="1dp"
-                                    android:elevation="2dp"
-                                    android:text="@string/shoujo"
-                                    app:chipBackgroundColor="@color/textBar"
-                                    app:rippleColor="@color/colorPrimaryOpcity" />
-
-                                <com.google.android.material.chip.Chip
-                                    android:id="@+id/chipEcchi"
-                                    style="@style/Widget.MaterialComponents.Chip.Filter"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_margin="1dp"
-                                    android:elevation="2dp"
-                                    android:text="@string/ecchi"
-                                    app:chipBackgroundColor="@color/textBar"
-                                    app:rippleColor="@color/colorPrimaryOpcity" />
-
-                                <com.google.android.material.chip.Chip
-                                    android:id="@+id/chipYaoi"
-                                    style="@style/Widget.MaterialComponents.Chip.Filter"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_margin="1dp"
-                                    android:elevation="2dp"
-                                    android:text="@string/yaoi"
-                                    app:chipBackgroundColor="@color/textBar"
-                                    app:rippleColor="@color/colorPrimaryOpcity" />
-
-                                <com.google.android.material.chip.Chip
-                                    android:id="@+id/chipYuri"
-                                    style="@style/Widget.MaterialComponents.Chip.Filter"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_margin="1dp"
-                                    android:elevation="2dp"
-                                    android:text="@string/yuri"
-                                    app:chipBackgroundColor="@color/textBar"
-                                    app:rippleColor="@color/colorPrimaryOpcity" />
-
-                                <com.google.android.material.chip.Chip
-                                    android:id="@+id/chipSeinen"
-                                    style="@style/Widget.MaterialComponents.Chip.Filter"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_margin="1dp"
-                                    android:elevation="2dp"
-                                    android:text="@string/seinen"
-                                    app:chipBackgroundColor="@color/textBar"
-                                    app:rippleColor="@color/colorPrimaryOpcity" />
-
-                                <com.google.android.material.chip.Chip
-                                    android:id="@+id/chipJosei"
-                                    style="@style/Widget.MaterialComponents.Chip.Filter"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_margin="1dp"
-                                    android:elevation="2dp"
-                                    android:text="@string/josei"
-                                    app:chipBackgroundColor="@color/textBar"
-                                    app:rippleColor="@color/colorPrimaryOpcity" />
-                            </com.google.android.material.chip.ChipGroup>
-                        </HorizontalScrollView>
+                            android:layout_weight="1" />
 
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>

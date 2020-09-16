@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.example.geek_central.component.CategoriesComponent
 import com.example.geek_central.databinding.FragmentInforBinding
 import com.example.geek_central.model.BaseWorkGeek
 import com.google.android.material.button.MaterialButton
@@ -16,6 +17,7 @@ class InforFragment : Fragment() {
 
     lateinit var baseWorkGeek: BaseWorkGeek
     lateinit var favorite: MaterialButton
+    lateinit var categoriesComponent: CategoriesComponent
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,6 +34,8 @@ class InforFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         favorite = bindBing.root.findViewById(R.id.favorite)
+        categoriesComponent = CategoriesComponent(bindBing.root.findViewById(R.id.categoriesInfor))
+
         setDataInComponents()
         setIconLoadingFavorite(baseWorkGeek.popular.favorite)
 
@@ -41,6 +45,10 @@ class InforFragment : Fragment() {
     }
 
     private fun setDataInComponents() {
+        categoriesComponent.getTitle().visibility = View.GONE
+        categoriesComponent.setBackgroundChips(R.color.colorPrimaryDark)
+        categoriesComponent.setVisibilityChips(baseWorkGeek.categories)
+
         bindBing.txtTitle.setText(baseWorkGeek.title)
         bindBing.txtCapCurrent.setText(baseWorkGeek.currentGeek.toString())
         bindBing.txtCapTotal.setText(baseWorkGeek.totalGeek.toString())
