@@ -19,6 +19,14 @@ class CategoriesComponent(val view: View) {
 
     fun getItemGroupCategories(): ChipGroup = groupCategories
 
+    fun setBackgroundChips(color: Int){
+        for (index in 0 until groupCategories.childCount) {
+            val chipCurrent = groupCategories.getChildAt(index) as Chip
+            chipCurrent.setChipBackgroundColorResource(color)
+            chipCurrent.isEnabled = false
+        }
+    }
+
     fun getClickCips() {
         for (index in 0 until groupCategories.childCount) {
             val chipCurrent = groupCategories.getChildAt(index) as Chip
@@ -38,6 +46,15 @@ class CategoriesComponent(val view: View) {
             val chipCurrent = groupCategories.getChildAt(index) as Chip
             if(list.indexOf(chipCurrent.text.toString()) != -1) {
                 chipCurrent.isChecked = true
+            }
+        }
+    }
+
+    fun setVisibilityChips(list: List<String>){
+        for (index in 0 until groupCategories.childCount) {
+            val chipCurrent = groupCategories.getChildAt(index) as Chip
+            if(list.indexOf(chipCurrent.text.toString()) == -1) {
+                chipCurrent.visibility = View.GONE
             }
         }
     }
