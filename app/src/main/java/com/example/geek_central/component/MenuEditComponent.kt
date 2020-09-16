@@ -55,8 +55,9 @@ class MenuEditComponent(
 
     var check: Boolean = false
 
-    init {
+    lateinit var listTemp: List<String>
 
+    init {
         initView()
 
         clickButtons(componentCounteLeft)
@@ -68,6 +69,8 @@ class MenuEditComponent(
 
         onClick()
 
+        //carregar valores corrertos na lista
+        categories.setListName(listTemp)
     }
 
     private fun initView() {
@@ -204,7 +207,10 @@ class MenuEditComponent(
         objGeek.totalGeek.let { componentCounteRigth.setTextLayout(it) }
         objGeek.popular.grade.let { setValueNote(it.toFloat()) }
         objGeek.host.site.let { inputSite.editText?.setText(it) }
-        objGeek.categories.let { categories.setListCategories(it) }
+        objGeek.categories.let {
+            categories.setListCategories(it)
+            listTemp = it
+        }
 
 
     }
@@ -304,11 +310,12 @@ class MenuEditComponent(
             objGeek.title = inputName.editText?.text.toString()
 
             objGeek.currentGeek = componentCounteLeft.getValueInput()
-            objGeek.totalGeek= componentCounteRigth.getValueInput()
+            objGeek.totalGeek = componentCounteRigth.getValueInput()
 
             objGeek.popular.grade = note.getGrade()
 
-            if(objGeek.season != null){
+            objGeek.categories = categories.getListItem()
+            if (objGeek.season != null) {
                 objGeek.season = season.getSeason()
             }
 
@@ -351,6 +358,7 @@ class MenuEditComponent(
             }
         })
 
+        categories.getClickCips()
     }
 
 
