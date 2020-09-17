@@ -14,7 +14,8 @@ data class WorkGeekManga(
     override var title: String = "",
     @ColumnInfo(name = "current_geek")
     override var currentGeek: Int = 0,
-
+    @ColumnInfo(name = "author")
+    override var author: String? = null,
     @ColumnInfo(name = "season")
     override var season: String? = null,
     @ColumnInfo(name = "total_geek")

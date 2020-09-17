@@ -12,6 +12,8 @@ class WorkGeekAnime(
     @ColumnInfo(name = "id_work_geek_anime") override var workGeekId: Long? = null,
     @ColumnInfo(name = "title")
     override var title: String = "",
+    @ColumnInfo(name = "author")
+    override var author: String? = null,
     @ColumnInfo(name = "current_geek")
     override var currentGeek: Int = 0,
     @ColumnInfo(name = "season")
