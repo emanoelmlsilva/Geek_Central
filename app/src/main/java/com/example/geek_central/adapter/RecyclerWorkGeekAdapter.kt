@@ -188,7 +188,7 @@ class RecyclerWorkGeekAdapter(
         fun bindDate(baseWorkGeek: BaseWorkGeek, type: String) {
 
             this.title.text = baseWorkGeek.title
-            this.author.text = "nome do autor"
+            this.author.text = baseWorkGeek.author
             textMarkCurrent.text = baseWorkGeek.currentGeek.toString()
             textMarkTotal.text = baseWorkGeek.totalGeek.toString()
             note.text = baseWorkGeek.popular.grade.toString()
