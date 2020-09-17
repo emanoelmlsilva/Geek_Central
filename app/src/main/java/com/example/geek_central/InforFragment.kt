@@ -50,6 +50,7 @@ class InforFragment : Fragment() {
         categoriesComponent.setVisibilityChips(baseWorkGeek.categories)
 
         bindBing.txtTitle.setText(baseWorkGeek.title)
+        bindBing.txtAuthor.setText(baseWorkGeek.author)
         bindBing.txtCapCurrent.setText(baseWorkGeek.currentGeek.toString())
         bindBing.txtCapTotal.setText(baseWorkGeek.totalGeek.toString())
         bindBing.txtGrade.setText(baseWorkGeek.popular.grade.toString())

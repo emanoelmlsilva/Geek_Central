@@ -28,6 +28,7 @@ class ConvertToBaseWorkGeek {
             baseWorkGeek.workGeekManga = workgeek.workGeek
             baseWorkGeek.workGeekId = workgeek.workGeek.workGeekId
             baseWorkGeek.title = workgeek.workGeek.title
+            baseWorkGeek.author = workgeek.workGeek.author
             baseWorkGeek.currentGeek = workgeek.workGeek.currentGeek
             baseWorkGeek.categories = workgeek.workGeek.categories
             baseWorkGeek.totalGeek = workgeek.workGeek.totalGeek
@@ -50,6 +51,7 @@ class ConvertToBaseWorkGeek {
             baseWorkGeek.workGeekAnimne = workgeek.workGeek
             baseWorkGeek.workGeekId = workgeek.workGeek.workGeekId
             baseWorkGeek.title = workgeek.workGeek.title
+            baseWorkGeek.author = workgeek.workGeek.author
             baseWorkGeek.currentGeek = workgeek.workGeek.currentGeek
             baseWorkGeek.totalGeek = workgeek.workGeek.totalGeek
             baseWorkGeek.categories = workgeek.workGeek.categories

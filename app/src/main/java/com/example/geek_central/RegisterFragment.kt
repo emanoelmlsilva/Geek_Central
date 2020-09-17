@@ -187,6 +187,7 @@ class RegisterFragment : Fragment() {
             counterRigth.isNullSetDefault()
 
             val title = bindBing.inputLayoutNameRegister.editText?.text.toString()
+            val author = bindBing.inputLayoutAuthorRegister.editText?.text.toString()
             val currentGeek = counterLef.getValueInput()
             val totalGeek = counterRigth.getValueInput()
             val grade = noteComponent.getGrade()
@@ -199,6 +200,7 @@ class RegisterFragment : Fragment() {
                 TypeWork.MANGA.toString() -> {
 
                     workGeek.title = title
+                    workGeek.author = author
                     workGeek.currentGeek = currentGeek
                     workGeek.totalGeek = totalGeek
                     workGeek.categories = categories
@@ -212,6 +214,7 @@ class RegisterFragment : Fragment() {
                 TypeWork.ANIME.toString() -> {
 
                     workGeekAnime.title = title
+                    workGeekAnime.author = author
                     workGeekAnime.currentGeek = currentGeek
                     workGeekAnime.totalGeek = totalGeek
                     workGeekAnime.season = seasonComponent.getSeason()

@@ -203,6 +203,9 @@ class MenuEditComponent(
             inputName.editText?.setText(it)
         }
 
+        objGeek.author.let {
+            inputAuthor.editText?.setText(it)
+        }
         objGeek.currentGeek.let { componentCounteLeft.setTextLayout(it) }
         objGeek.totalGeek.let { componentCounteRigth.setTextLayout(it) }
         objGeek.popular.grade.let { setValueNote(it.toFloat()) }
@@ -308,6 +311,8 @@ class MenuEditComponent(
         btnSave.setOnClickListener {
 
             objGeek.title = inputName.editText?.text.toString()
+
+            objGeek.author = inputAuthor.editText?.text.toString()
 
             objGeek.currentGeek = componentCounteLeft.getValueInput()
             objGeek.totalGeek = componentCounteRigth.getValueInput()
