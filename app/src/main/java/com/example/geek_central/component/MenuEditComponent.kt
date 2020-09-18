@@ -206,8 +206,8 @@ class MenuEditComponent(
         objGeek.author.let {
             inputAuthor.editText?.setText(it)
         }
-        objGeek.currentGeek.let { componentCounteLeft.setTextLayout(it) }
-        objGeek.totalGeek.let { componentCounteRigth.setTextLayout(it) }
+        objGeek.currentGeek.let { componentCounteLeft.setTextLayout(it.toString()) }
+        objGeek.totalGeek.let { componentCounteRigth.setTextLayout(it.toString()) }
         objGeek.popular.grade.let { setValueNote(it.toFloat()) }
         objGeek.host.site.let { inputSite.editText?.setText(it) }
         objGeek.categories.let {
