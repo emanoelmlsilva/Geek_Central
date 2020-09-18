@@ -15,11 +15,11 @@ class WorkGeekAnime(
     @ColumnInfo(name = "author")
     override var author: String? = null,
     @ColumnInfo(name = "current_geek")
-    override var currentGeek: Int = 0,
+    override var currentGeek: Double = 0.0,
     @ColumnInfo(name = "season")
     override var season: String? = null,
     @ColumnInfo(name = "total_geek")
-    override var totalGeek: Int = 0,
+    override var totalGeek: Double = 0.0,
     @ColumnInfo(name = "categories")
     override var categories: List<String> = ArrayList()
 ) : WorkGeek {

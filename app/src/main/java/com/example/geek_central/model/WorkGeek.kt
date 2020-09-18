@@ -4,9 +4,9 @@ package com.example.geek_central.model
       var workGeekId: Long?
       var title: String
       var author: String?
-      var currentGeek: Int
+      var currentGeek: Double
       var season: String?
-      var totalGeek: Int
+      var totalGeek: Double
       var categories: List<String>
 
  }
