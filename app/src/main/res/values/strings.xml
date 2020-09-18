@@ -15,18 +15,25 @@
     //Generos animes/mangas
     <string name="shounen">Shounen</string>
     <string name="kodomo">Kodomo</string>
+    <string name="shonen">Shonen</string>
+    <string name="shojo">Shojo</string>
     <string name="shoujo">Shoujo</string>
+    <string name="dojinshi">Dojinshi</string>
+    <string name="yonkoma">Yonkoma</string>
+    <string name="seijin">Seijin</string>
+    <string name="redisu">Redisu</string>
     <string name="ecchi">Ecchi</string>
     <string name="yaoi">Yaoi</string>
     <string name="yuri">Yuri</string>
     <string name="gekiga">Gekigá</string>
     <string name="seinen">Seinen</string>
     <string name="josei">Josei</string>
+    <string name="slice_of_life">Slice of Life</string>
     //input layout
     <string name="nameInput">Nome</string>
     <string name="description_icon">Favoritar</string>
     <string name="nameInputAuthor">Autor</string>
-    <string name="nameInputSite">Site</string>
+    <string name="nameInputSite">Site</string   >
     <string name="save">Salvar</string>
     //messagens
     <string name="message_search">pesquisar</string>
