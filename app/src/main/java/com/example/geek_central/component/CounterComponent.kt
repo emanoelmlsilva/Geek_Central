@@ -13,7 +13,7 @@ class CounterComponent(view: View) {
     private lateinit var btnDel: MaterialButton
     private lateinit var layutValue: TextInputLayout
     private lateinit var cardView: ConstraintLayout
-    private val VALUE_DEFAULT = 0
+    private val VALUE_DEFAULT = "0.0"
 
     init {
         setType(view)
@@ -30,8 +30,8 @@ class CounterComponent(view: View) {
         layutValue.hint = text
     }
 
-    fun setTextLayout(value: Int) {
-        layutValue.editText!!.setText(value.toString())
+    fun setTextLayout(value: String) {
+        layutValue.editText!!.setText(value)
     }
 
     fun setLessValue() {
@@ -53,11 +53,7 @@ class CounterComponent(view: View) {
     }
 
     private fun valueMoreLess(typeValue: String) {
-        var counter = if (layutValue.editText!!.text.toString()
-                .isBlank()
-        ) 0 else layutValue.editText!!.text.toString().toInt()
-
-        counter = sum(counter, typeValue)
+        var counter = sum(typeValue)
 
         setTextLayout(counter)
     }
@@ -67,23 +63,30 @@ class CounterComponent(view: View) {
 
     }
 
-    private fun sum(counterWhen: Int, typeSumSub: String): Int {
+    private fun sum(typeSumSub: String): String {
 
-        var counterNew = 0
-        val valueSum = 1
+        var counterNew = 0.0
+        val valueSum = 1.0
+        var counterWhen = 0.0
+
+        try {
+           if (!layutValue.editText!!.text.toString().isNullOrBlank()) counterNew = layutValue.editText!!.text.toString().toDouble()
+        } catch (e: NumberFormatException) {
+            counterWhen = 0.0
+        }
 
         if (typeSumSub.equals(TypeMethodMath.SET.toString())) {
-            return counterWhen
+            return counterWhen.toString()
         } else if (typeSumSub.equals(TypeMethodMath.SUB.toString())) {
             counterNew = counterWhen - valueSum
         } else if (typeSumSub.equals(TypeMethodMath.SUM.toString())) {
             counterNew = counterWhen + valueSum
         }
 
-        return counterNew
+        return counterNew.toString()
     }
 
-    fun getValueInput(): Int = layutValue.editText!!.text.toString().toInt()
+    fun getValueInput(): Double = layutValue.editText!!.text.toString().toDouble()
 
     fun getBtnAdd(): MaterialButton = btnAdd
 
@@ -92,4 +95,5 @@ class CounterComponent(view: View) {
     fun getInputLayout(): TextInputLayout = layutValue
 
     fun getCard(): ConstraintLayout = cardView
+
 }
