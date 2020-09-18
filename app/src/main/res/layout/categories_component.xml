@@ -64,6 +64,30 @@
                     app:chipBackgroundColor="@color/textBar"
                     app:rippleColor="@color/colorPrimaryOpcity" />
 
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chipshojo"
+                    style="@style/Widget.MaterialComponents.Chip.Filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="1dp"
+                    android:elevation="2dp"
+                    android:text="@string/shojo"
+                    app:chipBackgroundColor="@color/textBar"
+                    app:rippleColor="@color/colorPrimaryOpcity" />
+
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chipshonen"
+                    style="@style/Widget.MaterialComponents.Chip.Filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="1dp"
+                    android:elevation="2dp"
+                    android:text="@string/shonen"
+                    app:chipBackgroundColor="@color/textBar"
+                    app:rippleColor="@color/colorPrimaryOpcity" />
+
                 <com.google.android.material.chip.Chip
                     android:id="@+id/chipShoujo"
                     style="@style/Widget.MaterialComponents.Chip.Filter"
@@ -83,6 +107,50 @@
                     android:layout_margin="1dp"
                     android:elevation="2dp"
                     android:text="@string/ecchi"
+                    app:chipBackgroundColor="@color/textBar"
+                    app:rippleColor="@color/colorPrimaryOpcity" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chipYonkoma"
+                    style="@style/Widget.MaterialComponents.Chip.Filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="1dp"
+                    android:elevation="2dp"
+                    android:text="@string/yonkoma"
+                    app:chipBackgroundColor="@color/textBar"
+                    app:rippleColor="@color/colorPrimaryOpcity" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chipDojinshi"
+                    style="@style/Widget.MaterialComponents.Chip.Filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="1dp"
+                    android:elevation="2dp"
+                    android:text="@string/dojinshi"
+                    app:chipBackgroundColor="@color/textBar"
+                    app:rippleColor="@color/colorPrimaryOpcity" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chipSeijin"
+                    style="@style/Widget.MaterialComponents.Chip.Filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="1dp"
+                    android:elevation="2dp"
+                    android:text="@string/seijin"
+                    app:chipBackgroundColor="@color/textBar"
+                    app:rippleColor="@color/colorPrimaryOpcity" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chipRedisu"
+                    style="@style/Widget.MaterialComponents.Chip.Filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="1dp"
+                    android:elevation="2dp"
+                    android:text="@string/redisu"
                     app:chipBackgroundColor="@color/textBar"
                     app:rippleColor="@color/colorPrimaryOpcity" />
 
@@ -120,6 +188,17 @@
                     app:rippleColor="@color/colorPrimaryOpcity" />
 
                 <com.google.android.material.chip.Chip
+                    android:id="@+id/chipGekiga"
+                    style="@style/Widget.MaterialComponents.Chip.Filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="1dp"
+                    android:elevation="2dp"
+                    android:text="@string/gekiga"
+                    app:chipBackgroundColor="@color/textBar"
+                    app:rippleColor="@color/colorPrimaryOpcity" />
+
+                <com.google.android.material.chip.Chip
                     android:id="@+id/chipJosei"
                     style="@style/Widget.MaterialComponents.Chip.Filter"
                     android:layout_width="wrap_content"
@@ -127,6 +206,17 @@
                     android:layout_margin="1dp"
                     android:elevation="2dp"
                     android:text="@string/josei"
+                    app:chipBackgroundColor="@color/textBar"
+                    app:rippleColor="@color/colorPrimaryOpcity" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chipSliceOfLife"
+                    style="@style/Widget.MaterialComponents.Chip.Filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="1dp"
+                    android:elevation="2dp"
+                    android:text="@string/slice_of_life"
                     app:chipBackgroundColor="@color/textBar"
                     app:rippleColor="@color/colorPrimaryOpcity" />
             </com.google.android.material.chip.ChipGroup>
