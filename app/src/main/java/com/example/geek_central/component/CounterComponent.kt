@@ -67,20 +67,23 @@ class CounterComponent(view: View) {
 
         var counterNew = 0.0
         val valueSum = 1.0
-        var counterWhen = 0.0
 
         try {
-           if (!layutValue.editText!!.text.toString().isNullOrBlank()) counterNew = layutValue.editText!!.text.toString().toDouble()
-        } catch (e: NumberFormatException) {
-            counterWhen = 0.0
-        }
+           if (!layutValue.editText!!.text.toString().isNullOrBlank()) {
 
-        if (typeSumSub.equals(TypeMethodMath.SET.toString())) {
-            return counterWhen.toString()
-        } else if (typeSumSub.equals(TypeMethodMath.SUB.toString())) {
-            counterNew = counterWhen - valueSum
-        } else if (typeSumSub.equals(TypeMethodMath.SUM.toString())) {
-            counterNew = counterWhen + valueSum
+               counterNew = layutValue.editText!!.text.toString().toDouble()
+
+               if (typeSumSub == TypeMethodMath.SET.toString()) {
+                   return counterNew.toString()
+               } else if (typeSumSub == TypeMethodMath.SUB.toString()) {
+                   counterNew -= valueSum
+               } else if (typeSumSub == TypeMethodMath.SUM.toString()) {
+                   counterNew += valueSum
+               }
+           }
+
+        } catch (e: NumberFormatException) {
+            counterNew = 0.0
         }
 
         return counterNew.toString()
