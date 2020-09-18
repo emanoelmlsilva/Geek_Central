@@ -14,6 +14,7 @@ class CounterComponent(view: View) {
     private lateinit var layutValue: TextInputLayout
     private lateinit var cardView: ConstraintLayout
     private val VALUE_DEFAULT = "0.0"
+    private val VALOR_MINIMUM = 0.0
 
     init {
         setType(view)
@@ -69,7 +70,7 @@ class CounterComponent(view: View) {
         val valueSum = 1.0
 
         try {
-           if (!layutValue.editText!!.text.toString().isNullOrBlank()) {
+           if (!layutValue.editText!!.text.toString().isNullOrBlank() && checkValorMin(layutValue.editText!!.text.toString()) || typeSumSub != TypeMethodMath.SUB.toString()) {
 
                counterNew = layutValue.editText!!.text.toString().toDouble()
 
@@ -87,6 +88,10 @@ class CounterComponent(view: View) {
         }
 
         return counterNew.toString()
+    }
+
+    private fun checkValorMin(value: String): Boolean{
+        return value.toDouble().toInt() > VALOR_MINIMUM
     }
 
     fun getValueInput(): Double = layutValue.editText!!.text.toString().toDouble()
