@@ -7,9 +7,9 @@ class BaseWorkGeek() : Parcelable{
     var workGeekId: Long? = null
     lateinit var title: String
     var author: String? = null
-    var currentGeek: Int = 0
+    var currentGeek: Double = 0.0
     var season: String? = null
-    var totalGeek: Int = 0
+    var totalGeek: Double = 0.0
     var categories: List<String> = ArrayList()
     lateinit var popular: Popular
     lateinit var host: Host
@@ -20,9 +20,9 @@ class BaseWorkGeek() : Parcelable{
         workGeekId = parcel.readValue(Long::class.java.classLoader) as? Long
         title = parcel.readString().toString()
         author = parcel.readString().toString()
-        currentGeek = parcel.readInt()
+        currentGeek = parcel.readDouble()
         season = parcel.readString()
-        totalGeek = parcel.readInt()
+        totalGeek = parcel.readDouble()
         parcel.readStringList(categories)
     }
 
@@ -49,9 +49,9 @@ class BaseWorkGeek() : Parcelable{
         parcel.writeValue(workGeekId)
         parcel.writeString(title)
         parcel.writeString(author)
-        parcel.writeInt(currentGeek)
+        parcel.writeDouble(currentGeek)
         parcel.writeString(season)
-        parcel.writeInt(totalGeek)
+        parcel.writeDouble(totalGeek)
         parcel.writeStringList(categories)
     }
 
